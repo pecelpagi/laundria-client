@@ -4,7 +4,7 @@ import Logo from './components/Logo';
 function App() {
   return (
     <AppProvider>
-      <Logo />
+      <Logo variant="dark" />
     </AppProvider>
   );
 }
