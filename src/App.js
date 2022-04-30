@@ -1,10 +1,10 @@
 import AppProvider from './provider';
-import AccountMenu from './components/AccountMenu';
+import Header from './components/Header';
 
 function App() {
   return (
     <AppProvider>
-      <AccountMenu />
+      <Header />
     </AppProvider>
   );
 }
