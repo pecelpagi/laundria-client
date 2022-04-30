@@ -1,10 +1,10 @@
 import AppProvider from './provider';
-import Logo from './components/Logo';
+import AccountMenu from './components/AccountMenu';
 
 function App() {
   return (
     <AppProvider>
-      <Logo variant="dark" />
+      <AccountMenu />
     </AppProvider>
   );
 }
