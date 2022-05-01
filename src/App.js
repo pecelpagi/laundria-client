@@ -1,12 +1,10 @@
 import AppProvider from './provider';
-import Header from './components/Header';
-import SideMenu from './components/SideMenu';
+import MainLayout from './mainlayout';
 
 function App() {
   return (
     <AppProvider>
-      <SideMenu />
-      <Header />
+      <MainLayout />
     </AppProvider>
   );
 }
