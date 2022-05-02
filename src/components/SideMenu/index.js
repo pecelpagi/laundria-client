@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { styled } from '../../stitches.config';
 import menuData from './menuData';
 import { ComponentContext } from "../../mainlayout/Context";
@@ -22,9 +23,9 @@ export default () => {
             <ul>
                 {data.map(x => (
                     <li key={x.id}>
-                        <a href="#" className="block px-6 py-4">
+                        <Link to={x.link} className="block px-6 py-4">
                             <span className="flex gap-2 text-sm items-center">{x.icon()}{x.title}</span>
-                        </a>
+                        </Link>
                     </li>
                 ))}
             </ul>
