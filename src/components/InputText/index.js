@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Label from "./Label";
 
 class InputText extends React.Component {
   static propTypes = {
@@ -31,29 +32,15 @@ class InputText extends React.Component {
     changeEvent(e.target.value, e);
   }
 
-  renderLabel = () => {
-    const { label, required } = this.props;
-
-    if (!label) return null;
-
-    return (
-      <label className="block text-sm">
-          {label}
-          {" "}
-          {required && <span className="text-red-500">*</span>}
-      </label>
-    );
-  }
-
   render() {
     const {
       value, placeholder, disabled,
-      required, name,
+      required, name, label,
     } = this.props;
 
     return (
       <div>
-        {this.renderLabel()}
+        <Label {...{ label, required }} />
         <input
           className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-black focus:ring-black block w-full rounded-md sm:text-sm focus:ring-1"
           aria-label={name}

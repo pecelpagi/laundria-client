@@ -1,5 +1,6 @@
 import React from 'react';
 import InputText from '../components/InputText';
+import InputPassword from '../components/InputPassword';
 
 class Login extends React.Component {
     state = {
@@ -16,10 +17,18 @@ class Login extends React.Component {
 
         return (
             <div className="rounded bg-white w-96 p-4">
-                <InputText
-                    label="Username"
-                    changeEvent={(val) => { this.handleChangeState('username', val); }}
-                    value={username}
+                <div className="mb-3">
+                    <InputText
+                        label="Username"
+                        changeEvent={(val) => { this.handleChangeState('username', val); }}
+                        value={username}
+                        required
+                    />
+                </div>
+                <InputPassword
+                    label="Password"
+                    changeEvent={(val) => { this.handleChangeState('passwd', val); }}
+                    value={passwd}
                     required
                 />
             </div>
