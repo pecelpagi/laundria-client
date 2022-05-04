@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Label from "./Label";
+import StyledInput from "../StyledInput";
 
 class InputText extends React.Component {
   static propTypes = {
@@ -41,8 +42,7 @@ class InputText extends React.Component {
     return (
       <div>
         <Label {...{ label, required }} />
-        <input
-          className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-black focus:ring-black block w-full rounded-md sm:text-sm focus:ring-1"
+        <StyledInput
           aria-label={name}
           type="text"
           name={name}
