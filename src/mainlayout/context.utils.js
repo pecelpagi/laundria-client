@@ -2,7 +2,7 @@ import React, { useReducer, useMemo } from "react";
 import { ACTION_TYPE } from "./enums";
 
 const initialState = {
-    isShowingSidebarMenu: false,
+    isShowingSidebarMenu: true,
 };
 
 const reducer = (state, action) => {

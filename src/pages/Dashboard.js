@@ -1,0 +1,1 @@
+export default () => <h4>Dashboard Page</h4>
