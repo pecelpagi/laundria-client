@@ -8,6 +8,9 @@ export const { theme, styled, css, globalCss } = createStitches({
             backgroundSecondary: '#FFFFFF',
             colorSecondary: '#24292f',
             backgroundTertiary: '#ececec',
-        }
+        },
+    },
+    media: {
+        sm: '(min-width: 640px)',
     }
 });

@@ -1,28 +1,56 @@
-import React, { lazy} from 'react';
+import React, { lazy, useContext } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import AppContext from './Context'
+import { styled } from '../stitches.config';
+import PrivateRoute from './PrivateRoute';
+import AppContext, { ComponentContext } from './Context'
 import Header from '../components/Header';
 import SideMenu from '../components/SideMenu';
 import { getToken } from "../utils";
 
+const StyledWrapper = styled('div', {
+    width: '100%',
+    left: '0px',
+    
+    variants: {
+        showedMenu: {
+            true: {
+                '@sm': {
+                    width: 'calc(100% - 250px)',
+                    left: '230px',
+                },
+            }
+        }
+    },
+});
+
+const Wrapper = ({ children }) => {
+    const { isShowingSidebarMenu } = useContext(ComponentContext);
+
+    return <StyledWrapper className="relative top-20 transition-all" showedMenu={isShowingSidebarMenu}>{children}</StyledWrapper>
+}
+
 const DashboardPage = lazy(() => import('../pages/Dashboard'));
 const TransactionPage = lazy(() => import('../pages/Transaction'));
 
-const MainLayout = () => (
-    <AppContext>
-        <div className="relative left-0 sm:left-60 top-24">
-            <Switch>
-                <Route
-                    exact path="/"
-                    render={() => !getToken() ? (<Redirect to='/signin' />) : (<Redirect to='/dashboard' />)}
-                />
-                <Route path="/dashboard" component={DashboardPage} />
-                <Route path="/transaction" component={TransactionPage} />
-            </Switch>
-        </div>
-        <SideMenu />
-        <Header />
-    </AppContext>
-);
+const MainLayout = () => {
+    return (
+        <AppContext>
+            <Wrapper>
+                <div className="relative mx-5 sm:mx-auto" style={{ maxWidth: '1000px' }}>
+                    <Switch>
+                        <Route
+                            exact path="/"
+                            render={() => !getToken() ? (<Redirect to='/signin' />) : (<Redirect to='/dashboard' />)}
+                        />
+                        <PrivateRoute path="/dashboard" component={DashboardPage} />
+                        <PrivateRoute path="/transaction" component={TransactionPage} />
+                    </Switch>
+                </div>
+            </Wrapper>
+            <SideMenu />
+            <Header />
+        </AppContext>
+    );
+};
 
 export default MainLayout;

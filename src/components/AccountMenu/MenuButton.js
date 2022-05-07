@@ -12,7 +12,7 @@ const MenuButton = ({ onClick }) => (
                 <span className="text-xs subpixel-antialiased tracking-wide flex items-center"><DotFilledIcon className="text-lime-700" height={18} width={18} />Online</span>
             </div>
             <div className="basis-1/4">
-                <button type="button" id="dot-menu-button" className="px-4 py-2" {...{ onClick }}><DotsVerticalIcon id="dot-menu-icon" /></button>
+                <button type="button" id="dot-menu-button" className="pl-3 pr-0 py-2 sm:px-4" {...{ onClick }}><DotsVerticalIcon id="dot-menu-icon" /></button>
             </div>
         </div>
     </div>
