@@ -8,34 +8,23 @@ class InputPassword extends React.Component {
     static propTypes = {
         label: PropTypes.string,
         name: PropTypes.string,
-        value: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.number,
-        ]),
-        placeholder: PropTypes.string,
-        changeEvent: PropTypes.func,
-        disabled: PropTypes.bool,
         required: PropTypes.bool,
+        register: PropTypes.func,
+        placeholder: PropTypes.string,
+        defaultValue: PropTypes.string,
     }
 
     static defaultProps = {
         label: undefined,
-        value: "",
         name: undefined,
-        placeholder: "",
-        changeEvent: () => { },
-        disabled: false,
         required: false,
+        register: () => ({}),
+        placeholder: "",
+        defaultValue: undefined,
     }
 
     state = {
-        isShowingPasswd: true,
-    }
-
-    changeHandler = (e) => {
-        const { changeEvent } = this.props;
-
-        changeEvent(e.target.value, e);
+        isShowingPasswd: false,
     }
 
     toggleShowingPasswd = () => {
@@ -47,8 +36,7 @@ class InputPassword extends React.Component {
     render() {
         const { isShowingPasswd } = this.state;
         const {
-            value, placeholder, disabled,
-            name, label, required
+            name, label, required, register, placeholder, defaultValue
         } = this.props;
 
         return (
@@ -56,18 +44,12 @@ class InputPassword extends React.Component {
                 <Label {...{ label, required }} />
                 <div className="relative">
                     <span className="absolute inset-y-0 right-0 flex items-center pr-3">
-                        <button type="button" onClick={this.toggleShowingPasswd}>{isShowingPasswd ? <EyeOpenIcon /> : <EyeClosedIcon />}</button>
+                        <button type="button" onClick={this.toggleShowingPasswd}>{isShowingPasswd ? <EyeClosedIcon /> : <EyeOpenIcon />}</button>
                     </span>
                     <StyledInput
-                        aria-label={name}
+                        {...{ placeholder, defaultValue }} 
                         type={isShowingPasswd ? "text" : "password"}
-                        name={name}
-                        placeholder={placeholder}
-                        value={value}
-                        onChange={this.changeHandler}
-                        disabled={disabled}
-                        required={required}
-                        autoComplete="off"
+                        {...register(name, { required })}
                     />
                 </div>
             </div>
