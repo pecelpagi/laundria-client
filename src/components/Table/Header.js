@@ -11,7 +11,7 @@ export default ({ columns }) => {
     return (
         <thead>
             <tr>
-                {columns.map((x, i) => (<th key={x.id} style={createStyleColumnHeader(x, i)}>{x.title}</th>))}
+                {columns.map((x, i) => (<th key={x.id} className="border-b text-left py-2 px-1.5" style={createStyleColumnHeader(x, i)}>{x.title}</th>))}
             </tr>
         </thead>
     )

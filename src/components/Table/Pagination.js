@@ -1,35 +1,43 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default ({ totalPage, page, onChange }) => {
-    let pages = [];
+    const [pages, setPages] = useState([]);
 
     useEffect(() => {
+        let newPages = [];
+
         for (let i = 0; i < totalPage; i += 1) {
-            pages = [...pages, (
+            newPages = [...newPages, (
                 <li
                     key={i}
-                    className="inline-block">
-                    <button onClick={() => onChange(i)}>{i + 1}</button>
+                    className="inline-block mr-2">
+                    <button onClick={() => onChange(i)} className={`rounded-lg h-6 w-6 text-sm ${i === page ? 'bg-black text-white' : ''}`}>{i + 1}</button>
                 </li>
             )];
         }
-    }, [totalPage]);
+
+        setPages(newPages);
+    }, [totalPage, page]);
 
     return (
-        <ul className="list-none">
-            <li className="inline-block">
-                <button type="button" onClick={() => onChange(page - 1)} disabled={page === 0}>
-                    <span>&laquo;</span>
-                    <span>Previous</span>
-                </button>
-            </li>
-            {pages}
-            <li className="inline-block">
-                <button type="button" onClick={() => onChange(page + 1)} disabled={page === (totalPage - 1)}>
-                    <span>&raquo;</span>
-                    <span>Next</span>
-                </button>
-            </li>
-        </ul>
+        <div className="flex justify-center">
+            <ul className="list-none">
+                {!(page === 0) && (
+                    <li className="inline-block mr-2">
+                        <button type="button" className="rounded-lg text-sm" onClick={() => onChange(page - 1)}>
+                            <span>&laquo;</span>
+                        </button>
+                    </li>
+                )}
+                {pages}
+                {!(page === (totalPage - 1)) && (
+                    <li className="inline-block">
+                        <button type="button" className="rounded-lg text-sm" onClick={() => onChange(page + 1)}>
+                            <span>&raquo;</span>
+                        </button>
+                    </li>
+                )}
+            </ul>
+        </div>
     );
 }

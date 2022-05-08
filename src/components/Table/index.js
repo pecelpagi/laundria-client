@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Header from "./Header";
 import Body from "./Body";
 import Pagination from "./Pagination";
@@ -32,7 +33,7 @@ class Table extends React.Component {
     }
 
     componentDidMount = () => {
-        this.setFetching(true);
+        this.handleSetFetching(true);
 
         this.refetchIdle = setTimeout(() => {
             this.refetchData();
@@ -50,7 +51,7 @@ class Table extends React.Component {
             this.handleSetFetching(true);
 
             const { data, totalPage = 0 } = await onFetch(state);
-
+            console.log('DEBUG-TOTAL-PAGE: ', totalPage);
             this.handleSetFetching(false);
 
             this.setState({ data, totalPage: Number(totalPage) });
@@ -77,7 +78,7 @@ class Table extends React.Component {
 
         return (
             <div className="relative">
-                <table className="table-auto">
+                <table className="border-collapse table-fixed w-full text-sm mb-3">
                     <Header {...{ columns }} />
                     <Body {...{ columns, data, onRowClick }} />
                 </table>

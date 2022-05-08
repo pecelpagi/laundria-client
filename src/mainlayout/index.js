@@ -31,12 +31,13 @@ const Wrapper = ({ children }) => {
 
 const DashboardPage = lazy(() => import('../pages/Dashboard'));
 const TransactionPage = lazy(() => import('../pages/Transaction'));
+const CustomerPage = lazy(() => import('../pages/Customer'));
 
 const MainLayout = () => {
     return (
         <AppContext>
             <Wrapper>
-                <div className="relative mx-5 sm:mx-auto" style={{ maxWidth: '1000px' }}>
+                <div className="relative px-5 sm:mx-auto" style={{ maxWidth: '1080px' }}>
                     <Switch>
                         <Route
                             exact path="/"
@@ -44,6 +45,7 @@ const MainLayout = () => {
                         />
                         <PrivateRoute path="/dashboard" component={DashboardPage} />
                         <PrivateRoute path="/transaction" component={TransactionPage} />
+                        <PrivateRoute path="/customer" component={CustomerPage} />
                     </Switch>
                 </div>
             </Wrapper>
