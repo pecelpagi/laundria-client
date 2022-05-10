@@ -10,8 +10,12 @@ export default React.forwardRef(({ rowClick, onError }, ref) => (
         onFetch={state => handleFetchCustomerList(state, onError)}
         withWrapperRender={({ makeTable, InputSearch, PageSize }) => (
             <div className="bg-white rounded divide-y divide-solid">
-                <div className="text-base font-semibold p-3">
-                    Customer
+                <div className="flex p-3 items-center">
+                    <div className="text-base font-semibold w-3/5">Customer</div>
+                    <div className="flex w-2/5 justify-end gap-3">
+                        <InputSearch />
+                        <PageSize />
+                    </div>
                 </div>
                 <div className="p-3">
                     {makeTable()}

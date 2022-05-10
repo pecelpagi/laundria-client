@@ -4,6 +4,8 @@ import Header from "./Header";
 import Body from "./Body";
 import Pagination from "./Pagination";
 import OverlayLoading from "./OverlayLoading";
+import SelectLimit from "./SelectLimit";
+import InputKeyword from "./InputKeyword";
 
 class Table extends React.Component {
     static propTypes = {
@@ -51,7 +53,7 @@ class Table extends React.Component {
             this.handleSetFetching(true);
 
             const { data, totalPage = 0 } = await onFetch(state);
-            console.log('DEBUG-TOTAL-PAGE: ', totalPage);
+
             this.handleSetFetching(false);
 
             this.setState({ data, totalPage: Number(totalPage) });
@@ -88,9 +90,19 @@ class Table extends React.Component {
         );
     }
 
-    renderFilterText = () => (<div />);
+    renderFilterText = () => (<InputKeyword />);
 
-    renderLimitData = () => (<div />);
+    handleChangeLimitData = (val) => {
+        this.setState({ limit: val, page: 0 }, () => {
+            this.refetchData();
+        });
+    }
+
+    renderLimitData = () => {
+        const { limit } = this.state;
+
+        return (<SelectLimit value={limit} onChange={this.handleChangeLimitData} />)
+    };
 
     render() {
         const { withWrapperRender } = this.props;

@@ -14,7 +14,7 @@ export default React.forwardRef((props, ref) => (
         autoComplete="off"
         ref={ref}
         className={`
-            mt-1 pl-3 
+            pl-3 
             py-2 pr-10 bg-white border 
             shadow-sm border-slate-300 
             placeholder-slate-400 block 
