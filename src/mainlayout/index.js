@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { styled } from '../stitches.config';
 import PrivateRoute from './PrivateRoute';
 import AppContext, { ComponentContext } from './Context'
+import Layout from './Layout';
 import Header from '../components/Header';
 import SideMenu from '../components/SideMenu';
 import { getToken } from "../utils";
@@ -10,7 +11,7 @@ import { getToken } from "../utils";
 const StyledWrapper = styled('div', {
     width: '100%',
     left: '0px',
-    
+
     variants: {
         showedMenu: {
             true: {
@@ -43,9 +44,11 @@ const MainLayout = () => {
                             exact path="/"
                             render={() => !getToken() ? (<Redirect to='/signin' />) : (<Redirect to='/dashboard' />)}
                         />
-                        <PrivateRoute path="/dashboard" component={DashboardPage} />
-                        <PrivateRoute path="/transaction" component={TransactionPage} />
-                        <PrivateRoute path="/customer" component={CustomerPage} />
+                        <Layout>
+                            <PrivateRoute path="/dashboard" component={DashboardPage} />
+                            <PrivateRoute path="/transaction" component={TransactionPage} />
+                            <PrivateRoute path="/customer" component={CustomerPage} />
+                        </Layout>
                     </Switch>
                 </div>
             </Wrapper>

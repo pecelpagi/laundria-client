@@ -4,7 +4,9 @@
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {
+    "@radix-ui/colors": "^0.1.8",
     "@radix-ui/react-avatar": "^0.1.4",
+    "@radix-ui/react-dialog": "^0.1.7",
     "@radix-ui/react-icons": "^1.1.0",
     "@radix-ui/react-popover": "^0.1.6",
     "@stitches/react": "^1.2.8",
@@ -17,6 +19,7 @@
     "react-router-dom": "^5.3.1",
     "react-scripts": "5.0.1",
     "react-select": "^5.3.1",
+    "react-toastify": "^9.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

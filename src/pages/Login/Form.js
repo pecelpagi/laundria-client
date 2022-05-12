@@ -50,7 +50,7 @@ export default (props) => {
                 >
                     <span
                         className={`flex items-center 
-                        justify-center p-2 
+                        justify-center
                         ${disabled ? 'cursor-not-allowed' : ''}`}
                     >
                         <LockClosedIcon />&nbsp;Login

@@ -25,9 +25,9 @@ const StyledButton = styled('button', {
 });
 
 export default (props) => {
-    let classes = "p-2 rounded";
+    let classes = `py-2 px-4 rounded disabled:opacity-75 ${props.disabled ? 'cursor-not-allowed' : ''}`;
 
     if (props.className) classes = `${classes} ${props.className}`;
 
-    return (<StyledButton {...props} className={classes}  />);
+    return (<StyledButton {...props} className={classes}>{props.children}</StyledButton>);
 };

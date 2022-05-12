@@ -5,7 +5,7 @@ export const COLOR_DATA = {
     BACKGROUND_TERTIARY: '#ececec',
 }
 
-export const { theme, styled, css, globalCss } = createStitches({
+export const { theme, styled, css, globalCss, keyframes } = createStitches({
     theme: {
         colors: {
             backgroundPrimary: COLOR_DATA.BACKGROUND_PRIMARY,
