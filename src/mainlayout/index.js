@@ -32,7 +32,7 @@ const Wrapper = ({ children }) => {
 
 const DashboardPage = lazy(() => import('../pages/Dashboard'));
 const TransactionPage = lazy(() => import('../pages/Transaction'));
-const CustomerPage = lazy(() => import('../pages/Customer'));
+const CustomerPage = lazy(() => import('../pages/CustomerV2'));
 
 const MainLayout = () => {
     return (
