@@ -47,19 +47,15 @@ class Table extends React.Component {
     handleSetFetching = (isFetching) => { this.setState({ isFetching }); }
 
     handleFetchData = async (state) => {
-        try {
-            const { onFetch } = this.props;
+        const { onFetch } = this.props;
 
-            this.handleSetFetching(true);
+        this.handleSetFetching(true);
 
-            const { data, totalPage = 0 } = await onFetch(state);
+        const { data, totalPage = 0 } = await onFetch(state);
 
-            this.handleSetFetching(false);
+        this.handleSetFetching(false);
 
-            this.setState({ data, totalPage: Number(totalPage) });
-        } catch (e) {
-            console.log(e);
-        }
+        this.setState({ data, totalPage: Number(totalPage) });
     };
 
     refetchData = async () => {

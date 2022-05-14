@@ -15,6 +15,10 @@ const StyledButton = styled('button', {
             primary: {
                 backgroundColor: '$backgroundPrimary',
                 color: '$colorPrimary',
+            },
+            danger: {
+                backgroundColor: 'rgb(220 38 38)',
+                color: '#FFFFFF'
             }
         }
     },

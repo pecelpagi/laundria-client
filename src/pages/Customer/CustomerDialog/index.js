@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
     Dialog,
-    DialogContent, DialogTitle, DialogTrigger, CloseButton
+    DialogContent, DialogTitle, CloseButton
 } from '../../../components/StyledDialog';
+import { CustomerContext } from '../utils';
 import Form from './Form';
+import Spinner from '../../../components/Spinner';
 
 class CustomerDialog extends React.Component {
     state = {
@@ -16,19 +18,23 @@ class CustomerDialog extends React.Component {
 
     render() {
         const { isOpening } = this.state;
-        const { onSave } = this.props;
+        const { formData, isDialogLoading } = this.props;
 
         return (
             <Dialog open={isOpening}>
-                <DialogTrigger />
                 <DialogContent>
-                    <DialogTitle>Tambah Data</DialogTitle>
+                    <DialogTitle>{!formData.id ? 'Tambah Data' : 'Edit Data'}</DialogTitle>
                     <CloseButton onClick={this.handleHideDialog} />
-                    <Form onClose={this.handleHideDialog} {...{ onSave }} />
+                    <Form onClose={this.handleHideDialog} {...this.props} />
+                    {isDialogLoading ? <Spinner /> : null}
                 </DialogContent>
             </Dialog>
         );
     }
 }
 
-export default CustomerDialog;
+export default React.forwardRef((props, ref) => {
+    const contextData = useContext(CustomerContext);
+
+    return <CustomerDialog {...props} {...contextData} {...{ ref }} />
+});

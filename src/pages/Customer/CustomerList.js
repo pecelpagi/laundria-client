@@ -2,10 +2,10 @@ import React from 'react';
 import Table from '../../components/Table';
 import { handleFetchCustomerList, tableColumns } from "./utils";
 
-export default React.forwardRef(({ rowClick, onError }, ref) => (
+export default React.forwardRef(({ onRowClick, onError }, ref) => (
     <Table
         ref={ref}
-        rowClick={rowClick}
+        onRowClick={onRowClick}
         columns={tableColumns}
         onFetch={state => handleFetchCustomerList(state, onError)}
         withWrapperRender={({ makeTable, InputSearch, PageSize }) => (

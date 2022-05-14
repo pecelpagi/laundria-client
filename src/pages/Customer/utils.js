@@ -1,5 +1,8 @@
+import React from "react";
 import * as apiService from "../../data";
 import { catchError } from "../../utils";
+
+export const CustomerContext = React.createContext();
 
 export const createFormData = (data = null) => ({
   id: data ? data.id : "",
