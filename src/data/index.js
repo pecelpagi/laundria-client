@@ -122,3 +122,9 @@ export const getCompanyProfile = async () => {
 
   return response;
 };
+
+export const updateCompanyProfile = async (payload) => {
+  const response = await fetchApi("/api/welcome/company_profile", payload, METHOD_TYPE.PUT);
+
+  return response;
+};
