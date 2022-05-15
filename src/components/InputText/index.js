@@ -22,7 +22,10 @@ InputText.propTypes = {
   required: PropTypes.bool,
   register: PropTypes.func,
   placeholder: PropTypes.string,
-  defaultValue: PropTypes.string,
+  defaultValue: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   registerOptions: PropTypes.shape({}),
 };
 

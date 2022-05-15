@@ -1,5 +1,4 @@
 import React from 'react';
-import numeral from "numeral";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Breadcrumb from "./Breadcrumb";
@@ -10,25 +9,6 @@ class Layout extends React.Component {
     state = {
         breadcrumbs: [],
         buttons: [],
-    }
-
-    componentDidMount = () => {
-        numeral.register("locale", "id", {
-            delimiters: {
-                thousands: ".",
-                decimal: ",",
-            },
-            abbreviations: {
-                thousand: "k",
-                million: "m",
-                billion: "b",
-                trillion: "t",
-            },
-            currency: {
-                symbol: "Rp ",
-            },
-        });
-        numeral.locale("id");
     }
 
     handleAssignButtons = (buttons) => {

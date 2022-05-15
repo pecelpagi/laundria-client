@@ -1,4 +1,4 @@
-import { styled } from '../stitches.config';
+import { styled } from '../../stitches.config';
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
 
 const StyledAvatar = styled(AvatarPrimitive.Root, {
@@ -37,13 +37,3 @@ const StyledFallback = styled(AvatarPrimitive.Fallback, {
 export const Avatar = StyledAvatar;
 export const AvatarImage = StyledImage;
 export const AvatarFallback = StyledFallback;
-
-export default () => (
-    <Avatar>
-        <AvatarImage
-            src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
-            alt="Colm Tuite"
-        />
-        <AvatarFallback delayMs={600}>CT</AvatarFallback>
-    </Avatar>
-);

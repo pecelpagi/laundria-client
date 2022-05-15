@@ -110,3 +110,15 @@ export const deleteEmployee = async (payload) => {
 
   return response;
 };
+
+export const getMyProfile = async () => {
+  const response = await fetchApi("/api/employee/my_profile");
+
+  return response;
+};
+
+export const getCompanyProfile = async () => {
+  const response = await fetchApi("/api/welcome/company_profile");
+
+  return response;
+};
