@@ -5,13 +5,13 @@ import StyledInput from "../StyledInput";
 
 const InputText = (props) => {
   const {
-    required, name, label, register, placeholder, defaultValue,
+    required, name, label, register, placeholder, defaultValue, registerOptions, type
   } = props;
 
   return (
     <div>
       <Label {...{ label, required }} />
-      <StyledInput {...{ placeholder, defaultValue }} {...register(name, { required })} />
+      <StyledInput {...{ placeholder, defaultValue, type }} {...register(name, { required, ...registerOptions })} />
     </div>
   );
 }
@@ -22,7 +22,8 @@ InputText.propTypes = {
   required: PropTypes.bool,
   register: PropTypes.func,
   placeholder: PropTypes.string,
-  defaultValue: PropTypes.string
+  defaultValue: PropTypes.string,
+  registerOptions: PropTypes.shape({}),
 };
 
 InputText.defaultProps = {
@@ -32,6 +33,7 @@ InputText.defaultProps = {
   register: () => ({}),
   placeholder: "",
   defaultValue: undefined,
+  registerOptions: {},
 };
 
 export default InputText;

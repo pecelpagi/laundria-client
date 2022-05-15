@@ -2,33 +2,111 @@ import { METHOD_TYPE } from "./enums";
 import fetchApi from "./ApiService";
 
 export const login = async (payload) => {
-    const response = await fetchApi("/api/employee/login", payload, METHOD_TYPE.POST);
+  const response = await fetchApi("/api/employee/login", payload, METHOD_TYPE.POST);
 
-    return response;
+  return response;
 };
 
 export const getCustomers = async (payload) => {
-    const response = await fetchApi("/api/customer", {}, METHOD_TYPE.GET, {
-        queryString: payload,
-    });
+  const response = await fetchApi("/api/customer", {}, METHOD_TYPE.GET, {
+    queryString: payload,
+  });
 
-    return response;
+  return response;
 };
 
 export const createCustomer = async (payload) => {
-    const response = await fetchApi("/api/customer", payload, METHOD_TYPE.POST);
+  const response = await fetchApi("/api/customer", payload, METHOD_TYPE.POST);
 
-    return response;
+  return response;
 };
 
 export const updateCustomer = async (payload) => {
-    const response = await fetchApi("/api/customer", payload, METHOD_TYPE.PUT);
+  const response = await fetchApi("/api/customer", payload, METHOD_TYPE.PUT);
 
-    return response;
+  return response;
 };
 
 export const deleteCustomer = async (payload) => {
-    const response = await fetchApi(`/api/customer/${payload.id}`, {}, METHOD_TYPE.DELETE);
+  const response = await fetchApi(`/api/customer/${payload.id}`, {}, METHOD_TYPE.DELETE);
 
-    return response;
+  return response;
+};
+
+export const getLaundryPackages = async (payload) => {
+  const response = await fetchApi("/api/LaundryPackage", {}, METHOD_TYPE.GET, {
+    queryString: payload,
+  });
+
+  return response;
+};
+
+export const createLaundryPackage = async (payload) => {
+  const response = await fetchApi("/api/LaundryPackage", payload, METHOD_TYPE.POST);
+
+  return response;
+};
+
+export const updateLaundryPackage = async (payload) => {
+  const response = await fetchApi("/api/LaundryPackage", payload, METHOD_TYPE.PUT);
+
+  return response;
+};
+
+export const deleteLaundryPackage = async (payload) => {
+  const response = await fetchApi(`/api/LaundryPackage/${payload.id}`, {}, METHOD_TYPE.DELETE);
+
+  return response;
+};
+
+export const getPaymentTypes = async (payload) => {
+  const response = await fetchApi("/api/PaymentType", {}, METHOD_TYPE.GET, {
+    queryString: payload,
+  });
+
+  return response;
+};
+
+export const createPaymentType = async (payload) => {
+  const response = await fetchApi("/api/PaymentType", payload, METHOD_TYPE.POST);
+
+  return response;
+};
+
+export const updatePaymentType = async (payload) => {
+  const response = await fetchApi("/api/PaymentType", payload, METHOD_TYPE.PUT);
+
+  return response;
+};
+
+export const deletePaymentType = async (payload) => {
+  const response = await fetchApi(`/api/PaymentType/${payload.id}`, {}, METHOD_TYPE.DELETE);
+
+  return response;
+};
+
+export const getEmployees = async (payload) => {
+  const response = await fetchApi("/api/employee", {}, METHOD_TYPE.GET, {
+    queryString: payload,
+  });
+
+  return response;
+};
+
+export const createEmployee = async (payload) => {
+  const response = await fetchApi("/api/employee", payload, METHOD_TYPE.POST);
+
+  return response;
+};
+
+export const updateEmployee = async (payload) => {
+  const response = await fetchApi("/api/employee", payload, METHOD_TYPE.PUT);
+
+  return response;
+};
+
+export const deleteEmployee = async (payload) => {
+  const response = await fetchApi(`/api/employee/${payload.id}`, {}, METHOD_TYPE.DELETE);
+
+  return response;
 };

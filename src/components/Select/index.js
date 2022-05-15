@@ -2,6 +2,14 @@ import Select from 'react-select';
 import { COLOR_DATA } from '../../stitches.config';
 import Label from "../InputText/Label";
 
+const customStyles = {
+    control: base => ({
+        ...base,
+        height: 36,
+        minHeight: 36
+    })
+};
+
 export default (props) => {
     const {
         options, label, required, value, onChange,
@@ -14,6 +22,7 @@ export default (props) => {
             <Label {...{ label, required }} />
             <div className="relative">
                 <Select
+                    styles={customStyles}
                     theme={(theme) => ({
                         ...theme,
                         colors: {

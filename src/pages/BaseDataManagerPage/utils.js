@@ -5,7 +5,7 @@ export const createPageName = (pageType) => {
         case PAGE_TYPE.CUSTOMER:
             return 'Customer';
         case PAGE_TYPE.EMPLOYEE:
-            return 'Employee';
+            return 'Karyawan';
         case PAGE_TYPE.LAUNDRY_PACKAGE:
             return 'Paket Laundry';
         case PAGE_TYPE.PAYMENT_TYPE:
