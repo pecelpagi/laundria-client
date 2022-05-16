@@ -9,6 +9,7 @@ export default ({ buttons }) => {
             type="button"
             variant={isHasProperty(x, "variant") ? x.variant : "primary"}
             onClick={x.clickEvent}
+            outlined={isHasProperty(x, "outlined") ? x.outlined : false}
         >
             <span
                 className={`flex justify-center px-2 text-xs`}
@@ -18,5 +19,5 @@ export default ({ buttons }) => {
         </StyledButton>
     ));
     
-    return <div className="flex w-full justify-end">{components}</div>;
+    return <div className="flex w-full justify-end gap-3">{components}</div>;
 }

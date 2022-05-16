@@ -1,3 +1,4 @@
+import moment from "moment";
 import numeral from "numeral";
 import { isEmail } from "validator";
 
@@ -32,3 +33,7 @@ export const replaceAllExceptNumerics = (val) => {
 
     return newValue;
 }
+
+export const reformatDateTimeAsText = val => moment(val, "YYYY-MM-DD HH:mm:ss").format("DD MMMM YYYY HH:mm:ss");
+
+export const reformatDateAsText = val => moment(val, "YYYY-MM-DD").format("DD MMMM YYYY");

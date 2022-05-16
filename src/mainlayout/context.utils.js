@@ -4,6 +4,8 @@ import numeral from "numeral";
 import { ACTION_TYPE } from "./enums";
 import * as fetcherUtility from "./fetcher.utils";
 
+import 'moment/locale/id';
+
 const initialState = {
     isShowingSidebarMenu: true,
     loggedInProfile: null,

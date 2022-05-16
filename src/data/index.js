@@ -128,3 +128,29 @@ export const updateCompanyProfile = async (payload) => {
 
   return response;
 };
+
+export const getOrders = async (payload) => {
+  const response = await fetchApi("/api/sale", {}, METHOD_TYPE.GET, {
+    queryString: payload,
+  });
+
+  return response;
+};
+
+export const getOrder = async (id) => {
+  const response = await fetchApi(`/api/sale/${id}`, {}, METHOD_TYPE.GET, {});
+
+  return response;
+};
+
+export const createOrder = async (payload) => {
+  const response = await fetchApi("/api/sale", payload, METHOD_TYPE.POST);
+
+  return response;
+};
+
+export const updateOrder = async (payload) => {
+  const response = await fetchApi("/api/sale", payload, METHOD_TYPE.PUT);
+
+  return response;
+};

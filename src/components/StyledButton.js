@@ -19,6 +19,18 @@ const StyledButton = styled('button', {
             danger: {
                 backgroundColor: 'rgb(220 38 38)',
                 color: '#FFFFFF'
+            },
+            white: {
+                backgroundColor: '#FFFFFF',
+                color: '#000000',
+                border: '1px solid #ccc',
+            }
+        },
+        outlined: {
+            true: {
+                backgroundColor: 'transparent',
+                border: '2px solid',
+                color: 'inherit',
             }
         }
     },
