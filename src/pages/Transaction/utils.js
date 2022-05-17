@@ -16,7 +16,7 @@ export const ORDER_STATUS = {
     PICKED_UP: "5",
 };
 
-export const createStaticDataPaymentStatus = (noPlaceholder = false) => {
+export const createStaticDataPaymentStatus = () => {
     const retval = [
         {
             value: PAYMENT_STATUS.NOT_PAID,
@@ -190,24 +190,24 @@ export const generateOrderNumber = () => {
 
 export const createFormData = () => ({
     salesNumber: generateOrderNumber(),
-    customer: { id: "", name: "" },
+    customerId: "",
     phone: "",
     addr: "",
-    laundryPackage: { id: "", name: "" },
+    laundryPackageId: "",
     weight: 0,
     pickupDate: moment().add(3, "days").format("YYYY-MM-DD"),
-    paymentType: { id: "", name: "" },
-    paymentStatus: "-",
+    paymentTypeId: "",
+    paymentStatus: "",
 });
 
 export const createPayload = data => ({
-    customer_id: data.customer.id,
+    customer_id: data.customerId,
     phone: data.phone,
     addr: data.addr,
-    laundry_package_id: data.laundryPackage.id,
+    laundry_package_id: data.laundryPackageId,
     weight: data.weight,
     pickup_date: data.pickupDate,
-    payment_type_id: data.paymentType.id,
+    payment_type_id: data.paymentTypeId,
     payment_status: data.paymentStatus,
     sales_number: data.salesNumber,
     order_status: ORDER_STATUS.NEW,

@@ -32,6 +32,8 @@ const Wrapper = ({ children }) => {
 
 const DashboardPage = lazy(() => import('../pages/Dashboard'));
 const TransactionPage = lazy(() => import('../pages/Transaction'));
+const CreateTransactionPage = lazy(() => import('../pages/Transaction/CreateTransaction'));
+const UpdateTransactionPage = lazy(() => import('../pages/Transaction/UpdateTransaction'));
 const CustomerPage = lazy(() => import('../pages/CustomerV2'));
 const LaundryPackagePage = lazy(() => import('../pages/LaundryPackage'));
 const PaymentTypePage = lazy(() => import('../pages/PaymentType'));
@@ -50,7 +52,9 @@ const MainLayout = () => {
                         />
                         <Layout>
                             <PrivateRoute path="/dashboard" component={DashboardPage} />
-                            <PrivateRoute path="/transaction" component={TransactionPage} />
+                            <PrivateRoute path="/transaction/detail/:id" component={UpdateTransactionPage} />
+                            <PrivateRoute path="/transaction/create" component={CreateTransactionPage} />
+                            <PrivateRoute exact path="/transaction" component={TransactionPage} />
                             <PrivateRoute path="/customer" component={CustomerPage} />
                             <PrivateRoute path="/laundry-package" component={LaundryPackagePage} />
                             <PrivateRoute path="/payment-type" component={PaymentTypePage} />

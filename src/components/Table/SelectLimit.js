@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import Select from "../Select";
 
 const limitData = [
@@ -9,14 +11,14 @@ const limitData = [
 ];
 
 export default ({ onChange, value }) => {
-    const handleChangeValue = (e) => { onChange(e.value); }
+    const { control } = useForm();
 
     return (
         <Select
-            {...{ value }}
+            {...{ value, control }}
             name="limit_data"
             options={limitData}
-            onChange={handleChangeValue}
+            changeEvent={(val) => onChange(val)}
         />
     );
 }

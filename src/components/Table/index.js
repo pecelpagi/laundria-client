@@ -24,6 +24,7 @@ class Table extends React.Component {
         onRowClick: () => { },
     }
 
+    searchDataIdle = null;
     refetchIdle = null;
     state = {
         data: [],
@@ -86,13 +87,20 @@ class Table extends React.Component {
         );
     }
 
-    renderFilterText = () => (<InputKeyword />);
+    renderFilterText = () => (<InputKeyword onSearch={this.handleSearchData} />);
 
     handleChangeLimitData = (val) => {
         this.setState({ limit: val, page: 0 }, () => {
             this.refetchData();
         });
     }
+
+    handleSearchData = (val) => {
+        if (this.searchDataIdle) clearTimeout(this.searchDataIdle);
+        this.searchDataIdle = setTimeout(() => {
+            this.setState({ filterText: val }, () => { this.refetchData(); });
+        }, 700);
+      }
 
     renderLimitData = () => {
         const { limit } = this.state;

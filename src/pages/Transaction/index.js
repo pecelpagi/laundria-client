@@ -6,12 +6,12 @@ import TransactionList from './TransactionList';
 
 class Transaction extends React.Component {
     componentDidMount = () => {
-        const { onAssignButtons, onAssignBreadcrumbs } = this.props;
+        const { onAssignButtons, onAssignBreadcrumbs, history } = this.props;
 
         onAssignButtons([{
             id: "1", title: "Cetak Laporan", icon: () => <FileTextIcon />, clickEvent: () => { }, variant: "white",
         }, {
-            id: "2", title: "Tambah Data", icon: () => <PlusIcon />, clickEvent: () => { this.handleOpenFormDialog(); },
+            id: "2", title: "Tambah Data", icon: () => <PlusIcon />, clickEvent: () => { history.push("/transaction/create"); },
         }]);
 
         onAssignBreadcrumbs([

@@ -23,7 +23,7 @@ export const tableColumns = [
   },
 ];
 
-export const handleFetchDataList = async (state, onError) => {
+export const handleFetchDataList = async (state, onError = null) => {
   let data = [];
   let totalPage = 0;
 
@@ -33,7 +33,7 @@ export const handleFetchDataList = async (state, onError) => {
     ({ data } = response);
     totalPage = response.meta.total_pages;
   } catch (e) {
-    onError(catchError(e));
+    if (onError) onError(catchError(e));
   }
 
   return { data, totalPage };
