@@ -100,7 +100,7 @@ class Table extends React.Component {
         this.searchDataIdle = setTimeout(() => {
             this.setState({ filterText: val }, () => { this.refetchData(); });
         }, 700);
-      }
+    }
 
     renderLimitData = () => {
         const { limit } = this.state;

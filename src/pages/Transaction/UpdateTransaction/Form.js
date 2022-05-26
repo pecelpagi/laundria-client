@@ -1,10 +1,13 @@
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import InformationData from "./InformationData";
 import StatusManagement from "./StatusManagement";
 import OrderDetail from "./OrderDetail";
+import { ComponentContext } from "./Context";
 import Button from '../../../components/StyledButton';
 
 export default ({ onSave, onCancel }) => {
+    const { readOnly } = useContext(ComponentContext);
     const { control, handleSubmit } = useForm();
     const onSubmit = (data) => { onSave(data); };
 
@@ -22,10 +25,16 @@ export default ({ onSave, onCancel }) => {
                 <OrderDetail />
             </div>
             <div className="flex flex-row text-sm mt-1 mb-2">
-                <div className="w-full flex justify-end gap-3">
-                    <Button type="button" onClick={onCancel}>Batal</Button>
-                    <Button type="submit" variant="primary">Simpan</Button>
-                </div>
+                {!readOnly ? (
+                    <div className="w-full flex justify-end gap-3">
+                        <Button type="button" onClick={onCancel}>Batal</Button>
+                        <Button type="submit" variant="primary">Simpan</Button>
+                    </div>
+                ) : (
+                    <div className="w-full flex justify-end">
+                        <Button type="button" onClick={onCancel}>Kembali ke Daftar Transaksi</Button>
+                    </div>
+                )}
             </div>
         </form>
     )
