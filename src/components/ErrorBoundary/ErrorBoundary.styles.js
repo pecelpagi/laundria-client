@@ -1,24 +1,20 @@
 import { styled } from '../../stitches.config';
 
 export const ErrorImageOverlay = styled('div', {
-    height: '60vh',
+    height: '100%',
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    gap: '15px',
+    position: 'fixed',
+    background: '#FFF',
+    top: 0,
+    left: 0,
+    textAlign: 'center',
+    '& span': {
+        overflowWrap: 'normal',
+        wordBreak: 'break-word',
+    }
 })
-
-export const ErrorImageContainer = styled('div', {
-    display: 'inline-block',
-    backgroundImage: 'url(https://i.imgur.com/yW2W9SC.png)',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    width: '40vh',
-    height: '40vh',
-});
-
-export const ErrorImageText = styled('h2', {
-    fontSize: '28px',
-    color: '#2f8e89',
-});
