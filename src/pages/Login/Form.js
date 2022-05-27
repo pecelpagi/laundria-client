@@ -7,6 +7,7 @@ import InputText from '../../components/InputText';
 import InputPassword from '../../components/InputPassword';
 import StyledButton from '../../components/StyledButton';
 import { isHasProperty } from "../../utils";
+import Spinner from "../../components/Spinner";
 
 const createErrorMessage = (data, errorFromAPI = '') => {
     const errors = Object.keys(data);
@@ -22,14 +23,14 @@ const createErrorMessage = (data, errorFromAPI = '') => {
 }
 
 export default (props) => {
-    const { onSubmit, errorFromAPI } = props;
+    const { onSubmit, errorFromAPI, isLoading } = props;
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const errMessage = createErrorMessage(errors, errorFromAPI);
     const disabled = !errorFromAPI && String(errMessage).length > 0;
 
     return (
-        <Wrapper className="rounded bg-white w-full max-w-xs sm:w-96 sm:max-w-none" onSubmit={handleSubmit(onSubmit)}>
+        <Wrapper className="rounded bg-white w-full max-w-xs sm:w-96 sm:max-w-none relative" onSubmit={handleSubmit(onSubmit)}>
             <Header className="p-3 rounded-t">
                 <h4 className="font-medium mb-1">Selamat Datang di Laundria !</h4>
                 <span className="text-xs">Silahkan masukkan username dan password Anda</span>
@@ -57,6 +58,7 @@ export default (props) => {
                     </span>
                 </StyledButton>
             </div>
+            {isLoading ? <Spinner /> : null}
         </Wrapper>
     )
 };

@@ -2,7 +2,7 @@
   "name": "laundria-client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000",
+  "proxy": "https://mighty-inlet-51360.herokuapp.com",
   "dependencies": {
     "@radix-ui/colors": "^0.1.8",
     "@radix-ui/react-avatar": "^0.1.4",

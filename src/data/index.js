@@ -154,3 +154,11 @@ export const updateOrder = async (payload) => {
 
   return response;
 };
+
+export const getReportOrders = async (payload) => {
+  const response = await fetchApi("/api/sale/sales_report", {}, METHOD_TYPE.GET, {
+    queryString: payload,
+  });
+
+  return response;
+};

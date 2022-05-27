@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { styled } from '../../stitches.config';
 
 const RowList = styled('li', {
@@ -15,7 +16,7 @@ export default () => {
     return (
         <ul className="list-none bg-white text-sm shadow-xl rounded w-32">
             <RowList><a href="#" className="text-sm">Profil Saya</a></RowList>
-            <RowList><a href="#" className="text-sm">Logout</a></RowList>
+            <RowList><Link to="/signout" className="text-sm">Logout</Link></RowList>
         </ul>
     );
 }

@@ -7,6 +7,11 @@ class Login extends React.Component {
     errorTimeOut = null;
     state = {
         errorFromAPI: '',
+        isLoading: false,
+    }
+
+    handleSetLoading = (isLoading) => {
+        this.setState({ isLoading });
     }
 
     handleSetError = (e = null) => {
@@ -27,22 +32,24 @@ class Login extends React.Component {
 
     handleSubmitData = async (payload) => {
         try {
-            const { history } = this.props;
+            this.handleSetLoading(true);
+
             const res = await apiService.login(payload);
 
             setToken(res.data);
 
-            history.push('/dashboard');
+            window.location.href = '/dashboard';
         } catch (e) {
+            this.handleSetLoading(false);
             this.handleSetError(e);
         }
     }
 
     render() {
-        const { errorFromAPI } = this.state;
+        const { errorFromAPI, isLoading } = this.state;
 
         return (
-            <Form {...{ errorFromAPI }} onSubmit={this.handleSubmitData} />
+            <Form {...{ errorFromAPI, isLoading }} onSubmit={this.handleSubmitData} />
         );
     }
 }

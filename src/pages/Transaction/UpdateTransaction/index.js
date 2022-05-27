@@ -5,11 +5,14 @@ import { TOAST_TYPE } from "../../../mainlayout/enums";
 import { catchError } from "../../../utils";
 import { ORDER_STATUS } from "../utils";
 import { ComponentContext } from "./Context";
+import Spinner from "../../../components/Spinner";
+import Button from '../../../components/StyledButton';
 
 class UpdateTransaction extends React.Component {
     state = {
         formData: null,
         readOnlyData: null,
+        isFetching: false,
     }
 
     componentDidMount = () => {
@@ -35,7 +38,11 @@ class UpdateTransaction extends React.Component {
         onShowNotification(toastType, message);
     }
 
+    handleSetFetching = (isFetching) => { this.setState({ isFetching }); }
+
     handleFetchData = async () => {
+        this.handleSetFetching(true);
+
         try {
             const { match: { params } } = this.props;
             const res = await apiService.getOrder(params.id);
@@ -51,7 +58,9 @@ class UpdateTransaction extends React.Component {
 
             this.setState({ formData, readOnlyData: res.data });
         } catch (e) {
-            console.log(e);
+            this.doShowingNotification(TOAST_TYPE.ERROR, catchError(e));
+        } finally {
+            this.handleSetFetching(false);
         }
     }
 
@@ -82,6 +91,8 @@ class UpdateTransaction extends React.Component {
     createContextValue = () => {
         const { formData } = this.state;
 
+        if (!formData) return {};
+
         const readOnly = !(formData.readOnlyOrderStatus !== ORDER_STATUS.PICKED_UP && formData.readOnlyOrderStatus !== ORDER_STATUS.CANCELED);
 
         return {
@@ -91,9 +102,7 @@ class UpdateTransaction extends React.Component {
     }
 
     render() {
-        const { formData } = this.state;
-
-        if (!formData) return null;
+        const { formData, isFetching } = this.state;
 
         return (
             <ComponentContext.Provider value={this.createContextValue()}>
@@ -102,7 +111,16 @@ class UpdateTransaction extends React.Component {
                         <div className="text-base font-semibold w-full">Detail Transaksi</div>
                     </div>
                     <div className="p-3">
-                        <Form onSave={this.handleSaveData} onCancel={this.handleBackToList} />
+                        {isFetching && <div className="relative h-32"><Spinner /></div>}
+                        {!isFetching && formData && (<Form onSave={this.handleSaveData} onCancel={this.handleBackToList} />)}
+                        {!isFetching && !formData && (
+                            <div className="text-sm flex flex-row items-center h-10">
+                                <div className="w-1/2">Data tidak ditemukan</div>
+                                <div className="w-1/2 flex justify-end">
+                                    <Button type="button" onClick={this.handleBackToList}>Kembali ke Daftar Transaksi</Button>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </ComponentContext.Provider>
