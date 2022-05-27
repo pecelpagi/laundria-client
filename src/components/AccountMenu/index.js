@@ -18,7 +18,7 @@ export default () => {
             <Popover.Root open={isOpening} defaultOpen={false}>
                 <Popover.Trigger />
                 <Popover.Content onPointerDownOutside={handleClickOutside} sideOffset={20} align="start">
-                    <MenuList />
+                    <MenuList onClick={() => { setOpen(false); }} />
                 </Popover.Content>
             </Popover.Root>
         </React.Fragment>

@@ -1,0 +1,82 @@
+import { useForm } from "react-hook-form";
+import ErrorText from "../../components/ErrorText";
+import InputText from '../../components/InputText';
+import Button from '../../components/StyledButton';
+import { validateEmail } from "../../utils";
+
+export default ({ onSave, formData }) => {
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const onSubmit = (data) => { onSave({ id: formData.id, ...data }); };
+
+    const disabled = (Object.keys(errors).length > 0);
+
+    return (
+        <form className="flex flex-col gap-4 mt-1" onSubmit={handleSubmit(onSubmit)}>
+            <div className="flex flex-row gap-4">
+                <div className="w-1/2">
+                    <InputText
+                        label="Nama Lengkap"
+                        name="fullname"
+                        required
+                        defaultValue={formData.fullname}
+                        {...{ register }}
+                    />
+                    {errors.fullname && <ErrorText>Mohon untuk mengisi nama lengkap</ErrorText>}
+                </div>
+                <div className="w-1/2">
+                    <InputText
+                        label="Username"
+                        name="username"
+                        required
+                        defaultValue={formData.username}
+                        {...{ register }}
+                    />
+                    {errors.username && <ErrorText>Mohon untuk mengisi username</ErrorText>}
+                </div>
+            </div>
+            <div>
+                <InputText
+                    label="Alamat"
+                    name="addr"
+                    required
+                    defaultValue={formData.addr}
+                    {...{ register }}
+                />
+                {errors.addr && <ErrorText>Mohon untuk mengisi alamat</ErrorText>}
+            </div>
+            <div className="flex flex-row gap-4">
+                <div className="w-1/2">
+                    <InputText
+                        label="Email"
+                        name="email"
+                        required
+                        defaultValue={formData.email}
+                        registerOptions={{
+                            validate: {
+                                isEmailValid: (v) => validateEmail(v)
+                            }
+                        }}
+                        {...{ register }}
+                    />
+                    {(errors.email && errors.email.type === "required") && <ErrorText>Mohon untuk mengisi email</ErrorText>}
+                    {(errors.email && errors.email.type === "isEmailValid") && <ErrorText>Format email masih tidak sesuai</ErrorText>}
+                </div>
+                <div className="w-1/2">
+                    <InputText
+                        label="No. Telepon"
+                        name="phone"
+                        required
+                        defaultValue={formData.phone}
+                        {...{ register }}
+                    />
+                    {errors.phone && <ErrorText>Mohon untuk mengisi nomor telepon</ErrorText>}
+                </div>
+            </div>
+            <div className="flex flex-row text-sm mt-1 mb-2">
+                <div className="w-full flex justify-end gap-3">
+                    <Button type="submit" variant="primary" disabled={disabled}>Simpan</Button>
+                </div>
+            </div>
+        </form>
+    );
+}

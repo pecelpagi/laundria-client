@@ -30,7 +30,7 @@ const MenuButton = ({ onClick }) => {
                 <div className="basis-2/4 pl-2 hidden sm:block">
                     {loggedInProfile && (
                         <React.Fragment>
-                            <h5 className="mx-0 font-semibold text-sm whitespace-nowrap text-ellipsis overflow-hidden w-24">{loggedInProfile ? loggedInProfile.fullname : ''}</h5>
+                            <h5 className="mx-0 font-semibold text-sm whitespace-nowrap">{loggedInProfile ? loggedInProfile.fullname : ''}</h5>
                             <span className="text-xs subpixel-antialiased tracking-wide flex items-center"><DotFilledIcon className="text-lime-700" height={18} width={18} />Online</span>
                         </React.Fragment>
                     )}

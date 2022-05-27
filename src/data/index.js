@@ -129,6 +129,12 @@ export const updateCompanyProfile = async (payload) => {
   return response;
 };
 
+export const updateMyProfile = async (payload) => {
+  const response = await fetchApi("/api/employee/my_profile", payload, METHOD_TYPE.PUT);
+
+  return response;
+};
+
 export const getOrders = async (payload) => {
   const response = await fetchApi("/api/sale", {}, METHOD_TYPE.GET, {
     queryString: payload,

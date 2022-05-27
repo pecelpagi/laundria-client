@@ -39,6 +39,7 @@ const LaundryPackagePage = lazy(() => import('../pages/LaundryPackage'));
 const PaymentTypePage = lazy(() => import('../pages/PaymentType'));
 const EmployeePage = lazy(() => import('../pages/Employee'));
 const IdentityPage = lazy(() => import('../pages/Identity'));
+const MyProfilePage = lazy(() => import('../pages/MyProfile'));
 
 const MainLayout = () => {
     return (
@@ -60,6 +61,7 @@ const MainLayout = () => {
                             <PrivateRoute path="/payment-type" component={PaymentTypePage} />
                             <PrivateRoute path="/employee" component={EmployeePage} />
                             <PrivateRoute path="/identity" component={IdentityPage} />
+                            <PrivateRoute path="/my-profile" component={MyProfilePage} />
                         </Layout>
                     </Switch>
                 </div>
