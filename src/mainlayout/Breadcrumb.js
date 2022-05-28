@@ -2,6 +2,9 @@ import { styled } from '../stitches.config';
 import { isHasProperty } from '../utils';
 
 const StyledUl = styled('ul', {
+    alignItems: 'center',
+    display: 'flex',
+    height: '34px',
     '& li': {
         display: 'inline-block',
         fontSize: '0.75rem',

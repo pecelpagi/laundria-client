@@ -168,3 +168,11 @@ export const getReportOrders = async (payload) => {
 
   return response;
 };
+
+export const getDashboardSummary = async (payload) => {
+  const response = await fetchApi("api/welcome/dashboard_summary", {}, METHOD_TYPE.GET, {
+    queryString: payload,
+  });
+
+  return response;
+};

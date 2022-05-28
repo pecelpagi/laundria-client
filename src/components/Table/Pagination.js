@@ -30,7 +30,7 @@ export default ({ totalPage, page, onChange }) => {
                     </li>
                 )}
                 {pages}
-                {!(page === (totalPage - 1)) && (
+                {totalPage > 0 && !(page === (totalPage - 1)) && (
                     <li className="inline-block">
                         <button type="button" className="rounded-lg text-sm" onClick={() => onChange(page + 1)}>
                             <span>&raquo;</span>
