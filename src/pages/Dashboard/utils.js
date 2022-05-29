@@ -1,12 +1,13 @@
 import * as apiService from "../../data";
 import { currency, reformatDateTimeAsText } from "../../utils";
+import { ORDER_STATUS } from "../Transaction/utils";
 
 export const handleFetchOrderList = async (state) => {
   let data = [];
   let totalPage = 0;
 
   try {
-    const response = await apiService.getOrders(state);
+    const response = await apiService.getOrders({ order_status: ORDER_STATUS.NEW, ...state });
 
     ({ data } = response);
     totalPage = response.meta.total_pages;
