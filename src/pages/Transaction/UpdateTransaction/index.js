@@ -7,6 +7,7 @@ import { ORDER_STATUS } from "../utils";
 import { ComponentContext } from "./Context";
 import Spinner from "../../../components/Spinner";
 import Button from '../../../components/StyledButton';
+import ButtonPrintInvoice from './ButtonPrintInvoice';
 
 class UpdateTransaction extends React.Component {
     state = {
@@ -102,13 +103,14 @@ class UpdateTransaction extends React.Component {
     }
 
     render() {
-        const { formData, isFetching } = this.state;
+        const { formData, isFetching, readOnlyData } = this.state;
 
         return (
             <ComponentContext.Provider value={this.createContextValue()}>
                 <div className="bg-white rounded divide-y divide-solid">
                     <div className="flex p-3 items-center">
-                        <div className="text-base font-semibold w-full">Detail Transaksi</div>
+                        <div className="text-base font-semibold w-3/5">Detail Transaksi</div>
+                        <div className="w-2/5 text-xs flex justify-end"><ButtonPrintInvoice data={readOnlyData} /></div>
                     </div>
                     <div className="p-3">
                         {isFetching && <div className="relative h-32"><Spinner /></div>}
