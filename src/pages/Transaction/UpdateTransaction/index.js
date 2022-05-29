@@ -14,6 +14,7 @@ class UpdateTransaction extends React.Component {
         formData: null,
         readOnlyData: null,
         isFetching: false,
+        isSaving: false,
     }
 
     componentDidMount = () => {
@@ -38,6 +39,8 @@ class UpdateTransaction extends React.Component {
         const { onShowNotification } = this.props;
         onShowNotification(toastType, message);
     }
+
+    handleSetSaving = (isSaving) => { this.setState({ isSaving }); }
 
     handleSetFetching = (isFetching) => { this.setState({ isFetching }); }
 
@@ -66,6 +69,9 @@ class UpdateTransaction extends React.Component {
     }
 
     handleSaveData = async (data) => {
+        this.handleSetSaving(true);
+
+
         try {
             const { formData } = this.state;
             const payload = {
@@ -80,6 +86,7 @@ class UpdateTransaction extends React.Component {
             this.handleBackToList();
         } catch (e) {
             this.doShowingNotification(TOAST_TYPE.ERROR, catchError(e));
+            this.handleSetSaving(false);
         }
     }
 
@@ -103,27 +110,30 @@ class UpdateTransaction extends React.Component {
     }
 
     render() {
-        const { formData, isFetching, readOnlyData } = this.state;
+        const { formData, isFetching, readOnlyData, isSaving } = this.state;
 
         return (
             <ComponentContext.Provider value={this.createContextValue()}>
-                <div className="bg-white rounded divide-y divide-solid">
-                    <div className="flex p-3 items-center">
-                        <div className="text-base font-semibold w-3/5">Detail Transaksi</div>
-                        <div className="w-2/5 text-xs flex justify-end"><ButtonPrintInvoice data={readOnlyData} /></div>
-                    </div>
-                    <div className="p-3">
-                        {isFetching && <div className="relative h-32"><Spinner /></div>}
-                        {!isFetching && formData && (<Form onSave={this.handleSaveData} onCancel={this.handleBackToList} />)}
-                        {!isFetching && !formData && (
-                            <div className="text-sm flex flex-row items-center h-10">
-                                <div className="w-1/2">Data tidak ditemukan</div>
-                                <div className="w-1/2 flex justify-end">
-                                    <Button type="button" onClick={this.handleBackToList}>Kembali ke Daftar Transaksi</Button>
+                <div className="relative">
+                    <div className="bg-white rounded divide-y divide-solid">
+                        <div className="flex p-3 items-center">
+                            <div className="text-base font-semibold w-3/5">Detail Transaksi</div>
+                            <div className="w-2/5 text-xs flex justify-end"><ButtonPrintInvoice data={readOnlyData} /></div>
+                        </div>
+                        <div className="p-3">
+                            {isFetching && <div className="relative h-32"><Spinner /></div>}
+                            {!isFetching && formData && (<Form onSave={this.handleSaveData} onCancel={this.handleBackToList} />)}
+                            {!isFetching && !formData && (
+                                <div className="text-sm flex flex-row items-center h-10">
+                                    <div className="w-1/2">Data tidak ditemukan</div>
+                                    <div className="w-1/2 flex justify-end">
+                                        <Button type="button" onClick={this.handleBackToList}>Kembali ke Daftar Transaksi</Button>
+                                    </div>
                                 </div>
-                            </div>
-                        )}
+                            )}
+                        </div>
                     </div>
+                    {isSaving && <Spinner />}
                 </div>
             </ComponentContext.Provider>
         );
