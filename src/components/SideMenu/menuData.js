@@ -2,8 +2,34 @@ import {
     DashboardIcon, ArchiveIcon, PersonIcon,
     BackpackIcon, TargetIcon, IdCardIcon, DesktopIcon
 } from '@radix-ui/react-icons';
+import { getDecodedToken, ROLE_TYPE } from '../../utils';
 
 const menuData = () => {
+    const decoded = getDecodedToken();
+
+    if (decoded.data.role === ROLE_TYPE.EMPLOYEE) {
+      return [
+        {
+          id: "1",
+          title: "Dashboard",
+          icon: () => <DashboardIcon />,
+          link: "/dashboard",
+        },
+        {
+          id: "2",
+          title: "Transaksi",
+          icon: () => <ArchiveIcon />,
+          link: "/transaction",
+        },
+        {
+          id: "3",
+          title: "Customer",
+          icon: () => <PersonIcon />,
+          link: "/customer",
+        },
+      ];
+    }
+
     return [
       {
         id: "1",

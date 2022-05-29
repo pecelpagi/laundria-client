@@ -57,10 +57,10 @@ const MainLayout = () => {
                             <PrivateRoute path="/transaction/create" component={CreateTransactionPage} />
                             <PrivateRoute exact path="/transaction" component={TransactionPage} />
                             <PrivateRoute path="/customer" component={CustomerPage} />
-                            <PrivateRoute path="/laundry-package" component={LaundryPackagePage} />
-                            <PrivateRoute path="/payment-type" component={PaymentTypePage} />
-                            <PrivateRoute path="/employee" component={EmployeePage} />
-                            <PrivateRoute path="/identity" component={IdentityPage} />
+                            <PrivateRoute path="/laundry-package" component={LaundryPackagePage} superadminOnly />
+                            <PrivateRoute path="/payment-type" component={PaymentTypePage} superadminOnly />
+                            <PrivateRoute path="/employee" component={EmployeePage} superadminOnly />
+                            <PrivateRoute path="/identity" component={IdentityPage} superadminOnly />
                             <PrivateRoute path="/my-profile" component={MyProfilePage} />
                         </Layout>
                     </Switch>

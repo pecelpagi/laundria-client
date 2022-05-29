@@ -1,6 +1,7 @@
 import moment from "moment";
 import numeral from "numeral";
 import { isEmail } from "validator";
+import jwt_decode from "jwt-decode";
 
 const BASE_KEY = "LAUNDRIA";
 
@@ -8,11 +9,17 @@ export const MATCH_MEDIA_TYPE = {
     LG: '(min-width: 1024px)',
 }
 
+export const ROLE_TYPE = {
+    EMPLOYEE: "2",
+}
+
 export const getToken = () => localStorage.getItem(`${BASE_KEY}::usertoken`);
 
 export const setToken = (token) => { localStorage.setItem(`${BASE_KEY}::usertoken`, token); };
 
 export const removeToken = () => { localStorage.removeItem(`${BASE_KEY}::usertoken`); };
+
+export const getDecodedToken = () => jwt_decode(getToken());
 
 export const isHasProperty = (obj, key) => Object.hasOwnProperty.call(obj, key);
 
