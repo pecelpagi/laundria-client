@@ -52,18 +52,18 @@ class Layout extends React.Component {
         );
 
         return (
-            <React.Fragment>
-                <div className="flex items-center mb-4">
-                    <div className="w-1/2">
+            <div className="pb-4">
+                <div className="flex flex-col md:flex-row items-center mb-4">
+                    <div className="w-full md:w-1/2">
                         {breadcrumbs.length > 0 ? <Breadcrumb data={breadcrumbs} /> : null}
                     </div>
-                    <div className="w-1/2">
+                    <div className="w-full md:w-1/2">
                         <HeaderButtons {...{ buttons }} />
                     </div>
                 </div>
                 {childrenWithProps}
                 <ToastContainer theme="colored" />
-            </React.Fragment>
+            </div>
         );
     }
 }

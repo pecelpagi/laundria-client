@@ -29,21 +29,22 @@ export default ({ onClose, onSave, formData, onShowConfirmationDialog, onHideFor
                 />
                 {errors.name && <ErrorText>Mohon untuk mengisi tipe pembayaran</ErrorText>}
             </div>
-            <div className="flex flex-row text-sm mt-1">
-                <div className="w-1/2">
+            <div className="flex flex-col sm:flex-row text-sm mt-1 gap-3">
+                <div className="sm:w-1/2">
                     {formData.id ? (
                         <Button
+                            className="w-full sm:w-auto"
                             type="button"
                             variant="danger"
                             onClick={handleShowDeleteConfirmation}
                         >
-                            <span className="flex flex-row"><TrashIcon />&nbsp;Hapus</span>
+                            <span className="flex flex-row justify-center"><TrashIcon />&nbsp;Hapus</span>
                         </Button>
                     ) : null}
                 </div>
-                <div className="w-1/2 flex justify-end gap-3">
-                    <Button type="button" onClick={onClose}>Batal</Button>
-                    <Button type="submit" variant="primary" disabled={disabled}>Simpan</Button>
+                <div className="sm:w-1/2 flex justify-between sm:justify-end gap-3">
+                    <Button type="button" className="w-full sm:w-auto" onClick={onClose}>Batal</Button>
+                    <Button type="submit" className="w-full sm:w-auto" variant="primary" disabled={disabled}>Simpan</Button>
                 </div>
             </div>
         </form>

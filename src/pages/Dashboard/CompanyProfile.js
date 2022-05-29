@@ -5,7 +5,7 @@ import CompanyProfileSkeleton from "./CompanyProfileSkeleton";
 
 const CompanyProfile = ({ companyProfile }) => {
     return (
-        <div className="bg-white rounded divide-y divide-solid">
+        <div className="bg-white rounded divide-y divide-solid" id="company-profile-container">
             <div className="flex p-3 items-center" style={{ height: 60 }}>
                 <h3 className="text-base font-semibold w-full">Dashboard</h3>
             </div>

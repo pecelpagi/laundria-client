@@ -4,6 +4,10 @@ import { isEmail } from "validator";
 
 const BASE_KEY = "LAUNDRIA";
 
+export const MATCH_MEDIA_TYPE = {
+    LG: '(min-width: 1024px)',
+}
+
 export const getToken = () => localStorage.getItem(`${BASE_KEY}::usertoken`);
 
 export const setToken = (token) => { localStorage.setItem(`${BASE_KEY}::usertoken`, token); };
@@ -37,3 +41,5 @@ export const replaceAllExceptNumerics = (val) => {
 export const reformatDateTimeAsText = val => moment(val, "YYYY-MM-DD HH:mm:ss").format("DD MMMM YYYY HH:mm:ss");
 
 export const reformatDateAsText = val => moment(val, "YYYY-MM-DD").format("DD MMMM YYYY");
+
+export const matchMediaChecker = (type) => window.matchMedia(type).matches;

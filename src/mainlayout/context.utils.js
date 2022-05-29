@@ -5,9 +5,10 @@ import { ACTION_TYPE } from "./enums";
 import * as fetcherUtility from "./fetcher.utils";
 
 import 'moment/locale/id';
+import { matchMediaChecker, MATCH_MEDIA_TYPE } from "../utils";
 
 const initialState = {
-    isShowingSidebarMenu: true,
+    isShowingSidebarMenu: matchMediaChecker(MATCH_MEDIA_TYPE.LG),
     loggedInProfile: null,
     companyProfile: null,
 };
@@ -28,6 +29,8 @@ const reducer = (state, action) => {
             };
         case ACTION_TYPE.SET_TOGGLE_SIDEBAR_MENU:
             return { ...state, isShowingSidebarMenu: !state.isShowingSidebarMenu };
+        case ACTION_TYPE.SET_HIDE_SIDEBAR_MENU:
+            return { ...state, isShowingSidebarMenu: false };
         default:
         // do nothing
     }
@@ -37,6 +40,7 @@ const reducer = (state, action) => {
 
 const createContextDataHandler = (dispatch = () => { }) => ({
     onToggleSidebar: () => { dispatch({ type: ACTION_TYPE.SET_TOGGLE_SIDEBAR_MENU }); },
+    onHideSidebar: () => { dispatch({ type: ACTION_TYPE.SET_HIDE_SIDEBAR_MENU }); },
     onFetchLoggedInProfile: () => { fetcherUtility.handleFetchMyProfile(dispatch); },
     onChangeLoggedInFullname: (fullname) => { dispatch({ type: ACTION_TYPE.SET_LOGGED_IN_FULLNAME, payload: fullname }); },
     onFetchCompanyProfile: () => { fetcherUtility.handleFetchCompanyProfile(dispatch); },

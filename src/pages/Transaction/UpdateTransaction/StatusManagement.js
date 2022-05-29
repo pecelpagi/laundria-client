@@ -24,6 +24,7 @@ export default ({ control }) => {
                                     options={createStaticDataPaymentStatus()}
                                     value={data.paymentStatus}
                                     {...{ control }}
+                                    fullWidth
                                 />
                             )}
                         </td>
@@ -37,6 +38,7 @@ export default ({ control }) => {
                                     options={createDataOrderStatus(data.readOnlyOrderStatus)}
                                     value={data.order_status}
                                     {...{ control }}
+                                    fullWidth
                                 />
                             )}
                         </td>

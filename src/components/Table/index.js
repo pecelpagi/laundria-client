@@ -77,10 +77,12 @@ class Table extends React.Component {
 
         return (
             <div className="relative">
-                <table className="border-collapse table-fixed w-full text-sm mb-3">
-                    <Header {...{ columns }} />
-                    <Body {...{ columns, data, onRowClick }} />
-                </table>
+                <div className="overflow-x-auto w-full">
+                    <table className="border-collapse table-auto w-full whitespace-nowrap text-sm mb-3">
+                        <Header {...{ columns }} />
+                        <Body {...{ columns, data, onRowClick }} />
+                    </table>
+                </div>
                 <Pagination {...{ totalPage, page }} onChange={this.handleChangePage} />
                 {isFetching ? <OverlayLoading /> : null}
             </div>

@@ -7,7 +7,7 @@ const OrderDetail = () => {
     const { formData: data } = useContext(ComponentContext);
 
     return (
-        <Table className="border-collapse table-fixed w-full text-sm">
+        <Table className="border-collapse table-auto w-full text-sm whitespace-nowrap">
             <thead>
                 <tr>
                     <th style={{ width: "200px" }}>Tgl. Order</th>

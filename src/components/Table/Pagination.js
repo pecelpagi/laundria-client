@@ -20,7 +20,7 @@ export default ({ totalPage, page, onChange }) => {
     }, [totalPage, page]);
 
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-2">
             <ul className="list-none">
                 {!(page === 0) && (
                     <li className="inline-block mr-2">

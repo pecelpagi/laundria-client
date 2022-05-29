@@ -16,12 +16,12 @@ const customStyles = {
         ...base,
         height: 36,
         minHeight: 36
-    })
+    }),
 };
 
 const SelectComponent = React.forwardRef((props, ref) => {
     const {
-        options, label, required, value, onChange, selectType, onFetch, changeEvent,
+        options, label, required, value, onChange, selectType, onFetch, changeEvent, fullWidth
     } = props;
 
     const selectStyles = {
@@ -48,7 +48,7 @@ const SelectComponent = React.forwardRef((props, ref) => {
                 {selectType === SELECT_TYPE.DEFAULT && (
                     <DefaultSelect
                         {...selectStyles}
-                        {...{ options, value }}
+                        {...{ options, value, fullWidth }}
                         onChange={handleChangeValue}
                     />
                 )}
@@ -69,6 +69,7 @@ SelectComponent.propTypes = {
     onFetch: PropTypes.func,
     options: PropTypes.arrayOf(PropTypes.shape({})),
     changeEvent: PropTypes.func,
+    fullWidth: PropTypes.bool,
 };
 
 SelectComponent.defaultProps = {
@@ -76,6 +77,7 @@ SelectComponent.defaultProps = {
     selectType: SELECT_TYPE.DEFAULT,
     options: [],
     changeEvent: () => { },
+    fullWidth: false,
 };
 
 export default (props) => {

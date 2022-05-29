@@ -12,8 +12,8 @@ export default ({ onSave, formData }) => {
 
     return (
         <form className="flex flex-col gap-4 mt-1" onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-row gap-4">
-                <div className="w-1/2">
+            <div className="flex flex-col md:flex-row gap-4">
+                <div className="md:w-1/2">
                     <InputText
                         label="Nama Lengkap"
                         name="fullname"
@@ -23,7 +23,7 @@ export default ({ onSave, formData }) => {
                     />
                     {errors.fullname && <ErrorText>Mohon untuk mengisi nama lengkap</ErrorText>}
                 </div>
-                <div className="w-1/2">
+                <div className="md:w-1/2">
                     <InputText
                         label="Username"
                         name="username"
@@ -44,8 +44,8 @@ export default ({ onSave, formData }) => {
                 />
                 {errors.addr && <ErrorText>Mohon untuk mengisi alamat</ErrorText>}
             </div>
-            <div className="flex flex-row gap-4">
-                <div className="w-1/2">
+            <div className="flex  flex-col md:flex-row gap-4">
+                <div className="md:w-1/2">
                     <InputText
                         label="Email"
                         name="email"
@@ -61,7 +61,7 @@ export default ({ onSave, formData }) => {
                     {(errors.email && errors.email.type === "required") && <ErrorText>Mohon untuk mengisi email</ErrorText>}
                     {(errors.email && errors.email.type === "isEmailValid") && <ErrorText>Format email masih tidak sesuai</ErrorText>}
                 </div>
-                <div className="w-1/2">
+                <div className="md:w-1/2">
                     <InputText
                         label="No. Telepon"
                         name="phone"

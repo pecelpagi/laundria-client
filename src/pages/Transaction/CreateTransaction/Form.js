@@ -17,8 +17,8 @@ export default ({ onSave, formData, onCancel }) => {
 
     return (
         <form className="flex flex-col gap-4 mt-1" onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-row gap-4">
-                <div className="w-1/3">
+            <div className="flex flex-col sm:flex-row gap-4">
+                <div className="sm:w-1/3">
                     <InputText
                         label="No. Order"
                         name="salesNumber"
@@ -28,14 +28,14 @@ export default ({ onSave, formData, onCancel }) => {
                     />
                     {errors.salesNumber && <ErrorText>Mohon untuk mengisi nomor order</ErrorText>}
                 </div>
-                <div className="w-1/3">
+                <div className="sm:w-1/3">
                     <SelectCustomer
                         {...{ control }}
                         value={formData.customerId}
                     />
                     {errors.customerId && <ErrorText>Mohon untuk memilih customer</ErrorText>}
                 </div>
-                <div className="w-1/3">
+                <div className="sm:w-1/3">
                     <InputText
                         label="Telepon"
                         name="phone"
@@ -56,8 +56,8 @@ export default ({ onSave, formData, onCancel }) => {
                 />
                 {errors.addr && <ErrorText>Mohon untuk mengisi alamat lengkap</ErrorText>}
             </div>
-            <div className="flex flex-row gap-4">
-                <div className="w-1/3">
+            <div className="flex flex-col sm:flex-row gap-4">
+                <div className="sm:w-1/3">
                     <InputText
                         label="Tanggal Ambil"
                         name="pickupDate"
@@ -67,14 +67,14 @@ export default ({ onSave, formData, onCancel }) => {
                     />
                     {errors.pickupDate && <ErrorText>Mohon untuk memilih tanggal ambil</ErrorText>}
                 </div>
-                <div className="w-1/3">
+                <div className="sm:w-1/3">
                     <SelectPaymentType
                         {...{ control }}
                         value={formData.paymentTypeId}
                     />
                     {errors.paymentTypeId && <ErrorText>Mohon untuk memilih tipe pembayaran</ErrorText>}
                 </div>
-                <div className="w-1/3">
+                <div className="sm:w-1/3">
                     <Select
                         label="Status Pembayaran"
                         name="paymentStatus"
@@ -82,19 +82,20 @@ export default ({ onSave, formData, onCancel }) => {
                         required
                         options={createStaticDataPaymentStatus()}
                         value={formData.paymentStatus}
+                        fullWidth
                     />
                     {errors.paymentStatus && <ErrorText>Mohon untuk memilih status pembayaran</ErrorText>}
                 </div>
             </div>
-            <div className="flex flex-row gap-4">
-                <div className="w-1/2">
+            <div className="flex flex-col sm:flex-row gap-4">
+                <div className="sm:w-1/2">
                     <SelectLaundryPackage
                         {...{ control }}
                         value={formData.laundryPackageId}
                     />
                     {errors.laundryPackageId && <ErrorText>Mohon untuk memilih paket laundry</ErrorText>}
                 </div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2">
                     <InputText
                         label="Berat (kg)"
                         name="weight"

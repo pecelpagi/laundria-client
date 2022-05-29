@@ -15,7 +15,7 @@ const StyledWrapper = styled('div', {
     variants: {
         showedMenu: {
             true: {
-                '@sm': {
+                '@lg': {
                     width: 'calc(100% - 250px)',
                     left: '230px',
                 },
@@ -45,7 +45,7 @@ const MainLayout = () => {
     return (
         <AppContext>
             <Wrapper>
-                <div className="relative px-5 sm:mx-auto" style={{ maxWidth: '1080px' }}>
+                <div className="relative px-5 sm:mx-auto" style={{ maxWidth: '774px' }}>
                     <Switch>
                         <Route
                             exact path="/"

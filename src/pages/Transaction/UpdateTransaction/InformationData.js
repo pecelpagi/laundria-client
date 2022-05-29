@@ -9,7 +9,7 @@ const InformationData = () => {
     return (
         <div>
             <h5 className="text-sm mb-2"><b>INFORMASI DATA</b></h5>
-            <Table className="border-collapse table-fixed w-full text-sm">
+            <Table className="border-collapse table-auto w-full text-sm">
                 <tbody>
                     <tr>
                         <td style={{ width: "150px" }}>No. Order</td>

@@ -9,6 +9,11 @@ const RowList = styled('li', {
     },
     '& a:hover': {
         background: '#f1f1f1',
+    },
+    '&:last-child': {
+        'a': {
+            borderTop: '1px solid #e2e2e2',
+        }
     }
 });
 
@@ -16,6 +21,7 @@ export default ({ onClick }) => {
     return (
         <ul className="list-none bg-white text-sm shadow-xl rounded w-32">
             <RowList><Link to="/my-profile" className="text-sm" onClick={onClick}>Profil Saya</Link></RowList>
+            <RowList><Link to="/my-profile" className="text-sm" onClick={onClick}>Ubah Password</Link></RowList>
             <RowList><Link to="/signout" className="text-sm">Logout</Link></RowList>
         </ul>
     );

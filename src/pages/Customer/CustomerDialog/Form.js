@@ -49,8 +49,8 @@ export default ({ onClose, onSave, formData, onShowConfirmationDialog, onHideFor
                 />
                 {errors.phone && <ErrorText>Mohon untuk mengisi nomor telepon</ErrorText>}
             </div>
-            <div className="flex flex-row text-sm mt-1">
-                <div className="w-1/2">
+            <div className="flex flex-col sm:flex-row text-sm mt-1">
+                <div className="sm:w-1/2">
                     {formData.id ? (
                         <Button
                             type="button"
@@ -61,7 +61,7 @@ export default ({ onClose, onSave, formData, onShowConfirmationDialog, onHideFor
                         </Button>
                     ) : null}
                 </div>
-                <div className="w-1/2 flex justify-end gap-3">
+                <div className="sm:w-1/2 flex justify-end gap-3">
                     <Button type="button" onClick={onClose}>Batal</Button>
                     <Button type="submit" variant="primary" disabled={disabled}>Simpan</Button>
                 </div>

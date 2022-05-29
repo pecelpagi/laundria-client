@@ -1,5 +1,14 @@
+
 import StyledButton from '../components/StyledButton';
+import { styled } from '../stitches.config';
 import { isHasProperty } from '../utils';
+
+const Wrapper = styled('div', {
+    flexDirection: 'column',
+    '@media (min-width: 345px)': {
+        flexDirection: 'row',
+    }
+})
 
 export default ({ buttons }) => {
     const components = buttons.map(x => (
@@ -19,5 +28,5 @@ export default ({ buttons }) => {
         </StyledButton>
     ));
     
-    return <div className="flex w-full justify-end gap-3">{components}</div>;
+    return <Wrapper className="flex w-full justify-end gap-3">{components}</Wrapper>;
 }

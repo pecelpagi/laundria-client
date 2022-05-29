@@ -18,11 +18,11 @@ class Dashboard extends React.Component {
 
     render() {
         return (
-            <div className="flex gap-3">
-                <div className="w-2/5">
+            <div className="flex flex-col gap-3">
+                <div className="w-full">
                     <CompanyProfile />
                 </div>
-                <div className="w-3/5">
+                <div className="w-full">
                     <NewTransactionList {...this.props} />
                 </div>
             </div>

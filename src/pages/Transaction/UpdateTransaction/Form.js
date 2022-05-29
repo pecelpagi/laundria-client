@@ -13,15 +13,15 @@ export default ({ onSave, onCancel }) => {
 
     return (
         <form className="flex flex-col gap-4 mt-1" onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-row gap-4">
-                <div className="w-1/2">
+            <div className="flex flex-col md:flex-row gap-4">
+                <div className="md:w-1/2">
                     <InformationData />
                 </div>
-                <div className="w-1/2">
+                <div className="md:w-1/2">
                     <StatusManagement {...{ control }} />
                 </div>
             </div>
-            <div>
+            <div className="overflow-x-auto">
                 <OrderDetail />
             </div>
             <div className="flex flex-row text-sm mt-1 mb-2">
