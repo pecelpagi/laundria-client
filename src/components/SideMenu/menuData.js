@@ -7,6 +7,8 @@ import { getDecodedToken, ROLE_TYPE } from '../../utils';
 const menuData = () => {
     const decoded = getDecodedToken();
 
+    if (!decoded) return [];
+
     if (decoded.data.role === ROLE_TYPE.EMPLOYEE) {
       return [
         {

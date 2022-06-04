@@ -19,7 +19,7 @@ export const setToken = (token) => { localStorage.setItem(`${BASE_KEY}::usertoke
 
 export const removeToken = () => { localStorage.removeItem(`${BASE_KEY}::usertoken`); };
 
-export const getDecodedToken = () => jwt_decode(getToken());
+export const getDecodedToken = () => getToken() ? jwt_decode(getToken()) : null;
 
 export const isHasProperty = (obj, key) => Object.hasOwnProperty.call(obj, key);
 
