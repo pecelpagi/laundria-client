@@ -45,7 +45,7 @@ const MainLayout = () => {
     return (
         <AppContext>
             <Wrapper>
-                <div className="relative px-5 sm:mx-auto" style={{ maxWidth: '774px' }}>
+                <div className="relative px-5 sm:mx-auto" style={{ maxWidth: '1280px' }}>
                     <Switch>
                         <Route
                             exact path="/"
