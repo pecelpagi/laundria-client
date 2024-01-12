@@ -39,10 +39,13 @@ export const validateEmail = (email) => {
 };
 
 export const replaceAllExceptNumerics = (val) => {
-    let newValue = val;
-    newValue = newValue.replace(/[^0-9\.]+/g, "");
+    const newValue = val.replace(/[^0-9\\.]+/g, "");
 
-    return newValue;
+    if (newValue.split('.').length <= 2) return newValue;
+
+    const results = val.match(/(\d+).(\d+)|(\d+)/g);
+
+    return results.join('');
 }
 
 export const reformatDateTimeAsText = val => moment(val, "YYYY-MM-DD HH:mm:ss").format("DD MMMM YYYY HH:mm:ss");

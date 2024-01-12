@@ -1,43 +1,67 @@
-import { useEffect, useState } from "react";
+import ReactPaginate from 'react-paginate';
+import { CaretLeftIcon, CaretRightIcon } from '@radix-ui/react-icons'
+import Box from '../../components/Box';
 
-export default ({ totalPage, page, onChange }) => {
-    const [pages, setPages] = useState([]);
-
-    useEffect(() => {
-        let newPages = [];
-
-        for (let i = 0; i < totalPage; i += 1) {
-            newPages = [...newPages, (
-                <li
-                    key={i}
-                    className="inline-block mr-2">
-                    <button onClick={() => onChange(i)} className={`rounded-lg h-6 w-6 text-sm ${i === page ? 'bg-black text-white' : ''}`}>{i + 1}</button>
-                </li>
-            )];
-        }
-
-        setPages(newPages);
-    }, [totalPage, page]);
-
+const Pagination = ({ totalPage, page, onChange }) => {
     return (
-        <div className="flex justify-center mt-2">
-            <ul className="list-none">
-                {!(page === 0) && (
-                    <li className="inline-block mr-2">
-                        <button type="button" className="rounded-lg text-sm" onClick={() => onChange(page - 1)}>
-                            <span>&laquo;</span>
-                        </button>
-                    </li>
-                )}
-                {pages}
-                {totalPage > 0 && !(page === (totalPage - 1)) && (
-                    <li className="inline-block">
-                        <button type="button" className="rounded-lg text-sm" onClick={() => onChange(page + 1)}>
-                            <span>&raquo;</span>
-                        </button>
-                    </li>
-                )}
-            </ul>
-        </div>
+        <Box
+            className="flex justify-center mt-2 text-base"
+            css={{
+                '& .laundria-pagination-container': {
+                    display: 'flex',
+                    flexDirection: 'row',
+                    gap: 8,
+                    '& li': {
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        minWidth: '30px',
+                        minHeight: '30px',
+                        textAlign: '-webkit-center',
+                        border: '1px solid #333',
+                        borderRadius: 2,
+                        'a': {
+                            height: '100%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            fontSize: 16,
+                        },
+                        '&.previous, &.next': {
+                            border: '1px solid #333',
+                        },
+                        '&:not(.disabled):hover': {
+                            backgroundColor: '$backgroundPrimary',
+                            color: '$colorPrimary',
+                        },
+                        '&.selected': {
+                            backgroundColor: '$backgroundPrimary',
+                            color: '$colorPrimary',
+                        },
+                        '&.disabled, &.disabled a': {
+                            opacity: 0.5,
+                            cursor: 'not-allowed',
+                        },
+                    }
+                }
+            }}
+        >
+            <ReactPaginate
+                containerClassName="laundria-pagination-container"
+                breakLabel="..."
+                nextLabel={<CaretRightIcon />}
+                onPageChange={(val) => {
+                    onChange(val.selected);
+                }}
+                pageRangeDisplayed={5}
+                pageCount={totalPage}
+                previousLabel={<CaretLeftIcon />}
+                renderOnZeroPageCount={null}
+                forcePage={page}
+            />
+        </Box>
     );
 }
+
+export default Pagination;

@@ -1,29 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Header from "./Header";
-import Body from "./Body";
-import Pagination from "./Pagination";
-import OverlayLoading from "./OverlayLoading";
-import SelectLimit from "./SelectLimit";
-import InputKeyword from "./InputKeyword";
+import * as renderUtil from './render.utils';
 
 class Table extends React.Component {
-    static propTypes = {
-        columns: PropTypes.arrayOf(PropTypes.shape({
-            id: PropTypes.string,
-            title: PropTypes.string,
-        })).isRequired,
-        onFetch: PropTypes.func,
-        withWrapperRender: PropTypes.func,
-        onRowClick: PropTypes.func,
-    }
-
-    static defaultProps = {
-        withWrapperRender: undefined,
-        onFetch: () => { },
-        onRowClick: () => { },
-    }
-
     searchDataIdle = null;
     refetchIdle = null;
     state = {
@@ -52,11 +31,11 @@ class Table extends React.Component {
 
         this.handleSetFetching(true);
 
-        const { data, totalPage = 0 } = await onFetch(state);
+        const { data, totalPage = 0, err } = await onFetch(state);
 
         this.handleSetFetching(false);
 
-        this.setState({ data, totalPage: Number(totalPage) });
+        if (!err) this.setState({ data, totalPage: Number(totalPage) });
     };
 
     refetchData = async () => {
@@ -71,26 +50,6 @@ class Table extends React.Component {
         });
     }
 
-    renderTable = () => {
-        const { data, isFetching, totalPage, page } = this.state;
-        const { columns, onRowClick } = this.props;
-
-        return (
-            <div className="relative">
-                <div className="overflow-x-auto w-full">
-                    <table className="border-collapse table-auto w-full whitespace-nowrap text-sm mb-3">
-                        <Header {...{ columns }} />
-                        <Body {...{ columns, data, onRowClick }} />
-                    </table>
-                </div>
-                <Pagination {...{ totalPage, page }} onChange={this.handleChangePage} />
-                {isFetching ? <OverlayLoading /> : null}
-            </div>
-        );
-    }
-
-    renderFilterText = () => (<InputKeyword onSearch={this.handleSearchData} />);
-
     handleChangeLimitData = (val) => {
         this.setState({ limit: val, page: 0 }, () => {
             this.refetchData();
@@ -100,31 +59,45 @@ class Table extends React.Component {
     handleSearchData = (val) => {
         if (this.searchDataIdle) clearTimeout(this.searchDataIdle);
         this.searchDataIdle = setTimeout(() => {
-            this.setState({ filterText: val }, () => { this.refetchData(); });
+            this.setState({ filterText: val, page: 0 }, () => { this.refetchData(); });
         }, 700);
     }
 
-    renderLimitData = () => {
-        const { limit } = this.state;
+    handleRenderInputSearch = () => renderUtil.renderFilterText({ onSearchData: this.handleSearchData });
 
-        return (<SelectLimit value={limit} onChange={this.handleChangeLimitData} />)
-    };
+    handleRenderPageSize = () => renderUtil.renderLimitData({ state: this.state, onChangeLimitData: this.handleChangeLimitData });
+
+    handleMakeTable = () => renderUtil.renderTable({ state: this.state, props: this.props, onChangePage: this.handleChangePage });
 
     render() {
         const { withWrapperRender } = this.props;
 
         if (withWrapperRender) {
-            // render with wrapper
             return withWrapperRender({
-                InputSearch: this.renderFilterText,
-                PageSize: this.renderLimitData,
-                makeTable: this.renderTable,
+                InputSearch: this.handleRenderInputSearch,
+                PageSize: this.handleRenderPageSize,
+                makeTable: this.handleMakeTable,
             });
         }
 
-        // render without wrapper: default
         return this.renderTable();
     }
 }
+
+Table.propTypes = {
+    columns: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string,
+        title: PropTypes.string,
+    })).isRequired,
+    onFetch: PropTypes.func,
+    withWrapperRender: PropTypes.func,
+    onRowClick: PropTypes.func,
+};
+
+Table.defaultProps = {
+    withWrapperRender: undefined,
+    onFetch: () => { },
+    onRowClick: () => { },
+};
 
 export default Table;

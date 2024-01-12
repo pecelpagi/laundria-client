@@ -6,7 +6,7 @@ const EmptyRow = ({ columns }) => (
     </tr>
 )
 
-export default ({ columns, data, onRowClick }) => {
+const Body = ({ columns, data, onRowClick }) => {
     return (
         <tbody className="divide-y divide-solid">
             {data && data.length === 0 && <EmptyRow {...{ columns }} />}
@@ -18,3 +18,5 @@ export default ({ columns, data, onRowClick }) => {
         </tbody>
     );
 }
+
+export default Body;

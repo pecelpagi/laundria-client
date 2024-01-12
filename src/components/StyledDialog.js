@@ -1,4 +1,4 @@
-import { styled, keyframes } from '../stitches.config';
+import { styled } from '../stitches.config';
 import { blackA } from '@radix-ui/colors';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
@@ -38,7 +38,6 @@ function Content({ children, ...props }) {
 
 const StyledTitle = styled(DialogPrimitive.Title, {
     margin: 0,
-    fontWeight: 500,
     color: '$colorSecondary',
     fontSize: 17,
     borderBottom: '1px solid #e7e7e7',
@@ -57,19 +56,21 @@ const StyledDescription = styled(DialogPrimitive.Description, {
 const IconButton = styled('button', {
     all: 'unset',
     fontFamily: 'inherit',
-    borderRadius: '100%',
-    height: 25,
-    width: 25,
+    borderRadius: '5px',
+    border: 0,
+    height: 28,
+    width: 28,
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    color: '$colorSecondary',
+    color: '#1c1f2b',
+    backgroundColor: '#e8e8e9',
     position: 'absolute',
-    top: 10,
-    right: 10,
+    top: 18,
+    right: 25,
+    outline: 'none',
 
-    '&:hover': { backgroundColor: '$backgroundPrimary', color: '$colorPrimary' },
-    '&:focus': { boxShadow: `0 0 0 2px $backgroundPrimary` },
+    '&:hover': { cursor: 'pointer' },
 });
 
 // Exports

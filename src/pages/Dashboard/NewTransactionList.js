@@ -1,35 +1,20 @@
-import React from "react";
-import Table from "../../components/Table";
-import BaseTableHeader from "../BaseTableHeader";
-import { handleFetchOrderList, createTableColumns } from "./utils";
+import React, { useContext } from 'react';
+import PageContext from './PageContext';
+import Box from '../../components/Box';
+import { RowComponent } from './new-transaction-list.components';
 
-class NewTransactionList extends React.Component {
-  handleRowClick = (data) => {
-    const { history } = this.props;
-
-    history.push(`/transaction/detail/${data.id}`);
-  }
-
-  render() {
-    const tableColumns = createTableColumns();
+const NewTransactionList = () => {
+    const { laundryTransactions } = useContext(PageContext);
 
     return (
-      <Table
-        ref={(c) => { this.table = c; }}
-        onRowClick={this.handleRowClick}
-        columns={tableColumns}
-        onFetch={handleFetchOrderList}
-        withWrapperRender={({ makeTable, ...rest }) => (
-          <div className="bg-white rounded divide-y divide-solid">
-            <BaseTableHeader {...rest} title="Order Terbaru" />
-            <div className="p-3">
-              {makeTable()}
-            </div>
-          </div>
-        )}
-      />
+        <Box className='mt-0'>
+            <div className='font-bold text-lg'>Order</div>
+            <div>Order baru yang belum di proses</div>
+            <Box className='flex flex-col gap-4 mt-4'>
+                {laundryTransactions.filter((x, i) => i < 3).map(x => (<RowComponent key={x.id} data={x} />))}
+            </Box>
+        </Box>
     );
-  }
 }
 
 export default NewTransactionList;

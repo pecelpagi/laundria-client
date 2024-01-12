@@ -135,7 +135,7 @@ export const updateMyProfile = async (payload) => {
   return response;
 };
 
-export const getOrders = async (payload) => {
+export const getLaundryTransactions = async (payload) => {
   const response = await fetchApi("/api/sale", {}, METHOD_TYPE.GET, {
     queryString: payload,
   });
@@ -143,19 +143,19 @@ export const getOrders = async (payload) => {
   return response;
 };
 
-export const getOrder = async (id) => {
+export const getLaundryTransaction = async (id) => {
   const response = await fetchApi(`/api/sale/${id}`, {}, METHOD_TYPE.GET, {});
 
   return response;
 };
 
-export const createOrder = async (payload) => {
+export const createLaundryTransaction = async (payload) => {
   const response = await fetchApi("/api/sale", payload, METHOD_TYPE.POST);
 
   return response;
 };
 
-export const updateOrder = async (payload) => {
+export const updateLaundryTransaction = async (payload) => {
   const response = await fetchApi("/api/sale", payload, METHOD_TYPE.PUT);
 
   return response;

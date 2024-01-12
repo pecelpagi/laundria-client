@@ -2,7 +2,7 @@ import { createStitches } from '@stitches/react';
 
 export const COLOR_DATA = {
     BACKGROUND_PRIMARY: '#24292f',
-    BACKGROUND_TERTIARY: '#ececec',
+    BACKGROUND_TERTIARY: '#f5f4f7',
 }
 
 export const { theme, styled, css, globalCss, keyframes } = createStitches({

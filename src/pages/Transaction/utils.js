@@ -1,20 +1,5 @@
-import React from "react";
 import moment from "moment";
-import * as apiService from "../../data";
-import { currency, reformatDateTimeAsText } from "../../utils";
-
-export const PAYMENT_STATUS = {
-    NOT_PAID: "1",
-    PAID: "2",
-};
-
-export const ORDER_STATUS = {
-    NEW: "1",
-    PROCESSED: "2",
-    CANCELED: "3",
-    FINISHED: "4",
-    PICKED_UP: "5",
-};
+import { ORDER_STATUS, PAYMENT_STATUS } from "../../enums";
 
 export const createStaticDataPaymentStatus = () => {
     const retval = [
@@ -102,70 +87,6 @@ export const createDataOrderStatus = (currentOrderStatus) => {
     ];
 };
 
-export const handleFetchOrderList = async (state) => {
-    let data = [];
-    let totalPage = 0;
-
-    try {
-        const response = await apiService.getOrders(state);
-
-        ({ data } = response);
-        totalPage = response.meta.total_pages;
-    } catch (e) {
-        console.log(e);
-    }
-
-    return { data, totalPage };
-};
-
-export const createTableColumns = () => {
-    const paymentStatusList = createStaticDataPaymentStatus();
-
-    return [
-        {
-            id: "created_at",
-            title: "Tgl. Transaksi",
-            width: "180px",
-            customComponent: val => <span>{reformatDateTimeAsText(val)}</span>,
-        },
-        {
-            id: "sales_number",
-            title: "No. Order",
-        },
-        {
-            id: "payment_status",
-            title: "Pembayaran",
-            width: "130px",
-            customComponent: (val) => {
-                const found = paymentStatusList.find(x => (String(x.value) === String(val)));
-                let className = "text-green-700";
-
-                if (found.value === PAYMENT_STATUS.NOT_PAID) className = "text-red-700";
-
-                return <span {...{ className }}>{found.label}</span>;
-            },
-        },
-        {
-            id: "customer_name",
-            title: "Customer",
-        },
-        {
-            id: "laundry_package_name",
-            title: "Paket",
-        },
-        {
-            id: "order_status",
-            title: "Status Order",
-            customComponent: val => <span>{createOrderStatusText(val)}</span>,
-        },
-        {
-            id: "total",
-            title: "Total",
-            customComponent: val => <span>{currency(parseFloat(val))}</span>,
-        },
-    ];
-};
-
 export const generateOrderNumber = () => {
     const stringCode = "ABCDEFGHIJKLMNOPQRSTUVWXYZ12345";
     let codeYear = "";
@@ -183,25 +104,25 @@ export const generateOrderNumber = () => {
     const date = moment().format("DD");
     codeDate = stringCode[parseInt(date, 10) - 1];
 
-    const codeRandom = Math.random().toString(36).substr(3, 4);
+    const codeRandom = String(Math.random()).substring(2, 6);
 
     return (`LDRY${codeYear}${codeMonth}${codeDate}${codeRandom}`).toUpperCase();
 };
 
 export const createFormData = () => ({
     salesNumber: generateOrderNumber(),
-    customerId: "",
+    customer: { id: "", text: "" },
     phone: "",
     addr: "",
     laundryPackageId: "",
-    weight: 0,
+    weight: '',
     pickupDate: moment().add(3, "days").format("YYYY-MM-DD"),
     paymentTypeId: "",
     paymentStatus: "",
 });
 
 export const createPayload = data => ({
-    customer_id: data.customerId,
+    customer_id: data.customer.id,
     phone: data.phone,
     addr: data.addr,
     laundry_package_id: data.laundryPackageId,

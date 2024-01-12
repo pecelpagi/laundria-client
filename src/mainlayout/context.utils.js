@@ -1,4 +1,4 @@
-import React, { useReducer, useMemo, useEffect } from "react";
+import { useReducer, useMemo, useEffect } from "react";
 import moment from "moment";
 import numeral from "numeral";
 import { ACTION_TYPE } from "./enums";

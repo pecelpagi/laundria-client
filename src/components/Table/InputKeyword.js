@@ -1,14 +1,22 @@
-import { useForm } from "react-hook-form";
-import InputText from '../../components/InputText';
+import { useState } from 'react';
+import InputText from '../../components/V2InputText';
 
-export default ({ onSearch }) => {
-    const { register } = useForm();
+const InputKeyword = ({ onSearch }) => {
+    const [value, setValue] = useState("");
 
     return (
         <InputText
+            css={{
+                width: 300,
+            }}
+            value={value}
             name="filter_keyword"
-            registerOptions={{ onChange: (e) => { onSearch(e.target.value); } }}
-            {...{ register }}
+            onChange={(e) => {
+                setValue(e.target.value);
+                onSearch(e.target.value);
+            }}
         />
     );
 }
+
+export default InputKeyword;

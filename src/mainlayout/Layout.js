@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Breadcrumb from "./Breadcrumb";
 import { TOAST_TYPE } from './enums';
 import HeaderButtons from './Layout.Buttons';
+import Box from '../components/Box';
 
 class Layout extends React.Component {
     state = {
@@ -53,14 +54,21 @@ class Layout extends React.Component {
 
         return (
             <div className="pb-4">
-                <div className="flex flex-col md:flex-row items-center mb-4">
-                    <div className="w-full md:w-1/2">
-                        {breadcrumbs.length > 0 ? <Breadcrumb data={breadcrumbs} /> : null}
-                    </div>
-                    <div className="w-full md:w-1/2">
-                        <HeaderButtons {...{ buttons }} />
-                    </div>
-                </div>
+                {breadcrumbs.length > 0 && (
+                    <Box
+                        css={{
+                            background: '$backgroundTertiary'
+                        }}
+                        className="flex flex-col md:flex-row items-center mb-4 p-3 pl-5 rounded"
+                    >
+                        <div className="w-full md:w-1/2">
+                            <Breadcrumb data={breadcrumbs} />
+                        </div>
+                        <div className="w-full md:w-1/2">
+                            <HeaderButtons {...{ buttons }} />
+                        </div>
+                    </Box>
+                )}
                 {childrenWithProps}
                 <ToastContainer theme="colored" />
             </div>

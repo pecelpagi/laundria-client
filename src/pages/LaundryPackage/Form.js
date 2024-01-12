@@ -1,45 +1,43 @@
-import { useForm } from "react-hook-form";
 import {
     TrashIcon,
 } from '@radix-ui/react-icons';
 import ErrorText from "../../components/ErrorText";
-import InputText from '../../components/InputText';
+import InputText from '../../components/V2InputText';
 import Button from '../../components/StyledButton';
 import { replaceAllExceptNumerics } from "../../utils";
+import { useBusinessLogic } from "./form.hooks";
 
-export default ({ onClose, onSave, formData, onShowConfirmationDialog, onHideFormDialog }) => {
-    const { register, handleSubmit, formState: { errors }, setValue } = useForm();
-    const onSubmit = (data) => { onSave({ id: formData.id, ...data }); };
-
-    const handleShowDeleteConfirmation = () => {
-        onHideFormDialog();
-        onShowConfirmationDialog();
-    }
-
-    const disabled = (Object.keys(errors).length > 0);
+const Form = ({ onClose, onSave, formData: formDataProp, onShowConfirmationDialog, onHideFormDialog }) => {
+    const {
+        formData,
+        errors,
+        hasErrors,
+        onSubmit,
+        onChangeValue,
+        onShowDeleteConfirmation,
+    } = useBusinessLogic({ formDataProp, onHideFormDialog, onShowConfirmationDialog, onSave });
 
     return (
-        <form className="flex flex-col gap-4 mt-4" onSubmit={handleSubmit(onSubmit)}>
+        <form className="flex flex-col gap-4 mt-4" onSubmit={onSubmit}>
             <div>
                 <InputText
                     label="Paket Laundry"
                     name="name"
                     required
-                    defaultValue={formData.name}
-                    {...{ register }}
+                    value={formData.name}
+                    onChange={(e) => { onChangeValue('name', e.target.value); }}
                 />
-                {errors.name && <ErrorText>Mohon untuk mengisi paket laundry</ErrorText>}
+                {errors.name && <ErrorText>{errors.name.message}</ErrorText>}
             </div>
             <div>
                 <InputText
                     label="Harga / Kg"
                     name="price"
                     required
-                    defaultValue={formData.price}
-                    registerOptions={{ onChange: (e) => { setValue('price', replaceAllExceptNumerics(e.target.value)); } }}
-                    {...{ register }}
+                    value={formData.price}
+                    onChange={(e) => { onChangeValue('price', replaceAllExceptNumerics(e.target.value)); }}
                 />
-                {errors.price && <ErrorText>Mohon untuk mengisi harga</ErrorText>}
+                {errors.price && <ErrorText>{errors.price.message}</ErrorText>}
             </div>
             <div className="flex flex-col sm:flex-row text-sm mt-1 gap-3">
                 <div className="sm:w-1/2">
@@ -48,7 +46,7 @@ export default ({ onClose, onSave, formData, onShowConfirmationDialog, onHideFor
                             className="w-full sm:w-auto"
                             type="button"
                             variant="danger"
-                            onClick={handleShowDeleteConfirmation}
+                            onClick={onShowDeleteConfirmation}
                         >
                             <span className="flex flex-row justify-center"><TrashIcon />&nbsp;Hapus</span>
                         </Button>
@@ -56,9 +54,11 @@ export default ({ onClose, onSave, formData, onShowConfirmationDialog, onHideFor
                 </div>
                 <div className="sm:w-1/2 flex justify-between sm:justify-end gap-3">
                     <Button type="button" className="w-full sm:w-auto" onClick={onClose}>Batal</Button>
-                    <Button type="submit" className="w-full sm:w-auto" variant="primary" disabled={disabled}>Simpan</Button>
+                    <Button type="submit" className="w-full sm:w-auto" variant="primary" disabled={hasErrors}>Simpan</Button>
                 </div>
             </div>
         </form>
     );
 }
+
+export default Form;

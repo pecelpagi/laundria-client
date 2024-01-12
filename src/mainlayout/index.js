@@ -4,8 +4,8 @@ import { styled } from '../stitches.config';
 import PrivateRoute from './PrivateRoute';
 import AppContext, { ComponentContext } from './Context'
 import Layout from './Layout';
-import Header from '../components/Header';
-import SideMenu from '../components/SideMenu';
+import Header from './V2Header';
+import SideMenu from './V2SideMenu';
 import { getToken } from "../utils";
 
 const StyledWrapper = styled('div', {
@@ -17,7 +17,7 @@ const StyledWrapper = styled('div', {
             true: {
                 '@lg': {
                     width: 'calc(100% - 250px)',
-                    left: '230px',
+                    left: '205px',
                 },
             }
         }
@@ -27,14 +27,14 @@ const StyledWrapper = styled('div', {
 const Wrapper = ({ children }) => {
     const { isShowingSidebarMenu } = useContext(ComponentContext);
 
-    return <StyledWrapper className="relative top-20 transition-all" showedMenu={isShowingSidebarMenu}>{children}</StyledWrapper>
+    return <StyledWrapper className="relative top-24 transition-all" showedMenu={isShowingSidebarMenu}>{children}</StyledWrapper>
 }
 
 const DashboardPage = lazy(() => import('../pages/Dashboard'));
-const TransactionPage = lazy(() => import('../pages/Transaction'));
+const TransactionPage = lazy(() => import('../pages/Transaction/TransactionList'));
 const CreateTransactionPage = lazy(() => import('../pages/Transaction/CreateTransaction'));
 const UpdateTransactionPage = lazy(() => import('../pages/Transaction/UpdateTransaction'));
-const CustomerPage = lazy(() => import('../pages/CustomerV2'));
+const CustomerPage = lazy(() => import('../pages/Customer'));
 const LaundryPackagePage = lazy(() => import('../pages/LaundryPackage'));
 const PaymentTypePage = lazy(() => import('../pages/PaymentType'));
 const EmployeePage = lazy(() => import('../pages/Employee'));
@@ -45,7 +45,7 @@ const MainLayout = () => {
     return (
         <AppContext>
             <Wrapper>
-                <div className="relative px-5 sm:mx-auto" style={{ maxWidth: '1280px' }}>
+                <div className="relative px-0 pl-5 sm:mx-auto" style={{ maxWidth: '1280px' }}>
                     <Switch>
                         <Route
                             exact path="/"
@@ -66,8 +66,8 @@ const MainLayout = () => {
                     </Switch>
                 </div>
             </Wrapper>
-            <SideMenu />
             <Header />
+            <SideMenu />
         </AppContext>
     );
 };

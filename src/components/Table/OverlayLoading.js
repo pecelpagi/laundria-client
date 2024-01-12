@@ -12,6 +12,8 @@ const Wrapper = styled('div', {
     alignItems: "center",
 });
 
-export default () => (
+const OverlayLoading = () => (
     <Wrapper className="text-sm">Loading...</Wrapper>
 )
+
+export default OverlayLoading;

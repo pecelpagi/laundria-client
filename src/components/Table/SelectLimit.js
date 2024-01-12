@@ -1,5 +1,4 @@
-import { useForm } from "react-hook-form";
-import Select from "../Select";
+import Select from "../V2Select";
 
 const limitData = [
     { value: "5", label: "5" },
@@ -9,15 +8,14 @@ const limitData = [
     { value: "100", label: "100" },
 ];
 
-export default ({ onChange, value }) => {
-    const { control } = useForm();
-
+ const SelectLimit = ({ onChange, value }) => {
     return (
         <Select
-            {...{ value, control }}
-            name="limit_data"
+            {...{ value }}
             options={limitData}
-            changeEvent={(val) => onChange(val)}
+            onChange={(val) => onChange(val)}
         />
     );
 }
+
+export default SelectLimit;

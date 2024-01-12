@@ -1,56 +1,35 @@
-import React from "react";
-import {
-    PersonIcon, BackpackIcon, OpenInNewWindowIcon, ArchiveIcon
-} from '@radix-ui/react-icons';
-import Card from "./SummaryCard";
-import * as apiService from "../../data";
-import SummarySkeleton from "./SummarySkeleton";
+import React from 'react';
+import { SummaryItem, SummarySkeleton } from './summary.components';
+import Box from '../../components/Box';
+import { useContext } from 'react';
+import PageContext from './PageContext';
 
-class Summary extends React.Component {
-    state = {
-        summaryData: null,
-    }
+const Summary = () => {
+    const { summary } = useContext(PageContext);
 
-    componentDidMount = () => {
-        this.handleFetchData();
-    }
-
-    handleFetchData = async () => {
-        try {
-            const res = await apiService.getDashboardSummary();
-
-            this.setState({ summaryData: res.data });
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    render() {
-        const { summaryData } = this.state;
-
-        if (!summaryData) return <div className="mt-3"><SummarySkeleton /></div>;
-
+    if (!summary) {
         return (
-            <div className="flex flex-col gap-3 mt-3">
-                <div className="w-full flex gap-3">
-                    <div className="w-1/2">
-                        <Card icon={(iconProps) => <PersonIcon {...iconProps} />} label="Customer" amount={summaryData.total_data_customer} />
-                    </div>
-                    <div className="w-1/2">
-                        <Card icon={(iconProps) => <BackpackIcon {...iconProps} />} label="Karyawan" amount={summaryData.total_data_employee} />
-                    </div>
-                </div>
-                <div className="w-full flex gap-3">
-                    <div className="w-1/2">
-                        <Card icon={(iconProps) => <OpenInNewWindowIcon {...iconProps} />} label="Order Baru" amount={summaryData.total_data_new_orders} />
-                    </div>
-                    <div className="w-1/2">
-                        <Card icon={(iconProps) => <ArchiveIcon {...iconProps} />} label="Total Order" amount={summaryData.total_data_orders} />
-                    </div>
-                </div>
-            </div>
-        );
+            <Box className='mt-6'>
+                <SummarySkeleton />
+            </Box>
+        )
     }
+
+    return (
+        <Box
+            css={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr 1fr',
+                background: '$backgroundTertiary',
+                padding: '15px 0px',
+            }}
+            className='flex gap-4 rounded mt-6'
+        >
+            <SummaryItem label="Jumlah Customer" amount={summary.total_data_customer} />
+            <SummaryItem label="Order Baru" amount={summary.total_data_new_orders} />
+            <SummaryItem label="Total Order" amount={summary.total_data_orders} />
+        </Box>
+    );
 }
 
 export default Summary;

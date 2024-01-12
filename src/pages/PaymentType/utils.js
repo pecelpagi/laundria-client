@@ -1,4 +1,3 @@
-import React from "react";
 import * as apiService from "../../data";
 import { catchError } from "../../utils";
 
@@ -14,23 +13,24 @@ export const tableColumns = [
   },
 ];
 
-export const handleFetchDataList = async (state, onError) => {
+export const handleFetchDataList = async (state) => {
   let data = [];
   let totalPage = 0;
+  let err = null;
 
   try {
     const response = await apiService.getPaymentTypes(state);
 
     ({ data } = response);
-    totalPage = response.meta.total_pages;
+    totalPage = response.meta.number_of_pages;
   } catch (e) {
-    onError(catchError(e));
+    err = e;
   }
 
-  return { data, totalPage };
+  return { data, totalPage, err };
 };
 
-export const handleSaveData = async (formData, onSuccessCallback, onErrorCallback) => {
+export const handleSaveData = async (formData, onSuccessCallback = () => { }, onErrorCallback = () => { }) => {
   const form = formData;
 
   try {
@@ -43,7 +43,7 @@ export const handleSaveData = async (formData, onSuccessCallback, onErrorCallbac
   }
 };
 
-export const handleDeleteData = async (formData, onSuccessCallback, onErrorCallback) => {
+export const handleDeleteData = async (formData, onSuccessCallback = () => { }, onErrorCallback = () => { }) => {
   const form = formData;
 
   try {

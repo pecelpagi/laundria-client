@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { currency, reformatDateTimeAsText } from "../../../utils";
 import { createOrderStatusText } from "../utils";
 import { ComponentContext } from "../../../mainlayout/Context";
+import DialogContext from "./DialogContext";
 
-const ReportContainer = ({ data, companyProfile }) => {
+const ReportContainer = () => {
+  const { reportData: data } = useContext(DialogContext);
+  const { companyProfile } = useContext(ComponentContext);
+
   if (!companyProfile) return null;
 
   return (
@@ -47,12 +51,4 @@ const ReportContainer = ({ data, companyProfile }) => {
   );
 };
 
-const withContext = props => (
-  <ComponentContext.Consumer>
-    {contextData => (
-      <ReportContainer {...props} {...contextData} />
-    )}
-  </ComponentContext.Consumer>
-);
-
-export default withContext;
+export default ReportContainer;

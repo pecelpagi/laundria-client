@@ -1,7 +1,7 @@
-import { Avatar, AvatarImage, AvatarFallback } from "./CustomAvatar.styles";
+import { Avatar, AvatarImage, AvatarFallback } from "./custom-avatar.styles";
 import ImageSource from "./image.png";
 
-export default () => (
+const CustomAvatar = () => (
     <Avatar>
         <AvatarImage
             src={ImageSource}
@@ -10,3 +10,5 @@ export default () => (
         <AvatarFallback delayMs={600}>LI</AvatarFallback>
     </Avatar>
 );
+
+export default CustomAvatar;

@@ -1,12 +1,6 @@
-import { fonts } from '../core';
 import { styled } from '../stitches.config';
 
-const StyledButton = styled('button', {
-    fontFamily: fonts.brand,
-    '&:hover': {
-        cursor: 'pointer'
-    },
-
+const StyledComponent = styled('button', {
     variants: {
         variant: {
             default: {
@@ -40,10 +34,12 @@ const StyledButton = styled('button', {
     }
 });
 
-export default (props) => {
-    let classes = `py-2 px-4 rounded disabled:opacity-75 ${props.disabled ? 'cursor-not-allowed' : ''}`;
+const StyledButton = (props) => {
+    let classes = `py-2 px-4 rounded disabled:opacity-75 disabled:cursor-not-allowed`;
 
     if (props.className) classes = `${classes} ${props.className}`;
 
-    return (<StyledButton {...props} className={classes}>{props.children}</StyledButton>);
+    return (<StyledComponent {...props} className={classes}>{props.children}</StyledComponent>);
 };
+
+export default StyledButton;

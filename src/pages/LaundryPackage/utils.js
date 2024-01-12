@@ -5,7 +5,7 @@ import { catchError, currency } from "../../utils";
 export const createFormData = (data = null) => ({
   id: data ? data.id : "",
   name: data ? data.name : "",
-  price: data ? parseFloat(data.price) : "",
+  price: data ? data.price : "",
 });
 
 export const tableColumns = [
@@ -23,20 +23,21 @@ export const tableColumns = [
 export const handleFetchDataList = async (state, onError) => {
   let data = [];
   let totalPage = 0;
+  let err = null;
 
   try {
     const response = await apiService.getLaundryPackages(state);
 
     ({ data } = response);
-    totalPage = response.meta.total_pages;
+    totalPage = response.meta.number_of_pages;
   } catch (e) {
-    onError(catchError(e));
+    err = e;
   }
 
-  return { data, totalPage };
+  return { data, totalPage, err };
 };
 
-export const handleSaveData = async (formData, onSuccessCallback, onErrorCallback) => {
+export const handleSaveData = async (formData, onSuccessCallback = () => { }, onErrorCallback = () => { }) => {
   const form = formData;
 
   try {
@@ -49,7 +50,7 @@ export const handleSaveData = async (formData, onSuccessCallback, onErrorCallbac
   }
 };
 
-export const handleDeleteData = async (formData, onSuccessCallback, onErrorCallback) => {
+export const handleDeleteData = async (formData, onSuccessCallback = () => { }, onErrorCallback = () => { }) => {
   const form = formData;
 
   try {

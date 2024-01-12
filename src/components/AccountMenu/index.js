@@ -1,26 +1,32 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import * as Popover from '@radix-ui/react-popover';
 import MenuButton from './MenuButton';
 import MenuList from './MenuList';
+import { useAccountMenuBusinessLogic } from './hooks';
 
-export default () => {
-    const [isOpening, setOpen] = useState(false);
-    const handleToggleMenu = () => { setOpen(!isOpening); };
-
-    const handleClickOutside = (e) => {
-        if (e.target.id !== "dot-menu-button" && e.target.id !== "dot-menu-icon") setOpen(false);
-    }
+const AccountMenu = () => {
+    const {
+        isOpen,
+        onToggleMenu,
+        onClose,
+        onClickOutside,
+    } = useAccountMenuBusinessLogic();
 
     return (
         <React.Fragment>
-            <MenuButton onClick={handleToggleMenu} />
-            <Popover.Root open={isOpening} defaultOpen={false}>
-                <Popover.Trigger />
-                <Popover.Content onPointerDownOutside={handleClickOutside} sideOffset={20} align="start">
-                    <MenuList onClick={() => { setOpen(false); }} />
-                </Popover.Content>
+            <Popover.Root open={isOpen} defaultOpen={false}>
+                <Popover.Anchor>
+                    <MenuButton onClick={onToggleMenu} />
+                </Popover.Anchor>
+                <Popover.Portal>
+                    <Popover.Content align="end" alignOffset={15} onPointerDownOutside={onClickOutside}>
+                        <MenuList onClick={onClose} />
+                    </Popover.Content>
+                </Popover.Portal>
             </Popover.Root>
         </React.Fragment>
     );
 }
+
+export default AccountMenu;

@@ -1,80 +1,72 @@
-import { useForm } from "react-hook-form";
 import {
     TrashIcon,
 } from '@radix-ui/react-icons';
 import ErrorText from "../../components/ErrorText";
-import InputText from '../../components/InputText';
+import InputText from '../../components/V2InputText';
 import Button from '../../components/StyledButton';
-import { validateEmail } from "../../utils";
+import { useBusinessLogic } from "./form.hooks";
 
-export default ({ onClose, onSave, formData, onShowConfirmationDialog, onHideFormDialog }) => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = (data) => { onSave({ id: formData.id, ...data }); };
-
-    const handleShowDeleteConfirmation = () => {
-        onHideFormDialog();
-        onShowConfirmationDialog();
-    }
-
-    const disabled = (Object.keys(errors).length > 0);
+const Form = ({ onClose, onSave, formData: formDataProp, onShowConfirmationDialog, onHideFormDialog }) => {
+    const {
+        formData,
+        errors,
+        hasErrors,
+        onSubmit,
+        onChangeValue,
+        onShowDeleteConfirmation,
+    } = useBusinessLogic({ formDataProp, onHideFormDialog, onShowConfirmationDialog, onSave });
 
     return (
-        <form className="flex flex-col gap-4 mt-4" onSubmit={handleSubmit(onSubmit)}>
+        <form className="flex flex-col gap-4 mt-4" onSubmit={onSubmit}>
             <div>
                 <InputText
                     label="Nama Lengkap"
                     name="fullname"
                     required
-                    defaultValue={formData.fullname}
-                    {...{ register }}
+                    value={formData.fullname}
+                    onChange={(e) => { onChangeValue('fullname', e.target.value); }}
                 />
-                {errors.fullname && <ErrorText>Mohon untuk mengisi nama lengkap</ErrorText>}
+                {errors.fullname && <ErrorText>{errors.fullname.message}</ErrorText>}
             </div>
             <div>
                 <InputText
                     label="Username"
                     name="username"
                     required
-                    defaultValue={formData.username}
-                    {...{ register }}
+                    value={formData.username}
+                    onChange={(e) => { onChangeValue('username', e.target.value); }}
                 />
-                {errors.username && <ErrorText>Mohon untuk mengisi username</ErrorText>}
+                {errors.username && <ErrorText>{errors.username.message}</ErrorText>}
             </div>
             <div>
                 <InputText
                     label="Alamat"
                     name="addr"
                     required
-                    defaultValue={formData.addr}
-                    {...{ register }}
+                    value={formData.addr}
+                    onChange={(e) => { onChangeValue('addr', e.target.value); }}
                 />
-                {errors.addr && <ErrorText>Mohon untuk mengisi alamat</ErrorText>}
+                {errors.addr && <ErrorText>{errors.addr.message}</ErrorText>}
             </div>
             <div>
                 <InputText
                     label="Email"
                     name="email"
                     required
-                    defaultValue={formData.email}
-                    registerOptions={{
-                        validate: { 
-                            isEmailValid: (v) => validateEmail(v) 
-                        }
-                    }}
-                    {...{ register }}
+                    value={formData.email}
+                    onChange={(e) => { onChangeValue('email', e.target.value); }}
                 />
-                {(errors.email && errors.email.type === "required") && <ErrorText>Mohon untuk mengisi email</ErrorText>}
-                {(errors.email && errors.email.type === "isEmailValid") && <ErrorText>Format email masih tidak sesuai</ErrorText>}
+                {errors.email && <ErrorText>{errors.email.message}</ErrorText>}
             </div>
             <div>
                 <InputText
                     label="No. Telepon"
                     name="phone"
                     required
-                    defaultValue={formData.phone}
-                    {...{ register }}
+                    value={formData.phone}
+                    onChange={(e) => { onChangeValue('phone', e.target.value); }}
                 />
-                {errors.phone && <ErrorText>Mohon untuk mengisi nomor telepon</ErrorText>}
+                {errors.phone && <ErrorText>{errors.phone.message}</ErrorText>}
             </div>
             <div className="flex flex-col sm:flex-row text-sm mt-1 gap-3">
                 <div className="sm:w-1/2">
@@ -83,7 +75,7 @@ export default ({ onClose, onSave, formData, onShowConfirmationDialog, onHideFor
                             className="w-full sm:w-auto"
                             type="button"
                             variant="danger"
-                            onClick={handleShowDeleteConfirmation}
+                            onClick={onShowDeleteConfirmation}
                         >
                             <span className="flex flex-row justify-center"><TrashIcon />&nbsp;Hapus</span>
                         </Button>
@@ -91,9 +83,11 @@ export default ({ onClose, onSave, formData, onShowConfirmationDialog, onHideFor
                 </div>
                 <div className="sm:w-1/2 flex justify-between sm:justify-end gap-3">
                     <Button type="button" className="w-full sm:w-auto" onClick={onClose}>Batal</Button>
-                    <Button type="submit" className="w-full sm:w-auto" variant="primary" disabled={disabled}>Simpan</Button>
+                    <Button type="submit" className="w-full sm:w-auto" variant="primary" disabled={hasErrors}>Simpan</Button>
                 </div>
             </div>
         </form>
     );
 }
+
+export default Form;

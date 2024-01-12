@@ -1,10 +1,30 @@
 import React, { lazy, useEffect, Suspense } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
 import AppProvider from './provider';
 import MainLayout from './mainlayout';
 import ErrorBoundary from './components/ErrorBoundary';
 import Spinner from './components/Spinner';
 import { getToken } from './utils';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const LoginPage = lazy(() => import('./pages/Login'));
 const LogoutPage = lazy(() => import('./pages/Logout'));

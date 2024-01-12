@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { PAGE_TYPE } from "./enums";
 
 export const createPageName = (pageType) => {
@@ -16,3 +17,15 @@ export const createPageName = (pageType) => {
 
     return '';
 }
+
+export const useRefCollections = () => {
+    const baseFormDialog = useRef(null);
+    const baseDataList = useRef(null);
+    const deleteConfirmationDialog = useRef(null);
+
+    return {
+        baseFormDialog,
+        baseDataList,
+        deleteConfirmationDialog,
+    };
+};

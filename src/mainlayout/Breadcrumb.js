@@ -1,5 +1,5 @@
+import { Link } from 'react-router-dom';
 import { styled } from '../stitches.config';
-import { isHasProperty } from '../utils';
 
 const StyledUl = styled('ul', {
     alignItems: 'center',
@@ -20,12 +20,14 @@ const StyledUl = styled('ul', {
     }
 });
 
-export default ({ data }) => (
+const Breadcrumb = ({ data }) => (
     <StyledUl className="list-none">
         {data.map((x) => {
             if (typeof x === 'string') return (<li key={x}>{x}</li>);
 
-            return (<li key={x.label}><a href={x.link}>{x.label}</a></li>);
+            return (<li key={x.label}><Link to={x.link}>{x.label}</Link></li>);
         })}
     </StyledUl>
 )
+
+export default Breadcrumb;

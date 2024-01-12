@@ -1,8 +1,5 @@
-import React from "react";
 import * as apiService from "../../data";
 import { catchError } from "../../utils";
-
-export const CustomerContext = React.createContext();
 
 export const createFormData = (data = null) => ({
   id: data ? data.id : "",
@@ -26,23 +23,24 @@ export const tableColumns = [
   },
 ];
 
-export const handleFetchCustomerList = async (state, onError) => {
+export const handleFetchDataList = async (payload) => {
   let data = [];
   let totalPage = 0;
+  let err = null;
 
   try {
-    const response = await apiService.getCustomers(state);
+    const response = await apiService.getCustomers(payload);
 
     ({ data } = response);
-    totalPage = response.meta.total_pages;
+    totalPage = response.meta.number_of_pages;
   } catch (e) {
-    onError(catchError(e));
+    err = e;
   }
 
-  return { data, totalPage };
+  return { data, totalPage, err };
 };
 
-export const handleSaveData = async (formData, onSuccessCallback, onErrorCallback) => {
+export const handleSaveData = async (formData, onSuccessCallback = () => { }, onErrorCallback = () => { }) => {
   const form = formData;
 
   try {
@@ -55,7 +53,7 @@ export const handleSaveData = async (formData, onSuccessCallback, onErrorCallbac
   }
 };
 
-export const handleDeleteData = async (formData, onSuccessCallback, onErrorCallback) => {
+export const handleDeleteData = async (formData, onSuccessCallback = () => { }, onErrorCallback = () => { }) => {
   const form = formData;
 
   try {

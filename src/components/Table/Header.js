@@ -7,7 +7,7 @@ const createStyleColumnHeader = (obj, i) => {
     return {};
 }
 
-export default ({ columns }) => {
+const Header = ({ columns }) => {
     return (
         <thead>
             <tr>
@@ -16,3 +16,5 @@ export default ({ columns }) => {
         </thead>
     )
 }
+
+export default Header;

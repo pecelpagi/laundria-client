@@ -2,19 +2,22 @@ import moment from "moment";
 import { reformatDateAsText } from "../../../utils";
 
 export const createFormData = () => ({
-    startDate: moment().subtract(1, 'days').format("YYYY-MM-DD"),
-    endDate: moment().format("YYYY-MM-DD"),
+  startDate: moment().subtract(1, 'days').toDate(),
+  endDate: moment().toDate(),
 });
 
 export const dateValidator = (val) => moment(val, 'YYYY-MM-DD', true).isValid();
 
 export const handlePrintDocument = (state) => {
-    const { startDate, endDate } = state;
+  const { startDate: rawStartDate, endDate: rawEndDate } = state;
 
-    const divContents = document.getElementById("report-container-id").innerHTML;
-    const a = window.open("", "", `width=${window.screen.availWidth}, height=${window.screen.availHeight}`);
-    a.document.write("<html>");
-    a.document.write(`
+  const startDate = moment(rawStartDate).format("YYYY-MM-DD");
+  const endDate = moment(rawEndDate).format("YYYY-MM-DD");
+
+  const divContents = document.getElementById("report-container-id").innerHTML;
+  const a = window.open("", "", `width=${window.screen.availWidth}, height=${window.screen.availHeight}`);
+  a.document.write("<html>");
+  a.document.write(`
         <head>
         <title>Periode Laporan - ${reformatDateAsText(startDate)} - ${reformatDateAsText(endDate)}</title>
         <style>
@@ -41,9 +44,9 @@ export const handlePrintDocument = (state) => {
         </style>
         </head>
     `);
-    a.document.write("<body>");
-    a.document.write(divContents);
-    a.document.write("</body></html>");
-    a.document.close();
-    a.print();
+  a.document.write("<body>");
+  a.document.write(divContents);
+  a.document.write("</body></html>");
+  a.document.close();
+  a.print();
 }
