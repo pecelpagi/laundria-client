@@ -1,8 +1,9 @@
-import Box from '../../components/Box';
 import { CalendarIcon } from '@radix-ui/react-icons';
+import ContentLoader from 'react-content-loader';
+import Box from '../../components/Box';
 import StyledButton from '../../components/StyledButton';
 import { styled } from '../../stitches.config';
-import { useContext } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import PageContext from './PageContext';
 
 const RowBox = styled('div', {
@@ -47,4 +48,41 @@ export const RowComponent = ({ data }) => {
             </Box>
         </RowBox>
     );
+}
+
+export const RowsSkeleton = () => {
+    const [anchorWidth, setAnchorWidth] = useState(0);
+    const anchorRef = useRef(null);
+
+    useEffect(() => {
+        if (anchorRef) {
+            const width = anchorRef.current.clientWidth;
+
+            setAnchorWidth(width);
+        }
+    }, []);
+
+    return (
+        <Box className='relative'>
+            <Box
+                ref={anchorRef}
+                css={{
+                    zIndex: '-1', width: '100%', height: '12px',
+                    background: 'transparent', position: 'absolute',
+                    top: 0, left: 0
+                }}
+            />
+            <ContentLoader
+                speed={2}
+                width={anchorWidth}
+                height={308}
+                backgroundColor="#f3f3f3"
+                foregroundColor="#ecebeb"
+            >
+                <rect width={anchorWidth} height="92" rx="4" ry="4" y="0" />
+                <rect width={anchorWidth} height="92" rx="4" ry="4" y="108" />
+                <rect width={anchorWidth} height="92" rx="4" ry="4" y="216" />
+            </ContentLoader>
+        </Box>
+    )
 }

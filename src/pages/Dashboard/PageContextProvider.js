@@ -4,7 +4,7 @@ import * as apiServiceUtility from './api-service.utils';
 
 class PageContextProvider extends Component {
     state = {
-        laundryTransactions: [],
+        laundryTransactions: null,
         summary: null,
     }
 
