@@ -40,6 +40,7 @@ const PaymentTypePage = lazy(() => import('../pages/PaymentType'));
 const EmployeePage = lazy(() => import('../pages/Employee'));
 const IdentityPage = lazy(() => import('../pages/Identity'));
 const MyProfilePage = lazy(() => import('../pages/MyProfile'));
+const GlobalSearchPage = lazy(() => import('../pages/GlobalSearch'));
 
 const MainLayout = () => {
     return (
@@ -62,6 +63,7 @@ const MainLayout = () => {
                             <PrivateRoute path="/employee" component={EmployeePage} superadminOnly />
                             <PrivateRoute path="/identity" component={IdentityPage} superadminOnly />
                             <PrivateRoute path="/my-profile" component={MyProfilePage} />
+                            <PrivateRoute path="/search" component={GlobalSearchPage} />
                         </Layout>
                     </Switch>
                 </div>

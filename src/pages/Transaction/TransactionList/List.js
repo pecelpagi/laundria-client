@@ -7,11 +7,12 @@ import PageContext from "./PageContext";
 const List = () => {
     const { refCollections, onFetchOrderList } = useContext(PageContext);
     const {
-        tableColumns, onRowClick
+        tableColumns, onRowClick, keyword
     } = useBusinessLogic();
 
     return (
         <Table
+            initialFilterText={keyword}
             ref={refCollections.table}
             onRowClick={onRowClick}
             columns={tableColumns}

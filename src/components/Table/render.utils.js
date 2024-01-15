@@ -5,7 +5,7 @@ import OverlayLoading from "./OverlayLoading";
 import SelectLimit from "./SelectLimit";
 import InputKeyword from "./InputKeyword";
 
-export const renderFilterText = ({ onSearchData }) => (<InputKeyword onSearch={onSearchData} />);
+export const renderFilterText = ({ onSearchData, initialFilterText }) => (<InputKeyword onSearch={onSearchData} {...{ initialFilterText }} />);
 
 export const renderTable = ({ state, props, onChangePage }) => {
     const { data, isFetching, totalPage, page } = state;
@@ -19,7 +19,7 @@ export const renderTable = ({ state, props, onChangePage }) => {
                     <Body {...{ columns, data, onRowClick }} />
                 </table>
             </div>
-            <Pagination {...{ totalPage, page }} onChange={onChangePage} />
+            {!!totalPage && <Pagination {...{ totalPage, page }} onChange={onChangePage} />}
             {isFetching ? <OverlayLoading /> : null}
         </div>
     );

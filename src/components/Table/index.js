@@ -17,9 +17,11 @@ class Table extends React.Component {
     componentDidMount = () => {
         this.handleSetFetching(true);
 
-        this.refetchIdle = setTimeout(() => {
-            this.refetchData();
-        }, 500);
+        if (!this.props.initialFilterText) {
+            this.refetchIdle = setTimeout(() => {
+                this.refetchData();
+            }, 500);
+        }
     }
 
     componentWillUnmount = () => { if (this.refetchIdle) clearTimeout(this.refetchIdle); }
@@ -63,7 +65,7 @@ class Table extends React.Component {
         }, 700);
     }
 
-    handleRenderInputSearch = () => renderUtil.renderFilterText({ onSearchData: this.handleSearchData });
+    handleRenderInputSearch = () => renderUtil.renderFilterText({ onSearchData: this.handleSearchData, initialFilterText: this.props.initialFilterText });
 
     handleRenderPageSize = () => renderUtil.renderLimitData({ state: this.state, onChangeLimitData: this.handleChangeLimitData });
 
@@ -92,12 +94,14 @@ Table.propTypes = {
     onFetch: PropTypes.func,
     withWrapperRender: PropTypes.func,
     onRowClick: PropTypes.func,
+    initialFilterText: PropTypes.string,
 };
 
 Table.defaultProps = {
     withWrapperRender: undefined,
     onFetch: () => { },
     onRowClick: () => { },
+    initialFilterText: '',
 };
 
 export default Table;

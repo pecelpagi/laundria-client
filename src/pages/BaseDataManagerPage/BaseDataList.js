@@ -1,15 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Table from '../../components/Table';
 import BaseTableHeader from '../BaseTableHeader';
 import { createPageName } from "./utils";
-import PageContext from './PageContext';
 import { TOAST_TYPE } from '../../mainlayout/enums';
+import { useBusinessLogic } from './base-data-list.hooks';
 
 const BaseDataList = React.forwardRef((props, ref) => {
-    const { onOpenFormDialog, pageUtility, pageType, onShowNotification } = useContext(PageContext);
+    const { onOpenFormDialog, pageUtility, pageType, onShowNotification, keyword } = useBusinessLogic({ ref });
 
     return (
         <Table
+            initialFilterText={keyword}
             ref={ref}
             onRowClick={onOpenFormDialog}
             columns={pageUtility.tableColumns}
