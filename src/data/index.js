@@ -176,3 +176,11 @@ export const getDashboardSummary = async (payload) => {
 
   return response;
 };
+
+export const getDailyTransactionsTotal = async (payload) => {
+  const response = await fetchApi("/api/sale/daily_transaction_total_grouped_by_date", {}, METHOD_TYPE.GET, {
+    queryString: payload,
+  });
+
+  return response;
+};

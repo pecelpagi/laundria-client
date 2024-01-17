@@ -6,6 +6,7 @@ class PageContextProvider extends Component {
     state = {
         laundryTransactions: null,
         summary: null,
+        dailyTransactionTotal: null,
     }
 
     setState = this.setState.bind(this);
@@ -37,6 +38,7 @@ class PageContextProvider extends Component {
     initialFetching = () => {
         apiServiceUtility.handleFetchLaundryTransactions({ setState: this.setState });
         apiServiceUtility.handleFetchSummary({ setState: this.setState });
+        apiServiceUtility.handleFetchDailyTransactionTotal({ setState: this.setState });
     }
 
     createContextValue = () => {

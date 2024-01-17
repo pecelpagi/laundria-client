@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext, useMemo } from 'react';
 import moment from 'moment';
 import { Line } from 'react-chartjs-2';
 import { fonts } from '../../core';
 import Box from '../../components/Box';
+import PageContext from './PageContext';
+import { ChartDataSkeleton } from './chart-data.components';
 
 const getDayName = (subtractDay) => {
     return moment().subtract(subtractDay, "days").format("YYYY-MM-DD");
@@ -65,39 +67,56 @@ export const options = {
     },
     elements: {
         line: {
-            tension: 0.5
+            tension: 0
         }
     }
 };
 
-const getRandomInt = () => {
-    return Math.floor(Math.random() * 12);
-}
+export const createLineData = (dailyTransactionTotal) => {
+    if (!dailyTransactionTotal) return null;
 
-export const data = {
-    labels,
-    datasets: [
-        {
-            data: labels.map(() => getRandomInt()),
-            borderColor: '#000000',
-            backgroundColor: '#000000',
-            pointStyle: 'circle',
-            pointRadius: 5,
-            pointHoverRadius: 7
-        },
-    ],
+    const data = labels.map((label) => {
+        const found = dailyTransactionTotal.find(x => x.date_created_at === label)
+
+        if (found) return found.daily_transaction_total;
+
+        return 0;
+    });
+
+    return {
+        labels,
+        datasets: [
+            {
+                data,
+                borderColor: '#000000',
+                backgroundColor: '#000000',
+                pointStyle: 'circle',
+                pointRadius: 5,
+                pointHoverRadius: 7
+            },
+        ],
+    };
 };
 
 const ChartData = () => {
+    const { dailyTransactionTotal } = useContext(PageContext);
+    const lineData = useMemo(() => createLineData(dailyTransactionTotal), [dailyTransactionTotal]);
+
     return (
         <div className='mt-0'>
             <div className='font-bold text-lg'>Statistik</div>
             <div>Data statistik transaksi tujuh hari terakhir</div>
-            <Box className="rounded divide-y divide-solid mt-4 p-5" css={{
-                background: '$backgroundTertiary',
-            }}>
-                <Line options={options} data={data} />
-            </Box>
+            {lineData && (
+                <Box
+                    className="rounded mt-4 p-5"
+                    css={{
+                        background: '$backgroundTertiary',
+                    }}
+                >
+                    <Line options={options} data={lineData} />
+                </Box>
+            )}
+            {!lineData && <ChartDataSkeleton />}
         </div>
     )
 }
