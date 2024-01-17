@@ -12,6 +12,8 @@ import {
 } from 'chart.js';
 import AppProvider from './provider';
 import MainLayout from './mainlayout';
+import LoginPage from './pages/Login';
+import LogoutPage from './pages/Logout';
 import ErrorBoundary from './components/ErrorBoundary';
 import Spinner from './components/Spinner';
 import { getToken } from './utils';
@@ -26,26 +28,21 @@ ChartJS.register(
   Legend
 );
 
-const LoginPage = lazy(() => import('./pages/Login'));
-const LogoutPage = lazy(() => import('./pages/Logout'));
-
 function App() {
   return (
     <AppProvider>
       <BrowserRouter>
         <ErrorBoundary>
-          <Suspense fallback={<Spinner />}>
-            <Switch>
-              <Route
-                path="/signin"
-                render={(props) => getToken() ? (<Redirect to='/dashboard' />) : (<LoginPage {...props} />)}
-              />
-              <Route path="/signout" component={LogoutPage} />
-              <Route path="/">
-                <MainLayout />
-              </Route>
-            </Switch>
-          </Suspense>
+          <Switch>
+            <Route
+              path="/signin"
+              render={(props) => getToken() ? (<Redirect to='/dashboard' />) : (<LoginPage {...props} />)}
+            />
+            <Route path="/signout" component={LogoutPage} />
+            <Route path="/">
+              <MainLayout />
+            </Route>
+          </Switch>
         </ErrorBoundary>
       </BrowserRouter>
     </AppProvider>

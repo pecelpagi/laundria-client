@@ -1,4 +1,4 @@
-import React, { lazy, useContext } from 'react';
+import React, { lazy, useContext, Suspense } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { styled } from '../stitches.config';
 import PrivateRoute from './PrivateRoute';
@@ -7,6 +7,7 @@ import Layout from './Layout';
 import Header from './V2Header';
 import SideMenu from './V2SideMenu';
 import { getToken } from "../utils";
+import Spinner from '../components/Spinner';
 
 const StyledWrapper = styled('div', {
     width: '100%',
@@ -46,26 +47,28 @@ const MainLayout = () => {
     return (
         <AppContext>
             <Wrapper>
-                <div className="relative px-0 pl-5 sm:mx-auto" style={{ maxWidth: '1280px' }}>
-                    <Switch>
-                        <Route
-                            exact path="/"
-                            render={() => !getToken() ? (<Redirect to='/signin' />) : (<Redirect to='/dashboard' />)}
-                        />
-                        <Layout>
-                            <PrivateRoute path="/dashboard" component={DashboardPage} />
-                            <PrivateRoute path="/transaction/detail/:id" component={UpdateTransactionPage} />
-                            <PrivateRoute path="/transaction/create" component={CreateTransactionPage} />
-                            <PrivateRoute exact path="/transaction" component={TransactionPage} />
-                            <PrivateRoute path="/customer" component={CustomerPage} />
-                            <PrivateRoute path="/laundry-package" component={LaundryPackagePage} superadminOnly />
-                            <PrivateRoute path="/payment-type" component={PaymentTypePage} superadminOnly />
-                            <PrivateRoute path="/employee" component={EmployeePage} superadminOnly />
-                            <PrivateRoute path="/identity" component={IdentityPage} superadminOnly />
-                            <PrivateRoute path="/my-profile" component={MyProfilePage} />
-                            <PrivateRoute path="/search" component={GlobalSearchPage} />
-                        </Layout>
-                    </Switch>
+                <div className="relative px-0 pl-5 sm:mx-auto" style={{ maxWidth: '1280px', minHeight: (window.innerHeight - 69) }}>
+                    <Suspense fallback={<Spinner />}>
+                        <Switch>
+                            <Route
+                                exact path="/"
+                                render={() => !getToken() ? (<Redirect to='/signin' />) : (<Redirect to='/dashboard' />)}
+                            />
+                            <Layout>
+                                <PrivateRoute path="/dashboard" component={DashboardPage} />
+                                <PrivateRoute path="/transaction/detail/:id" component={UpdateTransactionPage} />
+                                <PrivateRoute path="/transaction/create" component={CreateTransactionPage} />
+                                <PrivateRoute exact path="/transaction" component={TransactionPage} />
+                                <PrivateRoute path="/customer" component={CustomerPage} />
+                                <PrivateRoute path="/laundry-package" component={LaundryPackagePage} superadminOnly />
+                                <PrivateRoute path="/payment-type" component={PaymentTypePage} superadminOnly />
+                                <PrivateRoute path="/employee" component={EmployeePage} superadminOnly />
+                                <PrivateRoute path="/identity" component={IdentityPage} superadminOnly />
+                                <PrivateRoute path="/my-profile" component={MyProfilePage} />
+                                <PrivateRoute path="/search" component={GlobalSearchPage} />
+                            </Layout>
+                        </Switch>
+                    </Suspense>
                 </div>
             </Wrapper>
             <Header />
