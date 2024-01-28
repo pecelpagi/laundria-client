@@ -3,7 +3,7 @@ import {
     createDataOrderStatus, createOrderStatusText,
     createPaymentStatusText, createStaticDataPaymentStatus
 } from "../../utils";
-import Select from '../../../../components/V2Select';
+import Select from '../../../../components/Select';
 import FormContext from './FormContext';
 import { Table } from "../index.styled-components";
 import PageContext from "../PageContext";

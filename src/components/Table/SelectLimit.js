@@ -1,4 +1,4 @@
-import Select from "../V2Select";
+import Select from "../Select";
 
 const limitData = [
     { value: "5", label: "5" },

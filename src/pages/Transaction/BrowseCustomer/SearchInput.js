@@ -1,5 +1,5 @@
 import React from 'react';
-import InputText from '../../../components/V2InputText';
+import InputText from '../../../components/InputText';
 import * as StyledComponent from './search-input.styled-components';
 import { useBusinessLogic } from './search-input.hooks';
 

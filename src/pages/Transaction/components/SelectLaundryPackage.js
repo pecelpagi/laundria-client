@@ -1,5 +1,5 @@
 import React from "react";
-import Select, { SELECT_TYPE } from '../../../components/V2Select';
+import Select, { SELECT_TYPE } from '../../../components/Select';
 import * as apiServiceUtility from './api-service.utils';
 
 const SelectLaundryPackage = ({ onChange, value }) => {

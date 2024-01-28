@@ -3,7 +3,7 @@ import {
     LockClosedIcon
 } from '@radix-ui/react-icons';
 import { Wrapper, Header } from './Login.styles';
-import InputText from '../../components/V2InputText';
+import InputText from '../../components/InputText';
 import InputPassword from '../../components/InputPassword';
 import StyledButton from '../../components/StyledButton';
 import { isHasProperty } from "../../utils";

@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import ErrorText from "../../../../components/ErrorText";
-import InputText from '../../../../components/V2InputText';
+import InputText from '../../../../components/InputText';
 import BrowseCustomer from "../../BrowseCustomer";
 import SelectPaymentType from "../../components/SelectPaymentType";
 import SelectLaundryPackage from "../../components/SelectLaundryPackage";
-import Select from '../../../../components/V2Select';
+import Select from '../../../../components/Select';
 import { createStaticDataPaymentStatus } from '../../utils';
 import { replaceAllExceptNumerics } from "../../../../utils";
 import PageContext from "../PageContext";

@@ -2,7 +2,7 @@ import {
     TrashIcon,
 } from '@radix-ui/react-icons';
 import ErrorText from "../../components/ErrorText";
-import InputText from '../../components/V2InputText';
+import InputText from '../../components/InputText';
 import Button from '../../components/StyledButton';
 import { useBusinessLogic } from "./form.hooks";
 

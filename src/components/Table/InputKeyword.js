@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import InputText from '../../components/V2InputText';
+import InputText from '../../components/InputText';
 
 const InputKeyword = ({ onSearch, initialFilterText }) => {
     const [value, setValue] = useState(initialFilterText);

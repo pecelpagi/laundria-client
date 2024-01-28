@@ -1,5 +1,5 @@
 import ErrorText from "../../components/ErrorText";
-import InputText from '../../components/V2InputText';
+import InputText from '../../components/InputText';
 import { useBusinessLogic } from "./form.hooks";
 
 const Form = () => {
