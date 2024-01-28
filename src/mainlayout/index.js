@@ -4,8 +4,8 @@ import { styled } from '../stitches.config';
 import PrivateRoute from './PrivateRoute';
 import AppContext, { ComponentContext } from './Context'
 import Layout from './Layout';
-import Header from './V2Header';
-import SideMenu from './V2SideMenu';
+import Header from './Header';
+import SideMenu from './SideMenu';
 import { getToken } from "../utils";
 import Spinner from '../components/Spinner';
 
