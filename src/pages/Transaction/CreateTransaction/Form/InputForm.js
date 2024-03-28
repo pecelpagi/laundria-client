@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import ErrorText from "../../../../components/ErrorText";
 import InputText from '../../../../components/InputText';
 import BrowseCustomer from "../../BrowseCustomer";
+import Datepicker from '../../../../components/Datepicker';
 import SelectPaymentType from "../../components/SelectPaymentType";
 import SelectLaundryPackage from "../../components/SelectLaundryPackage";
 import Select from '../../../../components/Select';
@@ -59,12 +60,13 @@ const InputForm = () => {
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
                 <div className="sm:w-1/3">
-                    <InputText
+                    <Datepicker
                         label="Tanggal Ambil"
-                        name="pickupDate"
                         required
-                        value={formData.pickupDate}
-                        onChange={(e) => { onChange('pickupDate', e.target.value); }}
+                        onDateSelected={({ date }) => {
+                            onChange('pickupDate', date);
+                        }}
+                        selected={formData.pickupDate}
                     />
                     {errors.pickupDate && <ErrorText>{errors.pickupDate.message}</ErrorText>}
                 </div>

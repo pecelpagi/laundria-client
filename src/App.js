@@ -1,4 +1,4 @@
-import React, { lazy, useEffect, Suspense } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import {
   Chart as ChartJS,
@@ -15,7 +15,6 @@ import MainLayout from './mainlayout';
 import LoginPage from './pages/Login';
 import LogoutPage from './pages/Logout';
 import ErrorBoundary from './components/ErrorBoundary';
-import Spinner from './components/Spinner';
 import { getToken } from './utils';
 
 ChartJS.register(

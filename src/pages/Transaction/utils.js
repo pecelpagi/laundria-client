@@ -116,7 +116,7 @@ export const createFormData = () => ({
     addr: "",
     laundryPackageId: "",
     weight: '',
-    pickupDate: moment().add(3, "days").format("YYYY-MM-DD"),
+    pickupDate: moment().add(3, "days").toDate(),
     paymentTypeId: "",
     paymentStatus: "",
 });
@@ -127,7 +127,7 @@ export const createPayload = data => ({
     addr: data.addr,
     laundry_package_id: data.laundryPackageId,
     weight: data.weight,
-    pickup_date: data.pickupDate,
+    pickup_date: moment(data.pickupDate).format('YYYY-MM-DD'),
     payment_type_id: data.paymentTypeId,
     payment_status: data.paymentStatus,
     sales_number: data.salesNumber,
