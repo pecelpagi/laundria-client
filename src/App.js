@@ -16,6 +16,7 @@ import LoginPage from './pages/Login';
 import LogoutPage from './pages/Logout';
 import ErrorBoundary from './components/ErrorBoundary';
 import { getToken } from './utils';
+import NotFoundPage from './pages/NotFoundPage';
 
 ChartJS.register(
   CategoryScale,
@@ -33,6 +34,9 @@ function App() {
       <BrowserRouter>
         <ErrorBoundary>
           <Switch>
+            <Route path="/notfound">
+              <NotFoundPage />
+            </Route>
             <Route
               path="/signin"
               render={(props) => getToken() ? (<Redirect to='/dashboard' />) : (<LoginPage {...props} />)}

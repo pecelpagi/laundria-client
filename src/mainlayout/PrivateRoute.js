@@ -22,19 +22,21 @@ const RoleChecker = (props) => {
     return <Component {...props} />
 }
 
-export default ({ component, ...rest }) => (
-    <Route
-        {...rest}
-        render={props => (isAuthenticated ? (
-            <RoleChecker {...props} {...rest} {...{ component }} />
-        ) : (
-            <Redirect
-                to={{
-                    pathname: "/signin",
-                    state: { from: props.location },
-                }}
-            />
-        ))
-        }
-    />
-);
+export default ({ component, ...rest }) => {
+    return (
+        <Route
+            {...rest}
+            render={props => (isAuthenticated ? (
+                <RoleChecker {...props} {...rest} {...{ component }} />
+            ) : (
+                <Redirect
+                    to={{
+                        pathname: "/signin",
+                        state: { from: props.location },
+                    }}
+                />
+            ))
+            }
+        />
+    );
+};
