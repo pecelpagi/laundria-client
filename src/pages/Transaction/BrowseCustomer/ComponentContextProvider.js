@@ -38,7 +38,8 @@ class ComponentContextProvider extends React.Component {
         this.setState({
             ...this.defaultState, search
         }, () => {
-            this.handleFetchCustomers(true);
+            const isReplace = true;
+            this.handleFetchCustomers(isReplace);
         });
     }
 

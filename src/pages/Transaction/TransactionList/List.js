@@ -1,32 +1,25 @@
-import React, { useContext } from "react";
-import Table from "../../../components/Table";
-import BaseTableHeader from "../../BaseTableHeader";
+import React from 'react'
+import BaseList from '../../../components/BaseList'
 import { useBusinessLogic } from "./hooks";
-import PageContext from "./PageContext";
 
 const List = () => {
-    const { refCollections, onFetchOrderList } = useContext(PageContext);
     const {
-        tableColumns, onRowClick, keyword
+        tableColumns, onRowClick, keyword, onFetchSales,
+        salesData, salesMeta, salesIsLoading,
     } = useBusinessLogic();
 
-    return (
-        <Table
-            initialFilterText={keyword}
-            ref={refCollections.table}
-            onRowClick={onRowClick}
-            columns={tableColumns}
-            onFetch={onFetchOrderList}
-            withWrapperRender={({ makeTable, ...rest }) => (
-                <div className="bg-white rounded divide-y divide-solid">
-                    <BaseTableHeader {...rest} title="Transaksi" />
-                    <div className="py-3">
-                        {makeTable()}
-                    </div>
-                </div>
-            )}
-        />
-    );
+  return (
+    <BaseList
+        title="Transaksi"
+        data={salesData}
+        defaultFilterKeyword={keyword}
+        onFetch={onFetchSales}
+        columns={tableColumns}
+        totalPage={salesMeta.number_of_pages}
+        onRowClick={onRowClick}
+        loading={salesIsLoading}
+    />
+  )
 }
 
-export default List;
+export default List

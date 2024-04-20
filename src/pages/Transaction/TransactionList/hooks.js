@@ -1,7 +1,9 @@
 import { useHistory, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { createTableColumns } from "./utils";
-import { useContext, useEffect, useMemo } from "react";
-import PageContext from "./PageContext";
+import { useMemo } from "react";
+import { selectSalesData, selectSalesIsLoading, selectSalesMeta } from "../../../store/sales/sales.selector";
+import { fetchSalesStart } from '../../../store/sales/sales.action';
 
 const handleGetKeyword = ({ location }) => {
     const splitLocation = String(location.search).split("q=");
@@ -12,21 +14,25 @@ const handleGetKeyword = ({ location }) => {
 }
 
 export const useBusinessLogic = () => {
-    const { refCollections } = useContext(PageContext);
+    const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation();
     const keyword = handleGetKeyword({ location });
     const tableColumns = useMemo(() => createTableColumns(), []);
 
-    useEffect(() => {
-        if (keyword) refCollections.table.current.handleSearchData(keyword);
-    }, [refCollections.table, keyword]);
+    const salesData = useSelector(selectSalesData);
+    const salesMeta = useSelector(selectSalesMeta);
+    const salesIsLoading = useSelector(selectSalesIsLoading);
 
     const handleRowClick = (data) => { history.push(`/transaction/detail/${data.id}`); }
 
     return {
         tableColumns,
         keyword,
+        salesData,
+        salesMeta,
+        salesIsLoading,
         onRowClick: handleRowClick,
+        onFetchSales: (payload) => dispatch(fetchSalesStart(payload)),
     }
 }

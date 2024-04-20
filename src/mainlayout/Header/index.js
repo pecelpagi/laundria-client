@@ -5,7 +5,7 @@ import Box from '../../components/Box';
 
 const Header = () => {
     return (
-        <div className="fixed top-2 left-0 right-0 w-full bg-white py-3 px-6 pl-56">
+        <div className="fixed top-0 left-0 right-0 w-full bg-white py-3 px-6 pl-56">
             <Box
                 css={{
                     display: 'grid',

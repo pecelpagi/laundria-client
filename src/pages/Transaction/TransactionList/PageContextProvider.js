@@ -2,12 +2,19 @@ import React from 'react';
 import {
     PlusIcon, FileTextIcon
 } from '@radix-ui/react-icons';
-import * as apiServiceUtility from './api-service.utils';
+import { connect } from 'react-redux';
 import PageContext from './PageContext';
+import { fetchSalesStart } from '../../../store/sales/sales.action';
 
 class PageContextProvider extends React.Component {
     componentDidMount = () => {
         this.handleAssignButtonsAndBreadcrumbs();
+    }
+
+    componentWillUnmount = () => {
+        const { dispatchFetchSalesStart } = this.props;
+
+        dispatchFetchSalesStart({ limit: 5, page: 1, search: '' })
     }
 
     handleAssignButtonsAndBreadcrumbs = () => {
@@ -29,7 +36,6 @@ class PageContextProvider extends React.Component {
 
     createContextValue = () => ({
         ...this.props,
-        onFetchOrderList: apiServiceUtility.handleFetchOrderList,
     });
 
     render() {
@@ -45,4 +51,11 @@ class PageContextProvider extends React.Component {
     }
 }
 
-export default PageContextProvider;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        // dispatching plain actions
+        dispatchFetchSalesStart: (payload) => dispatch(fetchSalesStart(payload)),
+    }
+}
+
+export default connect(null, mapDispatchToProps)(PageContextProvider);

@@ -5,10 +5,8 @@ import { createOrderStatusText, createStaticDataPaymentStatus } from "../utils";
 
 export const useRefCollections = () => {
     const printReport = useRef(null);
-    const table = useRef(null);
 
     return {
-        table,
         printReport
     };
 };
