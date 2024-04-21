@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { ComponentContext } from "../../mainlayout/Context";
 import PageContext from './PageContext';
 import Box from '../../components/Box';
 import Breadcrumb from '../../mainlayout/Breadcrumb';
@@ -96,9 +95,8 @@ class ClassComponent extends React.Component {
 
 const PageContextProvider = (props) => {
     const location = useLocation();
-    const contextData = useContext(ComponentContext);
 
-    return <ClassComponent {...props} {...contextData} {...{ location }} />
+    return <ClassComponent {...props} {...{ location }} />
 };
 
 export default PageContextProvider;

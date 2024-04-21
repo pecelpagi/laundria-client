@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as apiService from "../../data";
-import { ComponentContext } from "../../mainlayout/Context";
 import { catchError } from '../../utils';
 import { TOAST_TYPE } from '../../mainlayout/enums';
 import Spinner from '../../components/Spinner';
@@ -115,11 +114,10 @@ class ClassComponent extends React.Component {
 }
 
 const PageContextProvider = (props) => {
-    const contextData = useContext(ComponentContext);
     const companyProfile = useSelector(selectCompanyProfileData);
     const dispatch = useDispatch();
 
-    return <ClassComponent {...props} {...contextData} {...{ dispatch, companyProfile }} />
+    return <ClassComponent {...props} {...{ dispatch, companyProfile }} />
 };
 
 export default PageContextProvider;
