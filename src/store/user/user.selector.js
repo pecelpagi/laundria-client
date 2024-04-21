@@ -11,3 +11,15 @@ export const selectCompanyProfileIsLoading = createSelector(
     [selectCompanyProfileReducer],
     (companyProfileReducer) => companyProfileReducer.isLoading
 );
+
+const selectMyProfileReducer = state => state.myProfile;
+
+export const selectMyProfileData = createSelector(
+    [selectMyProfileReducer],
+    (myProfileReducer) => myProfileReducer.data
+);
+
+export const selectMyProfileIsLoading = createSelector(
+    [selectMyProfileReducer],
+    (myProfileReducer) => myProfileReducer.isLoading
+);
