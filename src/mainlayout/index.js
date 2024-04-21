@@ -1,14 +1,14 @@
-import React, { useContext, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { styled } from '../stitches.config';
 import PrivateRoute from './PrivateRoute';
-import AppContext, { ComponentContext } from './Context'
 import Layout from './Layout';
 import Header from './Header';
 import SideMenu from './SideMenu';
 import { getToken } from "../utils";
 import Spinner from '../components/Spinner';
 import rawMenuData from './menuData';
+import MainLayoutProvider from './MainLayoutProvider';
 
 const StyledWrapper = styled('div', {
     width: '100%',
@@ -26,11 +26,7 @@ const StyledWrapper = styled('div', {
     },
 });
 
-const Wrapper = ({ children }) => {
-    const { isShowingSidebarMenu } = useContext(ComponentContext);
-
-    return <StyledWrapper className="relative top-24 transition-all" showedMenu={isShowingSidebarMenu}>{children}</StyledWrapper>
-}
+const Wrapper = ({ children }) => <StyledWrapper className="relative top-24 transition-all" showedMenu>{children}</StyledWrapper>
 
 const menuData = [];
 
@@ -69,7 +65,7 @@ const LayoutRoutes = (props) => {
 
 const MainLayout = () => {
     return (
-        <AppContext>
+        <MainLayoutProvider>
             <Wrapper>
                 <div className="relative px-0 pl-5 sm:mx-auto" style={{ maxWidth: '1280px', minHeight: (window.innerHeight - 69) }}>
                     <Layout>
@@ -79,7 +75,7 @@ const MainLayout = () => {
             </Wrapper>
             <Header />
             <SideMenu />
-        </AppContext>
+        </MainLayoutProvider>
     );
 };
 

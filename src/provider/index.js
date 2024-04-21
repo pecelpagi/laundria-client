@@ -4,29 +4,9 @@ import './styles/normalize.css';
 import './styles/global.styles.css';
 
 import globalStyles from './styles';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchSalesStart } from '../store/sales/sales.action';
-import { fetchCustomersStart } from '../store/customer/customer.action';
-import { fetchEmployeesStart } from '../store/employee/employee.action';
-import { fetchLaundryPackagesStart } from '../store/laundry_package/laundry_package.action';
-import { fetchPaymentTypesStart } from '../store/payment_type/payment_type.action';
-import { fetchCompanyProfileStart, fetchMyProfileStart } from '../store/user/user.action';
 
 export const AppProvider = ({ children }) => {
     globalStyles();
-
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(fetchSalesStart({ limit: 5, page: 1, search: '' }));
-        dispatch(fetchCustomersStart({ limit: 5, page: 1, search: '' }));
-        dispatch(fetchEmployeesStart({ limit: 5, page: 1, search: '' }));
-        dispatch(fetchLaundryPackagesStart({ limit: 5, page: 1, search: '' }));
-        dispatch(fetchPaymentTypesStart({ limit: 5, page: 1, search: '' }));
-        dispatch(fetchCompanyProfileStart());
-        dispatch(fetchMyProfileStart());
-    }, [dispatch]);
 
     return (
         <div className={theme}>

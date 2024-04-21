@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import CustomAvatar from "../CustomAvatar";
-import { ComponentContext } from "../../mainlayout/Context";
 import Box from '../Box';
 import * as MenuButtonComponent from './menu-button.components';
+import { useSelector } from 'react-redux';
+import { selectMyProfileData } from '../../store/user/user.selector';
 
 const MenuButton = ({ onClick }) => {
-    const { loggedInProfile } = useContext(ComponentContext);
+    const loggedInProfile = useSelector(selectMyProfileData);
 
     return (
         <Box
