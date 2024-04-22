@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
-import PageContext from './PageContext';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import Box from '../../components/Box';
 import { RowComponent, RowsSkeleton } from './new-transaction-list.components';
+import { selectUnprocessedSalesData } from '../../store/sales/sales.selector';
 
 const NewTransactionList = () => {
-    const { laundryTransactions } = useContext(PageContext);
+    const laundryTransactions = useSelector(selectUnprocessedSalesData);
 
     return (
         <Box className='mt-0'>

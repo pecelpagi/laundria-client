@@ -3,9 +3,12 @@ import * as apiService from "../../data";
 import {
     fetchSalesSuccess,
     fetchSalesFailure,
+    fetchUnprocessedSalesSuccess,
+    fetchUnprocessedSalesFailure,
 } from './sales.action';
 
-import { SALES_ACTION_TYPES } from './sales.types';
+import { SALES_ACTION_TYPES, UNPROCESSED_SALES_ACTION_TYPES } from './sales.types';
+import { ORDER_STATUS } from '../../enums';
 
 export function* fetchSalesAsync({ payload }) {
     try {
@@ -23,6 +26,22 @@ export function* onFetchSales() {
     )
 }
 
+export function* fetchUnprocessedSalesAsync() {
+    try {
+        const response = yield call(apiService.getLaundryTransactions, { order_status: ORDER_STATUS.NEW });
+        yield put(fetchUnprocessedSalesSuccess(response));
+    } catch (error) {
+        yield put(fetchUnprocessedSalesFailure(error));
+    }
+}
+
+export function* onFetchUnprocessedSales() {
+    yield takeLatest(
+        UNPROCESSED_SALES_ACTION_TYPES.FETCH_UNPROCESSED_SALES_START,
+        fetchUnprocessedSalesAsync,
+    )
+}
+
 export function* salesSaga() {
-    yield all([call(onFetchSales)]);
+    yield all([call(onFetchSales), call(onFetchUnprocessedSales)]);
 }

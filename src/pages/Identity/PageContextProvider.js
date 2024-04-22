@@ -1,29 +1,36 @@
-import React, { useContext } from 'react';
-import { handleDeriveCompanyProfile } from './utils';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import * as apiService from "../../data";
-import { ComponentContext } from "../../mainlayout/Context";
 import { catchError } from '../../utils';
 import { TOAST_TYPE } from '../../mainlayout/enums';
 import Spinner from '../../components/Spinner';
 import PageContext from './PageContext';
+import { fetchCompanyProfileStart } from '../../store/user/user.action';
+import { selectCompanyProfileData } from '../../store/user/user.selector';
 
 class ClassComponent extends React.Component {
     state = {
         formData: null,
-        companyProfile: {},
         isSaving: false,
-    }
-
-    static getDerivedStateFromProps(props, state) {
-        const derivedCompanyProfile = handleDeriveCompanyProfile(props, state);
-
-        if (derivedCompanyProfile) return derivedCompanyProfile;
-
-        return null;
     }
 
     componentDidMount = () => {
         this.handleAssignButtonsAndBreadcrumbs();
+        this.handleInitFormData();
+    }
+
+    componentDidUpdate = (prevProps) => {
+        const { companyProfile } = this.props;
+    
+        if (companyProfile !== prevProps.companyProfile) {
+            this.handleInitFormData();
+        }
+    }
+
+    handleInitFormData = () => {
+        const { companyProfile } = this.props;
+
+        this.setState({ formData: companyProfile });
     }
 
     handleAssignButtonsAndBreadcrumbs = () => {
@@ -63,14 +70,14 @@ class ClassComponent extends React.Component {
     }
 
     handleSave = async (data) => {
+        const { dispatch } = this.props;
+
         this.handleSetSaving(true);
 
         try {
-            const { onFetchCompanyProfile } = this.props;
-
             await apiService.updateCompanyProfile(data);
 
-            onFetchCompanyProfile();
+            dispatch(fetchCompanyProfileStart());
 
             this.doShowingNotification(TOAST_TYPE.SUCCESS, 'Data identitas aplikasi tersimpan');
         } catch (e) {
@@ -107,9 +114,10 @@ class ClassComponent extends React.Component {
 }
 
 const PageContextProvider = (props) => {
-    const contextData = useContext(ComponentContext);
+    const companyProfile = useSelector(selectCompanyProfileData);
+    const dispatch = useDispatch();
 
-    return <ClassComponent {...props} {...contextData} />
+    return <ClassComponent {...props} {...{ dispatch, companyProfile }} />
 };
 
 export default PageContextProvider;

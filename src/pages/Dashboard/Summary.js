@@ -1,11 +1,11 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { SummaryItem, SummarySkeleton } from './summary.components';
 import Box from '../../components/Box';
-import { useContext } from 'react';
-import PageContext from './PageContext';
+import { selectSummaryData } from '../../store/summary/summary.selector';
 
 const Summary = () => {
-    const { summary } = useContext(PageContext);
+    const summary = useSelector(selectSummaryData);
 
     if (!summary) {
         return (

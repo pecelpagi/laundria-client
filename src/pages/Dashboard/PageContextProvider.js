@@ -1,19 +1,9 @@
 import React, { Component } from 'react'
 import PageContext from './PageContext';
-import * as apiServiceUtility from './api-service.utils';
 
 class PageContextProvider extends Component {
-    state = {
-        laundryTransactions: null,
-        summary: null,
-        dailyTransactionTotal: null,
-    }
-
-    setState = this.setState.bind(this);
-
     componentDidMount = () => {
         this.handleAssignButtonsAndBreadcrumbs();
-        this.initialFetching();
     }
 
     handleAssignButtonsAndBreadcrumbs = () => {
@@ -35,16 +25,9 @@ class PageContextProvider extends Component {
         ]);
     }
 
-    initialFetching = () => {
-        apiServiceUtility.handleFetchLaundryTransactions({ setState: this.setState });
-        apiServiceUtility.handleFetchSummary({ setState: this.setState });
-        apiServiceUtility.handleFetchDailyTransactionTotal({ setState: this.setState });
-    }
-
     createContextValue = () => {
         return {
             ...this.props,
-            ...this.state,
         }
     }
 

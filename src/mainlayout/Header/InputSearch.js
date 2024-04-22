@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import queryString from 'query-string';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { styled } from '../../stitches.config';
 
@@ -14,9 +15,9 @@ const Wrapper = styled('div', {
 
 const InputSearch = () => {
     const location = useLocation();
-    const splitLocation = String(location.search).split("q=");
+    const parsed = queryString.parse(location.search);
 
-    const keyword = splitLocation.length > 1 ? splitLocation[1] : '';
+    const keyword = ('q' in parsed) ? parsed.q : '';
 
     const [value, setValue] = useState(keyword);
 

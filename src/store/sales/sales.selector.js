@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { currency, reformatDateTimeAsText } from '../../utils';
 
 const selectSalesReducer = state => state.sales;
 
@@ -15,4 +16,25 @@ export const selectSalesMeta = createSelector(
 export const selectSalesIsLoading = createSelector(
     [selectSalesReducer],
     (salesReducer) => salesReducer.isLoading
+);
+
+const selectUnprocessedSalesReducer = state => state.unprocessedSales;
+
+const selectUnprocessedSalesRawData = createSelector(
+    [selectUnprocessedSalesReducer],
+    (unprocessedSalesReducer) => unprocessedSalesReducer.data
+);
+
+export const selectUnprocessedSalesData = createSelector(
+    [selectUnprocessedSalesRawData],
+    (unprocessedSalesData) => unprocessedSalesData.map(x => ({
+        ...x,
+        total: currency(x.total),
+        createdAt: reformatDateTimeAsText(x.created_at),
+    }))
+); 
+
+export const selectUnprocessedSalesIsLoading = createSelector(
+    [selectUnprocessedSalesReducer],
+    (unprocessedSalesReducer) => unprocessedSalesReducer.isLoading
 );

@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
+import { useSelector } from "react-redux";
 import { currency, reformatDateTimeAsText } from "../../../utils";
 import { createOrderStatusText } from "../utils";
-import { ComponentContext } from "../../../mainlayout/Context";
 import DialogContext from "./DialogContext";
+import { selectCompanyProfileData } from "../../../store/user/user.selector";
 
 const ReportContainer = () => {
   const { reportData: data } = useContext(DialogContext);
-  const { companyProfile } = useContext(ComponentContext);
+  const companyProfile = useSelector(selectCompanyProfileData);
 
   if (!companyProfile) return null;
 

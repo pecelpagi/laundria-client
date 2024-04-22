@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { ComponentContext } from "../../mainlayout/Context";
+import queryString from 'query-string';
 import PageContext from './PageContext';
 import Box from '../../components/Box';
 import Breadcrumb from '../../mainlayout/Breadcrumb';
@@ -43,9 +43,11 @@ class ClassComponent extends React.Component {
 
     handleGetKeyword = () => {
         const { location } = this.props;
-        const splitLocation = String(location.search).split("q=");
+        const parsed = queryString.parse(location.search);
 
-        const keyword = splitLocation.length > 1 ? splitLocation[1] : '';
+        if (!('q' in parsed)) return '';
+
+        const keyword = parsed.q;
 
         return keyword;
     }
@@ -96,9 +98,8 @@ class ClassComponent extends React.Component {
 
 const PageContextProvider = (props) => {
     const location = useLocation();
-    const contextData = useContext(ComponentContext);
 
-    return <ClassComponent {...props} {...contextData} {...{ location }} />
+    return <ClassComponent {...props} {...{ location }} />
 };
 
 export default PageContextProvider;

@@ -1,6 +1,6 @@
+import { useSelector } from "react-redux";
 import { currency, reformatDateAsText, reformatDateTimeAsText } from "../../../../utils";
-import { ComponentContext } from "../../../../mainlayout/Context";
-import { useContext } from "react";
+import { selectCompanyProfileData } from "../../../../store/user/user.selector";
 
 const notes = [
   "Pengambilan cucian harus membawa nota",
@@ -14,7 +14,7 @@ const notes = [
 
 const InvoiceContainer = (props) => {
   const { data } = props;
-  const { companyProfile } = useContext(ComponentContext);
+  const companyProfile = useSelector(selectCompanyProfileData);
 
   if (!companyProfile) return null;
 

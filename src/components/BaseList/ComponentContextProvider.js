@@ -51,6 +51,13 @@ class ComponentContextProvider extends React.Component {
         });
     }
 
+    handleRefetchData = () => {
+        const { filterKeyword, limit, page } = this.state;
+        const { onFetch } = this.props;
+        
+        onFetch({ search: filterKeyword, limit, page });
+    }
+
     createContextValue = () => {
         return {
             ...this.props,

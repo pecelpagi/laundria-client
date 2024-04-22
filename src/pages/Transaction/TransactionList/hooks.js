@@ -1,14 +1,17 @@
+import { useMemo } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import queryString from 'query-string';
 import { createTableColumns } from "./utils";
-import { useMemo } from "react";
 import { selectSalesData, selectSalesIsLoading, selectSalesMeta } from "../../../store/sales/sales.selector";
 import { fetchSalesStart } from '../../../store/sales/sales.action';
 
 const handleGetKeyword = ({ location }) => {
-    const splitLocation = String(location.search).split("q=");
+    const parsed = queryString.parse(location.search);
 
-    const keyword = splitLocation.length > 1 ? splitLocation[1] : '';
+    if (!('q' in parsed)) return '';
+
+    const keyword = parsed.q;
 
     return keyword;
 }

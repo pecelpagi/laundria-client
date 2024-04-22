@@ -22,7 +22,7 @@ const RoleChecker = (props) => {
     return <Component {...props} />
 }
 
-export default ({ component, ...rest }) => {
+const PrivateRoute = ({ component, ...rest }) => {
     return (
         <Route
             {...rest}
@@ -40,3 +40,5 @@ export default ({ component, ...rest }) => {
         />
     );
 };
+
+export default PrivateRoute;

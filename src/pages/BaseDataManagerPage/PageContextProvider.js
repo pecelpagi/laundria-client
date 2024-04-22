@@ -6,8 +6,14 @@ import PropTypes from 'prop-types';
 import { createPageName } from './utils';
 import { TOAST_TYPE } from '../../mainlayout/enums';
 import PageContext from './PageContext';
+import { useDispatch } from 'react-redux';
+import { fetchCustomersStart } from '../../store/customer/customer.action';
+import { PAGE_TYPE } from './enums';
+import { fetchLaundryPackagesStart } from '../../store/laundry_package/laundry_package.action';
+import { fetchEmployeesStart } from '../../store/employee/employee.action';
+import { fetchPaymentTypesStart } from '../../store/payment_type/payment_type.action';
 
-class PageContextProvider extends React.Component {
+class ClassComponent extends React.Component {
     state = {
         formData: null,
         isDialogLoading: false,
@@ -20,6 +26,33 @@ class PageContextProvider extends React.Component {
 
         this.handleAssignButtonsAndBreadcrumbs();
         this.setState({ formData: pageUtility.createFormData() })
+    }
+
+    componentWillUnmount = () => {
+        this.handleResetData();
+    }
+
+    handleResetData = () => {
+        const { dispatch, pageType } = this.props;
+
+        const defaultState = { limit: 5, page: 1, search: '' };
+
+        switch (pageType) {
+            case PAGE_TYPE.CUSTOMER:
+                dispatch(fetchCustomersStart(defaultState));
+                break;
+            case PAGE_TYPE.EMPLOYEE:
+                dispatch(fetchEmployeesStart(defaultState));
+                break;
+            case PAGE_TYPE.LAUNDRY_PACKAGE:
+                dispatch(fetchLaundryPackagesStart(defaultState));
+                break;
+            case PAGE_TYPE.PAYMENT_TYPE:
+                dispatch(fetchPaymentTypesStart(defaultState));
+                break;
+            default:
+                // do nothing
+        }
     }
 
     handleAssignButtonsAndBreadcrumbs = () => {
@@ -59,7 +92,7 @@ class PageContextProvider extends React.Component {
 
         const onErrorCallback = (err) => { this.doShowingNotification(TOAST_TYPE.ERROR, err); };
         const onSuccessCallback = () => {
-            refCollections.baseDataList.current.refetchData();
+            refCollections.baseDataList.current.handleRefetchData();
             refCollections.baseFormDialog.current.handleHideDialog();
 
             this.doShowingNotification(TOAST_TYPE.SUCCESS, 'Data telah tersimpan');
@@ -75,7 +108,7 @@ class PageContextProvider extends React.Component {
         const { formData } = this.state;
 
         const onSuccessCallback = () => {
-            refCollections.baseDataList.current.refetchData();
+            refCollections.baseDataList.current.handleRefetchData();
             refCollections.baseFormDialog.current.handleHideDialog();
             refCollections.deleteConfirmationDialog.current.handleHideDialog();
 
@@ -125,16 +158,26 @@ class PageContextProvider extends React.Component {
     }
 }
 
-PageContextProvider.propTypes = {
+ClassComponent.propTypes = {
     pageType: PropTypes.string.isRequired,
     pageUtility: PropTypes.shape({
         createFormData: PropTypes.func.isRequired,
         handleSaveData: PropTypes.func.isRequired,
         handleDeleteData: PropTypes.func.isRequired,
-        handleFetchDataList: PropTypes.func.isRequired,
         tableColumns: PropTypes.array,
     }).isRequired,
     renderInputFormDialog: PropTypes.func.isRequired,
 };
+
+const PageContextProvider = (props) => {
+    const { children, ...restProps } = props;
+    const dispatch = useDispatch();
+    
+    return (
+        <ClassComponent {...restProps} {...{ dispatch }}>
+            {children}
+        </ClassComponent>
+    )
+}
 
 export default PageContextProvider;

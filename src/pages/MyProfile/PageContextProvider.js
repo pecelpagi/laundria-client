@@ -1,29 +1,36 @@
-import React, { useContext } from 'react';
-import { handleDeriveLoggedInProfile } from './utils';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import * as apiService from "../../data";
-import { ComponentContext } from "../../mainlayout/Context";
 import { catchError } from '../../utils';
 import { TOAST_TYPE } from '../../mainlayout/enums';
 import Spinner from '../../components/Spinner';
 import PageContext from './PageContext';
+import { fetchMyProfileStart } from '../../store/user/user.action';
+import { selectMyProfileData } from '../../store/user/user.selector';
 
 class ClassComponent extends React.Component {
     state = {
         formData: null,
-        loggedInProfile: {},
         isSaving: false,
-    }
-
-    static getDerivedStateFromProps(props, state) {
-        const derivedLoggedInProfile = handleDeriveLoggedInProfile(props, state);
-
-        if (derivedLoggedInProfile) return derivedLoggedInProfile;
-
-        return null;
     }
 
     componentDidMount = () => {
         this.handleAssignButtonsAndBreadcrumbs();
+        this.handleInitFormData();
+    }
+
+    componentDidUpdate = (prevProps) => {
+        const { loggedInProfile } = this.props;
+    
+        if (loggedInProfile !== prevProps.loggedInProfile) {
+            this.handleInitFormData();
+        }
+    }
+
+    handleInitFormData = () => {
+        const { loggedInProfile } = this.props;
+
+        this.setState({ formData: loggedInProfile });
     }
 
     handleAssignButtonsAndBreadcrumbs = () => {
@@ -65,14 +72,14 @@ class ClassComponent extends React.Component {
     }
 
     handleSave = async (data) => {
+        const { dispatch } = this.props;
+
         this.handleSetSaving(true);
 
         try {
-            const { onFetchLoggedInProfile } = this.props;
-
             await apiService.updateMyProfile(data);
 
-            onFetchLoggedInProfile();
+            dispatch(fetchMyProfileStart());
 
             this.doShowingNotification(TOAST_TYPE.SUCCESS, 'Data profil tersimpan');
         } catch (e) {
@@ -109,9 +116,10 @@ class ClassComponent extends React.Component {
 }
 
 const PageContextProvider = (props) => {
-    const contextData = useContext(ComponentContext);
+    const loggedInProfile = useSelector(selectMyProfileData);
+    const dispatch = useDispatch();
 
-    return <ClassComponent {...props} {...contextData} />
+    return <ClassComponent {...props} {...{ dispatch, loggedInProfile }} />
 };
 
 export default PageContextProvider;

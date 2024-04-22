@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import ContentLoader from 'react-content-loader'
 import { DotsVerticalIcon, DotFilledIcon } from '@radix-ui/react-icons';
-import { ComponentContext } from "../../mainlayout/Context";
 import Box from '../Box';
+import { useSelector } from 'react-redux';
+import { selectMyProfileData } from '../../store/user/user.selector';
 
 export const DisplayName = () => {
-    const { loggedInProfile } = useContext(ComponentContext);
+    const loggedInProfile = useSelector(selectMyProfileData);
 
     return (
         <Box
