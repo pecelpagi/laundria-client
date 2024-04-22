@@ -3,8 +3,9 @@ import moment from 'moment';
 import { Line } from 'react-chartjs-2';
 import { fonts } from '../../core';
 import Box from '../../components/Box';
-import PageContext from './PageContext';
 import { ChartDataSkeleton } from './chart-data.components';
+import { selectDailyTransactionTotalData } from '../../store/summary/summary.selector';
+import { useSelector } from 'react-redux';
 
 const getDayName = (subtractDay) => {
     return moment().subtract(subtractDay, "days").format("YYYY-MM-DD");
@@ -99,7 +100,7 @@ export const createLineData = (dailyTransactionTotal) => {
 };
 
 const ChartData = () => {
-    const { dailyTransactionTotal } = useContext(PageContext);
+    const dailyTransactionTotal = useSelector(selectDailyTransactionTotalData);
     const lineData = useMemo(() => createLineData(dailyTransactionTotal), [dailyTransactionTotal]);
 
     return (
