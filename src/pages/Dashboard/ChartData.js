@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import moment from 'moment';
 import { Line } from 'react-chartjs-2';
 import { fonts } from '../../core';

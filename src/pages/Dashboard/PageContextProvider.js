@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import PageContext from './PageContext';
 
 class PageContextProvider extends Component {
-    setState = this.setState.bind(this);
-
     componentDidMount = () => {
         this.handleAssignButtonsAndBreadcrumbs();
     }
@@ -30,7 +28,6 @@ class PageContextProvider extends Component {
     createContextValue = () => {
         return {
             ...this.props,
-            ...this.state,
         }
     }
 
