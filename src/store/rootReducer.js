@@ -6,6 +6,7 @@ import { employeesReducer } from './employee/employee.reducer';
 import { laundryPackagesReducer } from './laundry_package/laundry_package.reducer';
 import { paymentTypesReducer } from './payment_type/payment_type.reducer';
 import { companyProfileReducer, myProfileReducer } from './user/user.reducer';
+import { summaryReducer, dailyTransactionTotalReducer } from './summary/summary.reducer';
 
 const rootReducer = combineReducers({
     sales: salesReducer,
@@ -16,6 +17,8 @@ const rootReducer = combineReducers({
     companyProfile: companyProfileReducer,
     myProfile: myProfileReducer,
     unprocessedSales: unprocessedSalesReducer,
+    summary: summaryReducer,
+    dailyTransactionTotal: dailyTransactionTotalReducer,
 });
 
 export default rootReducer;

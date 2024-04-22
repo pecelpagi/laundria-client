@@ -8,6 +8,7 @@ import { fetchEmployeesStart } from '../store/employee/employee.action';
 import { fetchLaundryPackagesStart } from '../store/laundry_package/laundry_package.action';
 import { fetchPaymentTypesStart } from '../store/payment_type/payment_type.action';
 import { fetchCompanyProfileStart, fetchMyProfileStart } from '../store/user/user.action';
+import { fetchDailyTransactionTotalStart, fetchSummaryStart } from '../store/summary/summary.action';
 
 class ClassComponent extends Component {
     componentDidMount = () => {
@@ -45,7 +46,9 @@ class ClassComponent extends Component {
         dispatch(fetchPaymentTypesStart({ limit: 5, page: 1, search: '' }));
         dispatch(fetchCompanyProfileStart());
         dispatch(fetchMyProfileStart());
-        dispatch(fetchUnprocessedSalesStart())
+        dispatch(fetchUnprocessedSalesStart());
+        dispatch(fetchDailyTransactionTotalStart());
+        dispatch(fetchSummaryStart());
     }
 
     render() {
