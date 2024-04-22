@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import queryString from 'query-string';
 import PageContext from './PageContext';
 import Box from '../../components/Box';
 import Breadcrumb from '../../mainlayout/Breadcrumb';
@@ -42,9 +43,11 @@ class ClassComponent extends React.Component {
 
     handleGetKeyword = () => {
         const { location } = this.props;
-        const splitLocation = String(location.search).split("q=");
+        const parsed = queryString.parse(location.search);
 
-        const keyword = splitLocation.length > 1 ? splitLocation[1] : '';
+        if (!('q' in parsed)) return ''; 
+
+        const keyword = parsed.q;
 
         return keyword;
     }
