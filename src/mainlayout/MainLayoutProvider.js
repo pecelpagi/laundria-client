@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import moment from "moment";
 import numeral from "numeral";
 import { useDispatch } from 'react-redux';
-import { fetchSalesStart } from '../store/sales/sales.action';
+import { fetchSalesStart, fetchUnprocessedSalesStart } from '../store/sales/sales.action';
 import { fetchCustomersStart } from '../store/customer/customer.action';
 import { fetchEmployeesStart } from '../store/employee/employee.action';
 import { fetchLaundryPackagesStart } from '../store/laundry_package/laundry_package.action';
@@ -45,6 +45,7 @@ class ClassComponent extends Component {
         dispatch(fetchPaymentTypesStart({ limit: 5, page: 1, search: '' }));
         dispatch(fetchCompanyProfileStart());
         dispatch(fetchMyProfileStart());
+        dispatch(fetchUnprocessedSalesStart())
     }
 
     render() {
