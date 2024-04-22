@@ -7,6 +7,11 @@ import { createPageName } from './utils';
 import { TOAST_TYPE } from '../../mainlayout/enums';
 import PageContext from './PageContext';
 import { useDispatch } from 'react-redux';
+import { fetchCustomersStart } from '../../store/customer/customer.action';
+import { PAGE_TYPE } from './enums';
+import { fetchLaundryPackagesStart } from '../../store/laundry_package/laundry_package.action';
+import { fetchEmployeesStart } from '../../store/employee/employee.action';
+import { fetchPaymentTypesStart } from '../../store/payment_type/payment_type.action';
 
 class ClassComponent extends React.Component {
     state = {
@@ -24,9 +29,30 @@ class ClassComponent extends React.Component {
     }
 
     componentWillUnmount = () => {
-        const { dispatchFetchSalesStart } = this.props;
+        this.handleResetData();
+    }
 
-        dispatchFetchSalesStart({ limit: 5, page: 1, search: '' })
+    handleResetData = () => {
+        const { dispatch, pageType } = this.props;
+
+        const defaultState = { limit: 5, page: 1, search: '' };
+
+        switch (pageType) {
+            case PAGE_TYPE.CUSTOMER:
+                dispatch(fetchCustomersStart(defaultState));
+                break;
+            case PAGE_TYPE.EMPLOYEE:
+                dispatch(fetchEmployeesStart(defaultState));
+                break;
+            case PAGE_TYPE.LAUNDRY_PACKAGE:
+                dispatch(fetchLaundryPackagesStart(defaultState));
+                break;
+            case PAGE_TYPE.PAYMENT_TYPE:
+                dispatch(fetchPaymentTypesStart(defaultState));
+                break;
+            default:
+                // do nothing
+        }
     }
 
     handleAssignButtonsAndBreadcrumbs = () => {
