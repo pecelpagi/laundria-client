@@ -45,7 +45,7 @@ class ClassComponent extends React.Component {
         const { location } = this.props;
         const parsed = queryString.parse(location.search);
 
-        if (!('q' in parsed)) return ''; 
+        if (!('q' in parsed)) return '';
 
         const keyword = parsed.q;
 

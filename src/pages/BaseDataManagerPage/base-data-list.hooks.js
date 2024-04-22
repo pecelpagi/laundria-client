@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useContext, useEffect } from "react";
+import queryString from 'query-string';
 import PageContext from "./PageContext";
 import { selectCustomersData, selectCustomersIsLoading, selectCustomersMeta } from "../../store/customer/customer.selector";
 import { selectEmployeesData, selectEmployeesIsLoading, selectEmployeesMeta } from "../../store/employee/employee.selector";
@@ -13,9 +14,11 @@ import { fetchLaundryPackagesStart } from '../../store/laundry_package/laundry_p
 import { fetchPaymentTypesStart } from '../../store/payment_type/payment_type.action';
 
 const handleGetKeyword = ({ location }) => {
-    const splitLocation = String(location.search).split("q=");
+    const parsed = queryString.parse(location.search);
 
-    const keyword = splitLocation.length > 1 ? splitLocation[1] : '';
+    if (!('q' in parsed)) return '';
+
+    const keyword = parsed.q;
 
     return keyword;
 }
@@ -74,7 +77,7 @@ const useListData = (pageType) => {
             };
             break;
         default:
-            // do nothing
+        // do nothing
     }
 
     return retval;
@@ -85,10 +88,6 @@ export const useBusinessLogic = ({ ref }) => {
     const keyword = handleGetKeyword({ location });
     const { onOpenFormDialog, pageUtility, pageType, onShowNotification } = useContext(PageContext);
     const listData = useListData(pageType);
-
-    useEffect(() => {
-        if (keyword) ref.current.handleSearching(keyword);
-    }, [ref, keyword]);
 
     return {
         listData,
