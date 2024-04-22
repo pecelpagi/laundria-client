@@ -6,8 +6,9 @@ import PropTypes from 'prop-types';
 import { createPageName } from './utils';
 import { TOAST_TYPE } from '../../mainlayout/enums';
 import PageContext from './PageContext';
+import { useDispatch } from 'react-redux';
 
-class PageContextProvider extends React.Component {
+class ClassComponent extends React.Component {
     state = {
         formData: null,
         isDialogLoading: false,
@@ -20,6 +21,12 @@ class PageContextProvider extends React.Component {
 
         this.handleAssignButtonsAndBreadcrumbs();
         this.setState({ formData: pageUtility.createFormData() })
+    }
+
+    componentWillUnmount = () => {
+        const { dispatchFetchSalesStart } = this.props;
+
+        dispatchFetchSalesStart({ limit: 5, page: 1, search: '' })
     }
 
     handleAssignButtonsAndBreadcrumbs = () => {
@@ -59,7 +66,7 @@ class PageContextProvider extends React.Component {
 
         const onErrorCallback = (err) => { this.doShowingNotification(TOAST_TYPE.ERROR, err); };
         const onSuccessCallback = () => {
-            refCollections.baseDataList.current.refetchData();
+            refCollections.baseDataList.current.handleRefetchData();
             refCollections.baseFormDialog.current.handleHideDialog();
 
             this.doShowingNotification(TOAST_TYPE.SUCCESS, 'Data telah tersimpan');
@@ -75,7 +82,7 @@ class PageContextProvider extends React.Component {
         const { formData } = this.state;
 
         const onSuccessCallback = () => {
-            refCollections.baseDataList.current.refetchData();
+            refCollections.baseDataList.current.handleRefetchData();
             refCollections.baseFormDialog.current.handleHideDialog();
             refCollections.deleteConfirmationDialog.current.handleHideDialog();
 
@@ -125,16 +132,26 @@ class PageContextProvider extends React.Component {
     }
 }
 
-PageContextProvider.propTypes = {
+ClassComponent.propTypes = {
     pageType: PropTypes.string.isRequired,
     pageUtility: PropTypes.shape({
         createFormData: PropTypes.func.isRequired,
         handleSaveData: PropTypes.func.isRequired,
         handleDeleteData: PropTypes.func.isRequired,
-        handleFetchDataList: PropTypes.func.isRequired,
         tableColumns: PropTypes.array,
     }).isRequired,
     renderInputFormDialog: PropTypes.func.isRequired,
 };
+
+const PageContextProvider = (props) => {
+    const { children, ...restProps } = props;
+    const dispatch = useDispatch();
+    
+    return (
+        <ClassComponent {...restProps} {...{ dispatch }}>
+            {children}
+        </ClassComponent>
+    )
+}
 
 export default PageContextProvider;

@@ -1,7 +1,7 @@
 import React from 'react'
 import PageContextProvider from './PageContextProvider';
 import { useRefCollections } from './utils';
-import BaseDataList from './BaseDataList';
+import BaseDataList from './V2BaseDataList';
 import BaseFormDialog from './BaseFormDialog';
 import DeleteConfirmationDialog from './DeleteConfirmationDialog';
 
