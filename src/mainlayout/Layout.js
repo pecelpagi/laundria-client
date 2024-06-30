@@ -57,7 +57,7 @@ class Layout extends React.Component {
                 {breadcrumbs.length > 0 && (
                     <Box
                         css={{
-                            background: '$backgroundTertiary'
+                            background: '#FFF'
                         }}
                         className="flex flex-col md:flex-row items-center mb-4 p-3 pl-5 rounded"
                     >

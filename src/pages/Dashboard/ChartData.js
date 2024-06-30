@@ -104,21 +104,29 @@ const ChartData = () => {
     const lineData = useMemo(() => createLineData(dailyTransactionTotal), [dailyTransactionTotal]);
 
     return (
-        <div className='mt-0'>
-            <div className='font-bold text-lg'>Statistik</div>
-            <div>Data statistik transaksi tujuh hari terakhir</div>
+        <Box
+            className='mt-0'
+        >
+            <Box
+                css={{
+                    background: '$backgroundSecondary'
+                }}
+                className='p-3 rounded'>
+                <div className='font-bold text-lg'>Statistik</div>
+                <div>Data statistik transaksi tujuh hari terakhir</div>
+            </Box>
             {lineData && (
                 <Box
-                    className="rounded mt-4 p-5"
                     css={{
-                        background: '$backgroundTertiary',
+                        background: '$backgroundSecondary'
                     }}
+                    className="rounded mt-4 p-5"
                 >
                     <Line options={options} data={lineData} />
                 </Box>
             )}
             {!lineData && <ChartDataSkeleton />}
-        </div>
+        </Box>
     )
 }
 

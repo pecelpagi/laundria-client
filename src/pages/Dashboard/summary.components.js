@@ -39,7 +39,12 @@ export const SummarySkeleton = () => {
 
 export const SummaryItem = ({ label, amount }) => {
     return (
-        <Box css={{ display: 'flex', flexDirection: 'column', gap: 4, textAlign: 'center' }}>
+        <Box
+        className='rounded p-5'
+        css={{
+            display: 'flex', background: '$backgroundSecondary',
+            flexDirection: 'column', gap: 4, textAlign: 'left'
+        }}>
             <div>{label}</div>
             <div className='font-bold text-4xl'>{amount}</div>
         </Box>

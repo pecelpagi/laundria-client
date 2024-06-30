@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useContext } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { styled } from '../stitches.config';
 import PrivateRoute from './PrivateRoute';
@@ -9,24 +9,33 @@ import { getToken } from "../utils";
 import Spinner from '../components/Spinner';
 import rawMenuData from './menuData';
 import MainLayoutProvider from './MainLayoutProvider';
+import moment from 'moment';
+import Box from '../components/Box';
+import MainLayoutContext from './MainLayoutContext';
 
 const StyledWrapper = styled('div', {
     width: '100%',
     left: '0px',
-
+    padding: '0px 25px',
     variants: {
         showedMenu: {
             true: {
                 '@lg': {
-                    width: 'calc(100% - 250px)',
+                    width: 'calc(100% - 240px)',
                     left: '205px',
+                    padding: '0px',
+                    paddingLeft: 12,
                 },
             }
         }
     },
 });
 
-const Wrapper = ({ children }) => <StyledWrapper className="relative top-24 transition-all" showedMenu>{children}</StyledWrapper>
+const Wrapper = ({ children }) => {
+    const { isShowingSidebarMenu } = useContext(MainLayoutContext);
+
+    return <StyledWrapper className="relative top-24 transition-all" showedMenu={isShowingSidebarMenu}>{children}</StyledWrapper>;
+}
 
 const menuData = [];
 
@@ -66,12 +75,27 @@ const LayoutRoutes = (props) => {
 const MainLayout = () => {
     return (
         <MainLayoutProvider>
-            <Wrapper>
-                <div className="relative px-0 pl-5 sm:mx-auto" style={{ maxWidth: '1280px', minHeight: (window.innerHeight - 69) }}>
-                    <Layout>
-                        <LayoutRoutes />
-                    </Layout>
-                </div>
+            <Wrapper className="relative sm:mx-auto" style={{ maxWidth: '1392px', minHeight: (window.innerHeight - 69) }}>
+                <Layout>
+                    <LayoutRoutes />
+                </Layout>
+                <Box
+                    className='mt-14 pb-8'
+                    css={{
+                        display: 'grid',
+                        gridTemplateColumns: '1fr 1fr'
+                    }}
+                >
+                    <Box>
+                        <h5>Copyright &copy; {moment().format('YYYY')} <a target='_blank' href="https://galuhrmdh.com" rel="noreferrer">galuhrmdh.com</a></h5>
+                    </Box>
+                    <Box
+                        className='text-right'
+                    >
+                        <h5>Made with&nbsp;&nbsp;❤️&nbsp;&nbsp;from Indonesia.</h5>
+                    </Box>
+                </Box>
+
             </Wrapper>
             <Header />
             <SideMenu />

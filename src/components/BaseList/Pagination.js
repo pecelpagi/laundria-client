@@ -11,7 +11,7 @@ const Pagination = () => {
 
     return (
         <Box
-            className="flex justify-center mt-2 text-base"
+            className="flex justify-center my-2 text-base"
             css={{
                 '& .laundria-pagination-container': {
                     display: 'flex',

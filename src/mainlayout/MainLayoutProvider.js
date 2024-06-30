@@ -9,8 +9,13 @@ import { fetchLaundryPackagesStart } from '../store/laundry_package/laundry_pack
 import { fetchPaymentTypesStart } from '../store/payment_type/payment_type.action';
 import { fetchCompanyProfileStart, fetchMyProfileStart } from '../store/user/user.action';
 import { fetchDailyTransactionTotalStart, fetchSummaryStart } from '../store/summary/summary.action';
+import MainLayoutContext from './MainLayoutContext';
 
 class ClassComponent extends Component {
+    state = {
+        isShowingSidebarMenu: true,
+    }
+
     componentDidMount = () => {
         this.handleRegister();
         this.initialFetching();
@@ -51,13 +56,25 @@ class ClassComponent extends Component {
         dispatch(fetchSummaryStart());
     }
 
+    handleShowingSidebarMenu = (isShowingSidebarMenu = false) => {
+        this.setState({ isShowingSidebarMenu });
+    }
+
+    createContextValue = () => ({
+        ...this.state,
+        onShowingSidebarMenu: this.handleShowingSidebarMenu,
+    });
+
+
     render() {
         const { children } = this.props;
 
+        const contextValue = this.createContextValue();
+
         return (
-            <React.Fragment>
+            <MainLayoutContext.Provider value={contextValue}>
                 {children}
-            </React.Fragment>
+            </MainLayoutContext.Provider>
         )
     }
 }

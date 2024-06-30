@@ -8,11 +8,11 @@ const Index = (props) => {
         <PageContextProvider {...props}>
             <div className="bg-white rounded divide-y divide-solid">
                 <Box
-                    className="py-3 items-center"
+                    className="p-3 items-center"
                 >
                     <div className="text-base font-semibold w-full">Identitas Aplikasi</div>
                 </Box>
-                <div className="py-3">
+                <div className="p-3">
                     <Form />
                 </div>
             </div>

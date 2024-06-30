@@ -20,7 +20,6 @@ const Summary = () => {
             css={{
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr 1fr',
-                background: '$backgroundTertiary',
                 padding: '15px 0px',
             }}
             className='flex gap-4 rounded mt-6'

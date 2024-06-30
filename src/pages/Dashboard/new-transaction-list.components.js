@@ -7,11 +7,11 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import PageContext from './PageContext';
 
 const RowBox = styled('div', {
-    background: '$backgroundTertiary',
+    background: '$backgroundSecondary',
     borderRadius: 8,
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
 });
 
 export const RowComponent = ({ data }) => {
@@ -23,7 +23,6 @@ export const RowComponent = ({ data }) => {
                 className='p-3 flex flex-col gap-1'
                 css={{
                     borderRadius: 8,
-                    background: '$backgroundSecondary',
                 }}
             >
                 <div>No. Order</div>

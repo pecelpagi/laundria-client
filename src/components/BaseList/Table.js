@@ -20,14 +20,14 @@ const Table = () => {
                 <table className="border-collapse table-auto w-full whitespace-nowrap text-sm mb-3">
                     <thead>
                         <tr>
-                            {columns.map((x, i) => (<th key={x.id} className="border-b-2 text-left py-2 px-1.5" style={createStyleColumnHeader(x, i)}>{x.title}</th>))}
+                            {columns.map((x, i) => (<th key={x.id} className="border-b-2 text-left p-3" style={createStyleColumnHeader(x, i)}>{x.title}</th>))}
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-solid">
                         {data && data.length === 0 && <EmptyRow {...{ columns }} />}
                         {data && data.map((x, i) => (
                             <tr key={i} onClick={() => { onRowClick(x); }} className="hover:bg-slate-50 hover:cursor-pointer">
-                                {columns.map(col => (<td className="py-2 px-1.5" key={`${i}${col.id}`}>{isHasProperty(col, "customComponent") ? col.customComponent(x[col.id]) : x[col.id]}</td>))}
+                                {columns.map(col => (<td className="p-3" key={`${i}${col.id}`}>{isHasProperty(col, "customComponent") ? col.customComponent(x[col.id]) : x[col.id]}</td>))}
                             </tr>
                         ))}
                     </tbody>

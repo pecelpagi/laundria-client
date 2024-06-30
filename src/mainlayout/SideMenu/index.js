@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from '../../stitches.config';
 import menuData from './menuData';
@@ -6,6 +6,7 @@ import { matchMediaChecker, MATCH_MEDIA_TYPE } from '../../utils';
 import StyledButton from '../../components/StyledButton';
 import Logo from '../../images/logo.png';
 import { ReactComponent as IconLogout } from '../../images/icon-logout.svg';
+import MainLayoutContext from '../MainLayoutContext';
 
 const iconSize = 24;
 
@@ -35,20 +36,28 @@ const isActiveChecker = (menu, lastClickedId) => {
 }
 
 const SideMenu = () => {
+    const { onShowingSidebarMenu, isShowingSidebarMenu } = useContext(MainLayoutContext);
     const [lastClickedId, setLastClickedId] = useState("");
     let data = menuData();
 
     const handleHideSidebarMenu = (x) => {
         setLastClickedId(x.id);
+        
         if (matchMediaChecker(MATCH_MEDIA_TYPE.LG)) return;
+
+        onShowingSidebarMenu(false);
     }
 
     return (
         <Wrapper
             className={`
                 items-center flex gap-6 flex-col overflow-y-auto fixed top-0 
-                py-4 px-5 h-full w-48 transition-all left-0`
-            }>
+                py-4 px-5 h-full w-48 transition-all`
+            }
+            css={{
+                left: isShowingSidebarMenu ? 0 : -195
+            }}
+            >
             <img style={{ width: 'fit-content' }} src={Logo} alt="" />
             <ul className='w-full flex-1'>
                 {data.map(x => (
