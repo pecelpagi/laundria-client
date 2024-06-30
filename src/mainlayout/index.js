@@ -57,9 +57,23 @@ const NoMatch = (props) => {
     )
 }
 
+const RouteSpinner = () => {
+    return (
+        <Box
+            css={{
+                '.spinner-overlay': {
+                    background: '#f1f1f4',
+                }
+            }}
+        >
+            <Spinner />
+        </Box>
+    )
+}
+
 const LayoutRoutes = (props) => {
     return (
-        <Suspense fallback={<Spinner />}>
+        <Suspense fallback={<RouteSpinner />}>
             <Switch>
                 <Route
                     exact path="/"
