@@ -6,6 +6,7 @@ import Box from '../../components/Box';
 import { ChartDataSkeleton } from './chart-data.components';
 import { selectDailyTransactionTotalData } from '../../store/summary/summary.selector';
 import { useSelector } from 'react-redux';
+import Spinner from '../../components/Spinner';
 
 const getDayName = (subtractDay) => {
     return moment().subtract(subtractDay, "days").format("YYYY-MM-DD");
@@ -109,23 +110,40 @@ const ChartData = () => {
         >
             <Box
                 css={{
+                    display: 'grid',
+                    gridTemplateColumns: lineData ? '1fr' : '1fr auto',
                     background: '$backgroundSecondary'
                 }}
-                className='p-3 rounded'>
-                <div className='font-bold text-lg'>Statistik</div>
-                <div>Data statistik transaksi tujuh hari terakhir</div>
+                className='p-3 rounded items-center'
+            >
+                <Box>
+                    <div className='font-bold text-lg'>Statistik</div>
+                    <div>Data statistik transaksi tujuh hari terakhir</div>
+                </Box>
+                {!lineData && (
+                    <Box
+                        className='relative'
+                        css={{
+                            width: 30, height: 30,
+                            '.spinner-container': {
+                                width: 30,
+                                height: 30
+                            }
+                        }}>
+                        <Spinner text="" />
+                    </Box>
+                )}
             </Box>
             {lineData && (
                 <Box
                     css={{
-                        background: '$backgroundSecondary'
+                        background: '$backgroundSecondary',
                     }}
                     className="rounded mt-4 p-5"
                 >
                     <Line options={options} data={lineData} />
                 </Box>
             )}
-            {!lineData && <ChartDataSkeleton />}
         </Box>
     )
 }

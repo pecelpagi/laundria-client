@@ -79,7 +79,7 @@ class ClassComponent extends React.Component {
             <PageContext.Provider value={contextValue}>
                 <Box
                     css={{
-                        background: '$backgroundTertiary'
+                        background: '$backgroundSecondary'
                     }}
                     className="flex flex-col md:flex-row items-center mb-4 p-3 pl-5 rounded"
                 >
